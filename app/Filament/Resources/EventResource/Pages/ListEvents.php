@@ -4,6 +4,7 @@ namespace App\Filament\Resources\EventResource\Pages;
 
 use App\Filament\Resources\EventResource;
 use App\Models\Event;
+use App\Models\EventDetail;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,6 @@ class ListEvents extends ListRecords
                     $event = static::getModel()::create($eventData);
 
                     $eventDetailData = [
-                        'event_id' => $event->id,
                         'online_link' => $data['event_detail']['online_link'],
                         'online_password' => $data['event_detail']['online_password'],
                         'online_time' => $data['event_detail']['online_time'],

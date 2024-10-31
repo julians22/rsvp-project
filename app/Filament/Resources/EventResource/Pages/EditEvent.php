@@ -23,18 +23,18 @@ class EditEvent extends EditRecord
         ];
     }
 
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        $model = static::getModel();
+    // protected function mutateFormDataBeforeFill(array $data): array
+    // {
+    //     $model = static::getModel();
 
-        $record = $model::query()->with('detail')->find($data['id']);
+    //     $record = $model::query()->with('detail')->find($data['id']);
 
-        if ($record->detail === null) {
-            $data['event_detail'] = [];
-        }else{
-            $data['event_detail'] = $record->detail->toArray();
-        }
+    //     if ($record->detail === null) {
+    //         $data['event_detail'] = [];
+    //     }else{
+    //         $data['event_detail'] = $record->detail->toArray();
+    //     }
 
-        return $data;
-    }
+    //     return $data;
+    // }
 }

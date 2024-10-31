@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -18,18 +19,6 @@ class Event extends Model
      * @var array
      */
     protected $guarded = ['id'];
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'created_at' => 'Y-m-d H:i:s',
-        'updated_at' => 'Y-m-d H:i:s',
-        'start_date' => 'Y-m-d',
-        'registration_date' => 'Y-m-d'
-    ];
 
     /**
      * Get the options for generating the slug.
@@ -75,4 +64,20 @@ class Event extends Model
     {
         return $this->detail()->exists() ? route('event.show', $this->slug) : '#';
     }
+
+    /**
+     * Get the event start date.
+     * Format the date to human readable.
+     * 05 November 2021
+     *
+     * @return string
+     */
+    public function getStartDateFormattedAttribute($value)
+    {
+        $date = Carbon::parse($this->start_date);
+
+        return $date->translatedFormat('d F Y');
+    }
+
+
 }

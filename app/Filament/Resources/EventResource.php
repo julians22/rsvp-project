@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
@@ -57,69 +58,76 @@ class EventResource extends Resource
                             ->required(),
                     ]),
 
-                Grid::make(12)
+                Group::make()
+                    ->columnSpanFull()
+                    ->relationship(
+                        'detail'
+                    )
                     ->schema([
-                        Section::make('Online Event Detail')
-                            ->columnSpan(6)
+                        Grid::make(12)
                             ->schema([
-                                DateTimePicker::make('event_detail.online_time')
-                                    ->timezone('Asia/Jakarta')
-                                    ->displayFormat('H:i')
-                                    ->default('09:00')
-                                    ->date(false)
-                                    ->seconds(false)
-                                    ->columnSpanFull(),
-                                TextInput::make('event_detail.online_link')
-                                    ->label(__('Online Link'))
-                                    ->required()
-                                    ->columnSpanFull(),
-                                TextInput::make('event_detail.online_password')
-                                    ->label(__('Online Password'))
-                                    ->required()
-                                    ->columnSpanFull(),
-                            ]),
-
-                        Section::make('Offline Event Detail')
-                            ->columnSpan(6)
-                            ->schema([
-                                DateTimePicker::make('event_detail.offline_time')
-                                    ->label(__('Offline Time'))
-                                    ->timezone('Asia/Jakarta')
-                                    ->displayFormat('H:i')
-                                    ->default('14:00')
-                                    ->date(false)
-                                    ->seconds(false)
-                                    ->columnSpanFull(),
-                                RichEditor::make('event_detail.offline_address')
-                                    ->label(__('Offline Address'))
-                                    ->required()
-                                    ->columnSpanFull(),
-                                TextInput::make('event_detail.offline_location')
-                                    ->label(__('Offline Location URL'))
-                                    ->required()
-                                    ->url()
-                                    ->columnSpanFull(),
-                                TextInput::make('event_detail.offline_food_price')
-                                    ->label(__('Offline Food Price'))
-                                    ->required()
-                                    ->numeric()
-                                    ->prefix('Rp')
-                                    ->columnSpanFull(),
-                                Repeater::make('event_detail.offline_foods')
-                                    ->label(__('Foods Items'))
-                                    ->defaultItems(3)
-                                    ->columnSpanFull()
+                                Section::make('Online Event Detail')
+                                    ->columnSpan(6)
                                     ->schema([
-                                        TextInput::make('food')
-                                            ->label(__('Food'))
+                                        DateTimePicker::make('online_time')
+                                            ->timezone('Asia/Jakarta')
+                                            ->displayFormat('H:i')
+                                            ->default('09:00')
+                                            ->date(false)
+                                            ->seconds(false)
+                                            ->columnSpanFull(),
+                                        TextInput::make('online_link')
+                                            ->label(__('Online Link'))
                                             ->required()
-                                            ->columnSpan(6),
-                                        TextInput::make('drink')
-                                            ->label(__('Drink'))
+                                            ->columnSpanFull(),
+                                        TextInput::make('online_password')
+                                            ->label(__('Online Password'))
                                             ->required()
-                                            ->columnSpan(6),
+                                            ->columnSpanFull(),
                                     ]),
-                            ]),
+
+                                Section::make('Offline Event Detail')
+                                    ->columnSpan(6)
+                                    ->schema([
+                                        DateTimePicker::make('offline_time')
+                                            ->label(__('Offline Time'))
+                                            ->timezone('Asia/Jakarta')
+                                            ->displayFormat('H:i')
+                                            ->default('14:00')
+                                            ->date(false)
+                                            ->seconds(false)
+                                            ->columnSpanFull(),
+                                        RichEditor::make('offline_address')
+                                            ->label(__('Offline Address'))
+                                            ->required()
+                                            ->columnSpanFull(),
+                                        TextInput::make('offline_location')
+                                            ->label(__('Offline Location URL'))
+                                            ->required()
+                                            ->url()
+                                            ->columnSpanFull(),
+                                        TextInput::make('offline_food_price')
+                                            ->label(__('Offline Food Price'))
+                                            ->required()
+                                            ->numeric()
+                                            ->prefix('Rp')
+                                            ->columnSpanFull(),
+                                        Repeater::make('offline_foods')
+                                            ->label(__('Foods Items'))
+                                            ->defaultItems(3)
+                                            ->columnSpanFull()
+                                            ->schema([
+                                                TextInput::make('food')
+                                                    ->label(__('Food'))
+                                                    ->required()
+                                                    ->columnSpan(6),
+                                                TextInput::make('drink')
+                                                    ->label(__('Drink'))
+                                                    ->required()
+                                                    ->columnSpan(6),
+                                            ]),
+                                    ]),
+                            ])
                     ])
             ]);
     }

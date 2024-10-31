@@ -1,5 +1,5 @@
 <form wire:submit="save">
-    <div class="max-w-screen-sm flex flex-col space-y-4 py-4 px-4 lg:px-2">
+    <div class="max-w-screen-sm w-full flex flex-col space-y-4 py-4 px-4 lg:px-2">
         {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
 
         <div class="px-4 py-2 bg-red-500 text-white text-center transition-all ease-in-out rounded sticky top-0" wire:offline>
@@ -7,20 +7,29 @@
         </div>
 
         <div>
-            <h1 class="text-4xl font-extrabold text-blue-950 mb-2">
-                BNI VISITOR INFORMATION MEETING
-            </h1>
+
+            <img src="{{ asset('img/logo_bni.jpg') }}" alt="" class="max-w-48 lg:max-w-[300px] mb-4">
+
+            <div>
+                <h1 class="text-2xl font-semibold text-blue-950">
+                    VISITOR INFORMATION MEETING
+                </h1>
+                <h1 class="text-4xl font-extrabold text-blue-950 mb-2">
+                    REGISTRATION
+                </h1>
+
+            </div>
+
 
             <h2 class="text-2xl font-bold text-black">
-                {{ $this->event->start_date }}
+                {{ $this->event->start_date_formatted }}
             </h2>
         </div>
 
         <div>
-            <small>NOTES:</small>
+            <small><strong>NOTES:</strong></small>
             <p class="font-bold text-black text-xl">
-                REGISTRASI DITUTUP H-1
-                JAM 18.00 WIB
+                REGISTRATION WILL BE CLOSED H-1 AT 18.00 WIB
             </p>
         </div>
 
@@ -99,13 +108,13 @@
                 <div class="flex space-x-3">
                     <div>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" name="sessions" value="online" wire:model.live="sessions" class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black rounded-full" checked="">
+                            <input type="checkbox" name="sessions" value="online" wire:model.live="sessions" class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black">
                             <span class="ml-2">Online {{ $this->online_hour }} Pagi</span>
                         </label>
                     </div>
                     <div>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" name="sessions" value="offline" wire:model.live="sessions" class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black rounded-full">
+                            <input type="checkbox" name="sessions" value="offline" wire:model.live="sessions" class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black">
                             <span class="ml-2">Offine {{ $this->offline_hour }} Siang</span>
                         </label>
                     </div>
@@ -121,6 +130,8 @@
 
 
         <div>
+            <h4 class="font-semibold">OFFLINE MEETING LOCATION</h4>
+
             {!! $this->event->detail->offline_address !!}
         </div>
 

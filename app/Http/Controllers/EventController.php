@@ -9,8 +9,31 @@ class EventController extends Controller
 {
     function show($slug)
     {
-        return view('visitors.landing', ['slug' => $slug]);
+        $event = Event::with('detail')->where('slug', $slug)->first();
 
-        // return view('register-visitor', ['slug' => $slug]);
+        if ($event == null) {
+            abort(404);
+        }
+
+        if ($event->detail == null || $event->detail->online_link == null) {
+            abort(404);
+        }
+
+        return view('visitors.landing', ['slug' => $slug, 'event' => $event]);
+    }
+
+    function register($slug)
+    {
+        $event = Event::with('detail')->where('slug', $slug)->first();
+
+        if ($event == null) {
+            abort(404);
+        }
+
+        if ($event->detail == null || $event->detail->online_link == null) {
+            abort(404);
+        }
+
+        return view('register-visitor', ['slug' => $slug, 'event' => $event]);
     }
 }

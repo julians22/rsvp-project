@@ -15,7 +15,7 @@ class RegistranFormComponent extends Component
 
     #[Validate('required|in:online,offline', as: 'Jadwal Sesi')]
     public $sessions = [
-        'online'
+        'offline'
     ];
 
     #[Validate('required', as: 'NAMA LENGKAP')]
@@ -76,6 +76,11 @@ class RegistranFormComponent extends Component
 
     public function save() {
         $this->validate();
+
+        // Print the data
+        dd(
+            'Data yang akan disimpan:',
+            $this->sessions, $this->name, $this->business, $this->company, $this->phone, $this->email, $this->invited_by, $this->food, $this->payment);
     }
 
     public function mount($slug) {
