@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('register-visitor');
+});
+
+Route::group(['prefix' => 'event', 'as' => 'event.'], function() {
+    Route::get('{slug}', [EventController::class, 'show'])->name('show');
 });
