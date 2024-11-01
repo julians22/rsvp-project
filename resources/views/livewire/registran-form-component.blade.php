@@ -164,7 +164,7 @@
                         </div>
 
                         {{-- KETERANGAN --}}
-                        <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Jessica Cynthia Dewi - BCA 8790178689</strong></p>
+                        <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Jessica Cynthia Dewi - BCA XXXXXXXXXXX</strong></p>
 
                         {{-- UPLOAD BUKTI PEMBAYARAN --}}
 
