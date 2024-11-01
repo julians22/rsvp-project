@@ -132,7 +132,7 @@
 
                 </div>
 
-                @if ($this->isOfflineSelected === true)
+                {{-- @if ($this->isOfflineSelected === true) --}}
 
 
                     <div class="text-xl">
@@ -151,7 +151,7 @@
                             <select name="food" id="food" wire:model.live='food'>
                                 <option value="">- PLEASE SELECT YOUR PREFERRED LUNCH MENU -</option>
                                 @foreach ($this->offline_foods as $key => $item)
-                                    <option value="{{$key}}">
+                                    <option value="{{$item['food']}} - {{$item['drink']}}">
                                         {{ $item['food'] }} - {{ $item['drink'] }}
                                     </option>
                                 @endforeach
@@ -179,7 +179,7 @@
 
                     </div>
 
-                @endif
+                {{-- @endif --}}
 
                 <div class="flex justify-center">
                     <button class="bg-red-bni btn w-full" type="submit">COMPLETE REGISTRATION</button>

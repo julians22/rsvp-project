@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Event;
 use App\Models\Visitor;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -21,40 +22,77 @@ class RegistranFormComponent extends Component
 
     public $visitor;
 
-    #[Validate('required', as: 'Jadwal Sesi', message: '* mandatory')]
+    // #[Validate('required', as: 'Jadwal Sesi', message: '* mandatory')]
     public $sessions = ['offline'];
 
-    #[Validate('required', as: 'NAMA LENGKAP', message: '* mandatory')]
+    // #[Validate('required', as: 'NAMA LENGKAP', message: '* mandatory')]
     public $name = '';
 
-    #[Validate('required', as: 'BISNIS',  message: '* mandatory')]
+    // #[Validate('required', as: 'BISNIS',  message: '* mandatory')]
     public $business = '';
 
-    #[Validate('required', as: 'PERUSAHAAN',  message: '* mandatory')]
+    // #[Validate('required', as: 'PERUSAHAAN',  message: '* mandatory')]
     public $company = '';
 
-    #[Validate('required', as: 'NO HANDPHONE',  message: '* mandatory')]
+    // #[Validate('required', as: 'NO HANDPHONE',  message: '* mandatory')]
     public $phone = '';
 
-    #[Validate('required', as: 'EMAIL',  message: '* mandatory')]
-    #[Validate('email', as: 'EMAIL',  message: '* invalid email')]
+    // #[Validate('required', as: 'EMAIL',  message: '* mandatory')]
+    // #[Validate('email', as: 'EMAIL',  message: '* invalid email')]
     public $email = '';
 
-    #[Validate('required', as: 'NAMA PESERTA YANG MENGUNDANG',  message: '* mandatory')]
+    // #[Validate('required', as: 'NAMA PESERTA YANG MENGUNDANG',  message: '* mandatory')]
     public $invited_by = '';
 
-    #[Validate(
-        'required_with:sessions,offline',
-        as: 'PAKET MAKANAN & MINUMAN',
-        message: '* mandatory')]
+    // #[Validate(
+    //     'required_if:sessions.*,offline',
+    //     as: 'PAKET MAKANAN & MINUMAN',
+    //     message: '* mandatory')]
     public $food;
 
-    #[Validate('required_with:sessions,offline',
-        as: 'BUKTI PEMBAYARAN',
-        message: '* mandatory')]
-    #[Validate('image')] // 4MB Max
-    #[Validate('max:4096')]
+    // #[Validate('required_if:sessions.*,offline',
+    //     as: 'BUKTI PEMBAYARAN',
+    //     message: '* mandatory')]
+    // #[Validate('image')] // 4MB Max
+    // #[Validate('max:4096')]
     public $payment;
+
+    public function rules()
+    {
+        return [
+            "sessions" => "required",
+            "name" => "required",
+            "business" => "required",
+            "company" => "required",
+            "phone" => "required",
+            "email" => "required",
+            "invited_by" => "required",
+            "food" =>  [
+                Rule::requiredIf(function () {
+                    return in_array('offline', $this->sessions);
+                })
+            ],
+            "payment" => [
+                Rule::requiredIf(function () {
+                    return in_array('offline', $this->sessions);
+                })
+            ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "sessions.required" => "* mandatory",
+            "name.required" => "* mandatory",
+            "business.required" => "* mandatory",
+            "company.required" => "* mandatory",
+            "phone.required" => "* mandatory",
+            "email.required" => "* mandatory",
+            "invited_by.required" => "* mandatory",
+            "food.*" => "* mandatory",
+        ];
+    }
 
     #[Computed]
     function isOfflineSelected() {
@@ -115,6 +153,10 @@ class RegistranFormComponent extends Component
         ];
 
         if ($this->isOfflineSelected()) {
+
+            $paymentValidate = $this->validate([
+                'payment' => 'image|max:4096',
+            ], [], ['payment' => 'PROOF OF PAYMENT']);
             $data['is_offline'] = true;
 
             $lastVisitor = Visitor::where('event_id', $this->event->id)
@@ -138,7 +180,6 @@ class RegistranFormComponent extends Component
             $data['is_online'] = true;
         }
 
-        // Save the data
         $visitor = Visitor::create($data);
 
         $this->isSubmitted = true;
