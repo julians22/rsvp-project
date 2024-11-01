@@ -132,7 +132,7 @@
 
                 </div>
 
-                {{-- @if ($this->isOfflineSelected === true) --}}
+                @if ($this->isOfflineSelected === true)
 
 
                     <div class="text-xl">
@@ -179,7 +179,7 @@
 
                     </div>
 
-                {{-- @endif --}}
+                @endif
 
                 <div class="flex justify-center">
                     <button class="bg-red-bni btn w-full" type="submit">COMPLETE REGISTRATION</button>
