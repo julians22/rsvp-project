@@ -41,7 +41,28 @@ class ManageVisitor extends ManageRelatedRecords
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('event.name')
+                Tables\Columns\TextColumn::make('event.name'),
+                Tables\Columns\TextColumn::make('business'),
+                Tables\Columns\TextColumn::make('company'),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('phone'),
+                Tables\Columns\TextColumn::make('invited_by'),
+                Tables\Columns\IconColumn::make('is_online')
+                    ->label('Online Presence')
+                    ->icon(fn (string $state): string => match ($state) {
+                        '1' => 'heroicon-o-check-circle',
+                        '0' => 'heroicon-o-x-circle',
+                        default => 'heroicon-o-question-mark-circle',
+                    }),
+                Tables\Columns\IconColumn::make('is_offline')
+                    ->label('Offline Presence')
+                    ->icon(fn (string $state): string => match ($state) {
+                        '1' => 'heroicon-o-check-circle',
+                        '0' => 'heroicon-o-x-circle',
+                        default => 'heroicon-o-question-mark-circle',
+                    }),
+                Tables\Columns\TextColumn::make('food')
+                    ->label('Packaged Food'),
             ])
             ->filters([
                 //

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EventResource\Pages;
+use App\Filament\Resources\EventResource\Pages\ManageVisitor;
 use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use Carbon\Carbon;
@@ -165,6 +166,10 @@ class EventResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('visitors')
+                    ->label('Manage Visitors')
+                    ->icon('heroicon-o-user-group')
+                    ->url(fn(Event $record) => ManageVisitor::getUrl(['record' => $record->id])),
                 Tables\Actions\EditAction::make()
             ])
             ->bulkActions([
