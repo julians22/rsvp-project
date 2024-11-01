@@ -2,9 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+
+    /* Font Family */
+    body{
+        font-family: 'Montserrat', sans-serif;
+    }
+
+}
 
 @layer components {
     .error-form-message {
         @apply text-red-500;
+    }
+
+    .btn{
+        @apply text-white text-lg lg:text-2xl font-semibold px-6 py-3 inline-block hover:scale-105 transition-all ease-in-out rounded-lg;
+    }
+
+    .form-group{
+        @apply flex flex-col gap-y-1;
+    }
+
+    .form-group .form-label{
+        @apply font-semibold text-lg;
     }
 }

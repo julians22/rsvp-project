@@ -36,6 +36,11 @@ class Event extends Model
         return $this->hasOne(EventDetail::class, 'event_id', 'id');
     }
 
+    public function visitors()
+    {
+        return $this->hasMany(Visitor::class, 'event_id', 'id');
+    }
+
     /**
      * Scope a query to only include slug.
      *
@@ -77,6 +82,20 @@ class Event extends Model
         $date = Carbon::parse($this->start_date);
 
         return $date->translatedFormat('d F Y');
+    }
+
+    /**
+     * Get the event start date.
+     * Format the date to human readable.
+     * Monday, 05 November 2021
+     *
+     * @return string
+     */
+    public function getStartDateFullFormattedAttribute($value)
+    {
+        $date = Carbon::parse($this->start_date);
+
+        return $date->translatedFormat('l, d F Y');
     }
 
 

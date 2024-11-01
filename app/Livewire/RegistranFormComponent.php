@@ -3,48 +3,73 @@
 namespace App\Livewire;
 
 use App\Models\Event;
+use App\Models\Visitor;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class RegistranFormComponent extends Component
 {
+    use WithFileUploads;
 
-    // Slug
+    public $isSubmitted = false;
+
+    public $orderId = null;
+
     public $slug;
 
-    #[Validate('required|in:online,offline', as: 'Jadwal Sesi')]
-    public $sessions = [
-        'offline'
-    ];
+    public $visitor;
 
-    #[Validate('required', as: 'NAMA LENGKAP')]
+    #[Validate('required', as: 'Jadwal Sesi', message: '* mandatory')]
+    public $sessions = ['offline'];
+
+    #[Validate('required', as: 'NAMA LENGKAP', message: '* mandatory')]
     public $name = '';
 
-    #[Validate('required', as: 'BISNIS')]
+    #[Validate('required', as: 'BISNIS',  message: '* mandatory')]
     public $business = '';
 
-    #[Validate('required', as: 'PERUSAHAAN')]
+    #[Validate('required', as: 'PERUSAHAAN',  message: '* mandatory')]
     public $company = '';
 
-    #[Validate('required', as: 'NO HANDPHONE')]
+    #[Validate('required', as: 'NO HANDPHONE',  message: '* mandatory')]
     public $phone = '';
 
-    #[Validate('required|email', as: 'EMAIL')]
+    #[Validate('required', as: 'EMAIL',  message: '* mandatory')]
+    #[Validate('email', as: 'EMAIL',  message: '* invalid email')]
     public $email = '';
 
-    #[Validate('required', as: 'NAMA PESERTA YANG MENGUNDANG')]
+    #[Validate('required', as: 'NAMA PESERTA YANG MENGUNDANG',  message: '* mandatory')]
     public $invited_by = '';
 
-    #[Validate('required_if:sessions,offline', as: 'PAKET MAKANAN & MINUMAN')]
-    public $food = '';
+    #[Validate(
+        'required_with:sessions,offline',
+        as: 'PAKET MAKANAN & MINUMAN',
+        message: '* mandatory')]
+    public $food;
 
-    #[Validate('image|max:4096')] // 4MB Max
+    #[Validate('required_with:sessions,offline',
+        as: 'BUKTI PEMBAYARAN',
+        message: '* mandatory')]
+    #[Validate('image')] // 4MB Max
+    #[Validate('max:4096')]
     public $payment;
 
     #[Computed]
     function isOfflineSelected() {
         return in_array('offline', $this->sessions);
+    }
+
+    #[Computed]
+    function isOnlineSelected() {
+        return in_array('online', $this->sessions);
+    }
+
+    #[Computed]
+    function isNotEmptySessions() : bool
+    {
+        return count($this->sessions) > 0;
     }
 
     #[Computed]
@@ -75,12 +100,61 @@ class RegistranFormComponent extends Component
     }
 
     public function save() {
-        $this->validate();
+        $validated = $this->validate();
+
+        $data = [
+            'sessions' => $this->sessions,
+            'name' => $this->name,
+            'business' => $this->business,
+            'company' => $this->company,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'invited_by' => $this->invited_by,
+            'food' => $this->food,
+            'event_id' => $this->event->id,
+        ];
+
+        if ($this->isOfflineSelected()) {
+            $data['is_offline'] = true;
+
+            $lastVisitor = Visitor::where('event_id', $this->event->id)
+                ->where('is_offline', true)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            // upload the payment to public storage
+            $payment_path = $this->payment->store(path: 'payments');
+
+            $data['order_id'] = $this->generateOrderId($lastVisitor);
+
+            $data['meta'] = [
+                'offline_food' => $this->food,
+                'payment_path' => $payment_path,
+            ];
+
+        }
+
+        if ($this->isOnlineSelected()) {
+            $data['is_online'] = true;
+        }
+
+        // Save the data
+        $visitor = Visitor::create($data);
+
+        $this->isSubmitted = true;
+        $this->visitor = $visitor;
 
         // Print the data
-        dd(
-            'Data yang akan disimpan:',
-            $this->sessions, $this->name, $this->business, $this->company, $this->phone, $this->email, $this->invited_by, $this->food, $this->payment);
+        // dd(
+        //     'Data yang akan disimpan:',
+        //     $this->sessions, $this->name, $this->business, $this->company, $this->phone, $this->email, $this->invited_by, $this->food, $this->payment);
+    }
+
+    protected function generateOrderId($lastOrderId) {
+        $lastOrderId = $lastOrderId ? $lastOrderId->order_id : '00000';
+        $lastOrderId = (int) $lastOrderId;
+        $lastOrderId++;
+        return str_pad($lastOrderId, 5, '0', STR_PAD_LEFT);
     }
 
     public function mount($slug) {

@@ -2,7 +2,9 @@
 
 
 @section('page')
-    <div class="flex justify-center min-h-screen pb-14">
-        @livewire('registran-form-component', ['slug' => $slug])
+    <div class="min-h-screen pb-14">
+        <div>
+            @livewire('registran-form-component', ['slug' => $slug])
+        </div>
     </div>
 @endsection
