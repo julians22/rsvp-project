@@ -41,7 +41,6 @@ class ManageVisitor extends ManageRelatedRecords
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('event.name'),
                 Tables\Columns\TextColumn::make('business'),
                 Tables\Columns\TextColumn::make('company'),
                 Tables\Columns\TextColumn::make('email'),
@@ -52,17 +51,20 @@ class ManageVisitor extends ManageRelatedRecords
                     ->icon(fn (string $state): string => match ($state) {
                         '1' => 'heroicon-o-check-circle',
                         '0' => 'heroicon-o-x-circle',
-                        default => 'heroicon-o-question-mark-circle',
+                        default => 'heroicon-o-x-circle',
                     }),
                 Tables\Columns\IconColumn::make('is_offline')
                     ->label('Offline Presence')
                     ->icon(fn (string $state): string => match ($state) {
                         '1' => 'heroicon-o-check-circle',
                         '0' => 'heroicon-o-x-circle',
-                        default => 'heroicon-o-question-mark-circle',
+                        default => 'heroicon-o-x-circle',
                     }),
                 Tables\Columns\TextColumn::make('food')
                     ->label('Packaged Food'),
+                Tables\Columns\ImageColumn::make('payment_path_url')
+                    ->checkFileExistence(false)
+                    ->label('Payment Proof'),
             ])
             ->filters([
                 //

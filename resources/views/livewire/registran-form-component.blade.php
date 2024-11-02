@@ -26,7 +26,7 @@
                     </div>
 
 
-                    <h2 class="text-3xl lg:text-[42px] font-bold uppercase">
+                    <h2 class="text-xl lg:text-[42px] font-bold uppercase">
                         {{ $this->event->start_date_full_formatted }}
                     </h2>
                 </div>
@@ -110,7 +110,7 @@
                     <div class="form-group">
                         <label for="" class="form-label text-black">WILL BE ATTENDING TO: (May choose both)</label>
 
-                        <div class="flex space-x-3">
+                        <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-3">
                             <div>
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" value="online" wire:model.live="sessions" class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black w-6 h-6">
@@ -135,7 +135,7 @@
                 @if ($this->isOfflineSelected === true)
 
 
-                    <div class="text-xl">
+                    <div class="text-xl block border-b border-dashed border-black pb-1 lg:pb-0">
                         <h4 class="font-semibold">OFFLINE MEETING LOCATION</h4>
 
                         {!! $this->event->detail->offline_address !!}
@@ -161,10 +161,10 @@
                                 @error('food') <span class="error-form-message">{{ $message }}</span> @enderror
                             </div>
 
+                            {{-- KETERANGAN --}}
+                            <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Jessica Cynthia Dewi - BCA XXXXXXXXXXX</strong></p>
                         </div>
 
-                        {{-- KETERANGAN --}}
-                        <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Jessica Cynthia Dewi - BCA XXXXXXXXXXX</strong></p>
 
                         {{-- UPLOAD BUKTI PEMBAYARAN --}}
 
@@ -219,7 +219,9 @@
                 <div>
                     <h5 class="text-gray-800 text-lg lg:text-xl font-bold">LINK ZOOM</h5>
                     <h4 class="text-xl lg:text-2xl font-bold">
-                        {{ $this->event->detail->online_link }}
+                        <a href="{{ $this->event->detail->online_link }}">
+                            {{ $this->event->detail->online_link }}
+                        </a>
                     </h4>
                 </div>
 
@@ -241,7 +243,7 @@
                     </div>
                 </div>
 
-                <a href="//designcub3.com" class="btn bg-red-bni">
+                <a href="{{ asset('img/Background Zoom Altitude - Visitor.png') }}" download class="btn bg-red-bni text-center">
                     DOWNLOAD ZOOM MEET BACKGROUND
                 </a>
 
@@ -260,14 +262,14 @@
                         !!}
                     </div>
 
-                    <a href="{{ $this->event->detail->offline_location }}" class="btn bg-red-bni">
+                    <a href="{{ $this->event->detail->offline_location }}" target="blank" class="btn bg-red-bni">
                         GOOGLE MAP
                     </a>
 
                     <div>
                         <h5 class="text-gray-800 text-lg font-bold">PAKET MAKANAN + MINUMAN</h5>
                         <h4 class="text-xl lg:text-2xl font-bold">
-                            {{ $this->event->detail->online_link }}
+                            {{ $this->visitor->food }}
                         </h4>
 
                         <div class="mt-6">

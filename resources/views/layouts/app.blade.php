@@ -20,13 +20,13 @@
     @yield('page')
 
     <footer class="bg-navy py-3 px-2 flex items-center justify-center fixed bottom-0 inset-x-0">
-        <h4 class="text-base text-white inline-flex">POWERED BY </h4>
+        <h4 class="text-sm lg:text-base text-white inline-flex">POWERED BY </h4>
         <a href="https://designcub3.com"
             rel="noopener noreferrer"
             target="_blank"
             class="inline-flex"
             >
-            <img class="w-32 ml-2" src="{{ asset('img/logo.svg') }}" alt="">
+            <img class="w-24 lg:w-32 ml-2" src="{{ asset('img/logo.svg') }}" alt="">
         </a>
     </footer>
 

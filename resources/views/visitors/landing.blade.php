@@ -4,15 +4,15 @@
 
 <header>
 
-    <div class="relative aspect-[16/7] w-full bg-fixed bg-center bg-no-repeat bg-cover" style="background-image: url({{ asset('img/banner/webbanner.jpg') }})">
+    <div class="relative aspect-video lg:aspect-[16/7] w-full lg:bg-fixed bg-center bg-no-repeat bg-cover" style="background-image: url({{ asset('img/banner/webbanner.jpg') }})">
 
-        <div class="container w-full lg:w-[1200px] mx-auto px-4 lg:px-0 absolute bottom-0 inset-x-0 lg:mb-4">
-            <h2 class="font-black text-white text-4xl lg:text-[80px] leading-[100px]">VISITOR <br> INFORMATION <br>MEETING</h2>
+        <div class="container w-full lg:w-[1200px] mx-auto px-4 lg:px-0 absolute bottom-4 lg:bottom-2 inset-x-0 lg:mb-4">
+            <h2 class="font-black text-white text-4xl lg:text-[80px] lg:leading-[100px]">VISITOR <br> INFORMATION <br>MEETING</h2>
 
         </div>
     </div>
 
-    <div class="container w-full lg:lg:w-[1200px] mx-auto space-y-4 lg:space-y-6 pt-14 pb-16 px-4 lg:px-0">
+    <div class="container w-full lg:lg:w-[1200px] mx-auto space-y-4 lg:space-y-6 pt-6 lg:pt-14 pb-16 px-4 lg:px-0">
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
 
@@ -55,7 +55,7 @@
                             {{ $event->start_date_full_formatted }}
                         </h5>
                     </div>
-                    <div class="px-4 pt-4 lg:px-8 lg:pt-6 lg:pb-8 border border-black relative">
+                    <div class="px-4 pt-4 lg:px-8 lg:pt-6 pb-4 lg:pb-8 border border-black relative">
                         <div class="flex justify-between items-end">
                             <div>
                                 <h5 class="text-gray-800 text-xl font-bold">ZOOM ONLINE</h5>
@@ -71,11 +71,11 @@
                             </div>
                         </div>
 
-                        <div class="bottom-0 translate-y-4 absolute text-sm leading-[17px] font-bold p-px lg:p-1 bg-black text-white">
+                        <div class="bottom-0 translate-y-2 lg:translate-y-4 absolute text-sm leading-[17px] font-bold p-px lg:p-1 bg-black text-white">
                             AND / OR
                         </div>
                     </div>
-                    <div class="px-4 pt-4 lg:px-8 lg:pb-6 lg:pt-8 border border-black">
+                    <div class="px-4 pt-4 pb-4 lg:px-8 lg:pb-6 lg:pt-8 border border-black">
                         <div class="flex flex-col space-y-4">
                             <div>
                                 <h5 class="text-gray-800 text-xl font-bold">OFFLINE MEETING</h5>

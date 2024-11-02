@@ -14,7 +14,7 @@ class RegistranFormComponent extends Component
 {
     use WithFileUploads;
 
-    public $isSubmitted = false;
+    public $isSubmitted = true;
 
     public $orderId = null;
 
@@ -200,5 +200,8 @@ class RegistranFormComponent extends Component
 
     public function mount($slug) {
         $this->slug = $slug;
+
+        $this->visitor = Visitor::where('event_id', $this->event->id)
+            ->first();
     }
 }

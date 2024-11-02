@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Visitor extends Model
 {
@@ -40,13 +41,26 @@ class Visitor extends Model
      *
      * @var array
      */
-    protected $appends = ['package'];
+    protected $appends = ['package', 'payment_path_url'];
 
 
     public function getPackageAttribute()
     {
-        if (isset($this->meta['food'])) {
-            return $this->meta['food'];
+        if (isset($this->meta['offline_food'])) {
+            return $this->meta['offline_food'];
+        }
+    }
+
+    public function getPaymentPathUrlAttribute()
+    {
+        if (!$this->is_offline) {
+            return null;
+        }
+
+        if (isset($this->meta['payment_path'])) {
+            $path = $this->meta['payment_path'];
+
+            return $path ? Storage::disk('payments')->url($path) : null;
         }
     }
 }
