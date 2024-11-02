@@ -31,6 +31,8 @@
     </footer>
 
     @livewireScripts
+
+    @stack('after-scipts')
 </body>
 
 </html>

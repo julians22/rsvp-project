@@ -8,3 +8,20 @@
         </div>
     </div>
 @endsection
+
+@push('after-scipts')
+
+<script>
+    Livewire.hook('commit', ({ succeed }) => {
+        succeed(() => {
+            setTimeout(() => {
+                const firstErrorMessage = document.querySelector('.error-form-message')
+
+                if (firstErrorMessage !== null) {
+                    firstErrorMessage.scrollIntoView({ block: 'center', inline: 'center' })
+                }
+            }, 0)
+        })
+    })
+</script>
+@endpush

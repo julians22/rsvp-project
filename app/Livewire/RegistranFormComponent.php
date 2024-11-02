@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\Visitor;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -16,45 +15,26 @@ class RegistranFormComponent extends Component
 
     public $isSubmitted = false;
 
-    public $orderId = null;
-
     public $slug;
 
     public $visitor;
 
-    // #[Validate('required', as: 'Jadwal Sesi', message: '* mandatory')]
     public $sessions = ['offline'];
 
-    // #[Validate('required', as: 'NAMA LENGKAP', message: '* mandatory')]
     public $name = '';
 
-    // #[Validate('required', as: 'BISNIS',  message: '* mandatory')]
     public $business = '';
 
-    // #[Validate('required', as: 'PERUSAHAAN',  message: '* mandatory')]
     public $company = '';
 
-    // #[Validate('required', as: 'NO HANDPHONE',  message: '* mandatory')]
     public $phone = '';
 
-    // #[Validate('required', as: 'EMAIL',  message: '* mandatory')]
-    // #[Validate('email', as: 'EMAIL',  message: '* invalid email')]
     public $email = '';
 
-    // #[Validate('required', as: 'NAMA PESERTA YANG MENGUNDANG',  message: '* mandatory')]
     public $invited_by = '';
 
-    // #[Validate(
-    //     'required_if:sessions.*,offline',
-    //     as: 'PAKET MAKANAN & MINUMAN',
-    //     message: '* mandatory')]
-    public $food;
+    public $food = "";
 
-    // #[Validate('required_if:sessions.*,offline',
-    //     as: 'BUKTI PEMBAYARAN',
-    //     message: '* mandatory')]
-    // #[Validate('image')] // 4MB Max
-    // #[Validate('max:4096')]
     public $payment;
 
     public function rules()
@@ -139,6 +119,7 @@ class RegistranFormComponent extends Component
 
     public function save() {
         $validated = $this->validate();
+
 
         $data = [
             'sessions' => $this->sessions,

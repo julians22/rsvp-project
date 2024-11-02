@@ -137,34 +137,45 @@
                 @if ($this->isOfflineSelected === true)
 
 
-                    <div class="text-xl block border-b border-dashed border-black pb-1 lg:pb-0">
+                    <div class="text-xl block lg:border-b-0 border-b border-dashed border-black pb-2 lg:pb-0">
                         <h4 class="font-semibold">OFFLINE MEETING LOCATION</h4>
 
                         {!! $this->event->detail->offline_address !!}
                     </div>
 
-                    <div class="flex flex-col gap-y-4">
+                    <div class="flex flex-col gap-y-4 pt-2">
 
                         {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
                         <div
                             class="flex flex-col gap-y-1"
                         >
                             <label for="food" class="text-lg text-black font-bold">LUNCH PACKAGE <strong class="font-extrabold">IDR {{ number_format($this->event->detail->offline_food_price, 0, ',', '.') }}</strong></label>
-                            <select name="food" id="food" wire:model.live='food'>
-                                <option value="">- PLEASE SELECT YOUR PREFERRED LUNCH MENU -</option>
-                                @foreach ($this->offline_foods as $key => $item)
-                                    <option value="{{$item['food']}} - {{$item['drink']}}">
-                                        {{ $item['food'] }} - {{ $item['drink'] }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            @if (count($this->offline_foods) === 1)
+                                <input
+                                    type="text"
+                                    id="food"
+                                    wire:model="food"
+                                    class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                    wire:init='food = "{{ $this->offline_foods[0]['food'] }}"'
+                                    readonly
+                                    />
+                            @else
+                            <select name="food" id="food" wire:model.live="food">
+                                <option value="">- PLEASE SELECT -</option>
+                                    @foreach ($this->offline_foods as $key => $item)
+                                        <option value="{{$item['food']}} - {{$item['drink']}}">
+                                            {{ $item['food'] }} - {{ $item['drink'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endif
 
                             <div>
                                 @error('food') <span class="error-form-message">{{ $message }}</span> @enderror
                             </div>
 
                             {{-- KETERANGAN --}}
-                            <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Jessica Cynthia Dewi - BCA XXXXXXXXXXX</strong></p>
+                            <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Fransisca - BCA 0657181513</strong></p>
                         </div>
 
 
@@ -183,7 +194,7 @@
 
                 @endif
 
-                <div class="flex justify-center">
+                <div class="flex justify-center mt-4">
                     <button
                         @unless (!$this->isEmptySessions) disabled @endunless
                         wire:loading.attr="disabled"
@@ -271,12 +282,25 @@
                         GOOGLE MAP
                     </a>
 
+                    {{-- PACKAGE SELECTED --}}
                     <div>
-                        <h5 class="text-gray-800 text-lg font-bold">PAKET MAKANAN + MINUMAN</h5>
-                        <h4 class="text-xl lg:text-2xl font-bold">
-                            {{ $this->visitor->food }}
-                        </h4>
 
+                        <div>
+                            <h5 class="text-gray-800 text-lg font-bold">PAKET MAKANAN + MINUMAN</h5>
+                            <h4 class="text-xl lg:text-2xl font-bold">
+                                {{ $this->visitor->package }}
+                            </h4>
+                        </div>
+
+                        {{-- ORDER ID --}}
+                        <div>
+                            <h5 class="text-gray-800 text-lg font-bold">ORDER ID:</h5>
+                            <h4 class="text-xl lg:text-2xl font-bold">
+                                #{{ $this->visitor->order_id }}
+                            </h4>
+                        </div>
+
+                        {{-- PAYMENT --}}
                         <div class="mt-6">
                             <h5 class="text-lg font-bold mb-2">WHAT TO PREPARE</h5>
                             <ul class="list-inside list-disc">
@@ -287,6 +311,7 @@
                             </ul>
                         </div>
                     </div>
+
                 </div>
             @endif
 

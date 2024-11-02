@@ -3,12 +3,16 @@
 namespace App\Filament\Resources\EventResource\Pages;
 
 use App\Filament\Resources\EventResource;
+use App\Models\Visitor;
 use Filament\Actions;
+use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -32,6 +36,24 @@ class ManageVisitor extends ManageRelatedRecords
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('business'),
+                Forms\Components\TextInput::make('company'),
+                Forms\Components\TextInput::make('phone')
+                    ->required()
+                    ->maxLength(15),
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->email()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('invited_by')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Checkbox::make('is_online'),
+                Forms\Components\Checkbox::make('is_offline'),
+                Forms\Components\TextInput::make('food')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\FileUpload::make('payment')
             ]);
     }
 
@@ -64,6 +86,19 @@ class ManageVisitor extends ManageRelatedRecords
                     ->label('Packaged Food'),
                 Tables\Columns\ImageColumn::make('payment_path_url')
                     ->checkFileExistence(false)
+                    ->action(
+                        Action::make('show_payment_proof')
+                            ->label('Payment Proof')
+                            // ->action(fn (Visitor $visitor) => $visitor->payment_path_url)
+                            ->modalContent(fn (Visitor $visitor): View => view(
+                                'filament.resources.event-resource.pages.image-modal',
+                                ['image' => $visitor->payment_path_url]
+                                )
+                            )
+                            ->modalSubmitAction(false)
+                            ->modalCancelAction(false)
+                            ->modalWidth(MaxWidth::ScreenMedium)
+                    )
                     ->label('Payment Proof'),
             ])
             ->filters([
@@ -73,10 +108,14 @@ class ManageVisitor extends ManageRelatedRecords
                 //
             ])
             ->actions([
-                //
+                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                //
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 }
