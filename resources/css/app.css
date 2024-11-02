@@ -17,7 +17,7 @@
     }
 
     .btn{
-        @apply text-white text-lg lg:text-2xl font-semibold px-6 py-3 inline-block hover:scale-105 transition-all ease-in-out rounded-lg;
+        @apply text-white text-lg lg:text-2xl font-semibold px-6 py-3 inline-block disabled:hover:scale-100 scale-100 hover:scale-105 transition-all ease-in-out rounded-lg;
     }
 
     .form-group{

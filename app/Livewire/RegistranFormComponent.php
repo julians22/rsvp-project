@@ -105,9 +105,9 @@ class RegistranFormComponent extends Component
     }
 
     #[Computed]
-    function isNotEmptySessions() : bool
+    function isEmptySessions() : bool
     {
-        return count($this->sessions) > 0;
+        return !$this->isOfflineSelected() && !$this->isOnlineSelected();
     }
 
     #[Computed]
