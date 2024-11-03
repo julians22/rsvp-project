@@ -115,8 +115,8 @@
                         <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-3">
                             <div>
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" value="online" wire:model.live="sessions" class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black w-6 h-6">
-                                    <span class="ml-2 text-lg font-semibold">Online {{ $this->online_hour }} Pagi</span>
+                                    <input type="checkbox" value="online" wire:model.live="sessions" disabled class="border-gray-300 peer disabled:border-gray-200 border-2 text-black focus:border-gray-300 focus:ring-black w-6 h-6">
+                                    <span class="ml-2 text-lg font-semibold peer-disabled:text-gray-200">Online {{ $this->online_hour }} Pagi</span>
                                 </label>
                             </div>
                             <div>
