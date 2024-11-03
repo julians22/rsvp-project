@@ -46,7 +46,7 @@ class RegistranFormComponent extends Component
             "company" => "required",
             "phone" => "required",
             "email" => "required",
-            "invited_by" => "required",
+            "invited_by" => "sometimes",
             "food" =>  [
                 Rule::requiredIf(function () {
                     return in_array('offline', $this->sessions);
@@ -132,7 +132,7 @@ class RegistranFormComponent extends Component
             'company' => $this->company,
             'phone' => $this->phone,
             'email' => $this->email,
-            'invited_by' => $this->invited_by,
+            'invited_by' => $this->invited_by ?? null,
             'food' => $this->food,
             'event_id' => $this->event->id,
         ];
