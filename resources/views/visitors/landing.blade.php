@@ -86,7 +86,7 @@
                             </div>
                             <div class="text-center bg-gray-200 px-4 py-2">
                                 <h5 class="text-xl font-bold leading-[25px]">
-                                    LUNCH PACKAGE
+                                    PAY FOR YOUR LUNCH
                                 </h5>
                                 <p class="text-lg font-bold">
                                     {{ $event->detail->offline_food_price_currency }} IDR/pax

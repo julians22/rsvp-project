@@ -149,7 +149,9 @@
                         <div
                             class="flex flex-col gap-y-1"
                         >
-                            <label for="food" class="text-lg text-black font-bold">LUNCH PACKAGE <strong class="font-extrabold">IDR {{ number_format($this->event->detail->offline_food_price, 0, ',', '.') }}</strong></label>
+                            <label for="food" class="text-lg text-black font-bold">
+                                PAY FOR YOUR LUNCH
+                            </label>
                             @if (count($this->offline_foods) === 1)
                                 <input
                                     type="text"
@@ -176,6 +178,15 @@
 
                             {{-- KETERANGAN --}}
                             <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Fransisca - BCA 0657181513</strong></p>
+                            <div class="bg-red-200 p-2 rounded-lg">
+                                <p class="mb-2">Sertakan Berita dengan format penulisan: <strong>“Chapter/Visitor" + “Nama”</strong></p>
+                                <p>Contoh:</p>
+                                <ul class="list-inside list-disc pl-1 lg:pl-2 ">
+                                    <li class="font-semibold">Magnitude Deddy</li>
+                                    <li class="font-semibold">Altitude Edo</li>
+                                    <li class="font-semibold">Visitor Daniel</li>
+                                </ul>
+                            </div>
                         </div>
 
 
