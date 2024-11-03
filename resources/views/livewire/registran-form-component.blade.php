@@ -239,42 +239,44 @@
         </div>
 
         <div class="grid grid-cols-1">
-            <div class="px-4 lg:px-6 py-4 space-y-4 border border-black">
-                <h4 class="text-xl lg:text-2xl font-bold">
-                    ONLINE ZOOM MEETING {{ $this->event->detail->online_time_no_seconds }}
-                </h4>
-                <div>
-                    <h5 class="text-gray-800 text-lg lg:text-xl font-bold">LINK ZOOM</h5>
+            @if ($this->isOnlineSelected)
+                <div class="px-4 lg:px-6 py-4 space-y-4 border border-black">
                     <h4 class="text-xl lg:text-2xl font-bold">
-                        <a href="{{ $this->event->detail->online_link }}">
-                            {{ $this->event->detail->online_link }}
-                        </a>
+                        ONLINE ZOOM MEETING {{ $this->event->detail->online_time_no_seconds }}
                     </h4>
-                </div>
-
-                <div>
-                    <h5 class="text-gray-800 text-xl font-bold">PASSWORD</h5>
-                    <h4 class="text-xl lg:text-2xl font-bold">
-                        {{ $this->event->detail->online_password }}
-                    </h4>
-
-                    <div class="mt-6">
-                        <h5 class="text-lg font-bold mb-2">WHAT TO PREPARE</h5>
-                        <ul class="list-inside list-disc">
-                            <li class="text-lg font-medium">Wear Business Attire</li>
-                            <li class="text-lg font-medium">Use Quality Internet Connection, Headset & Webcam</li>
-                            <li class="text-lg font-medium">Prepare Your Business Introduction</li>
-                            <li class="text-lg font-medium">Please be On-Cam all the time</li>
-                            <li class="text-lg font-medium">Use provided Zoom Meeting Background</li>
-                        </ul>
+                    <div>
+                        <h5 class="text-gray-800 text-lg lg:text-xl font-bold">LINK ZOOM</h5>
+                        <h4 class="text-xl lg:text-2xl font-bold">
+                            <a href="{{ $this->event->detail->online_link }}">
+                                {{ $this->event->detail->online_link }}
+                            </a>
+                        </h4>
                     </div>
+
+                    <div>
+                        <h5 class="text-gray-800 text-xl font-bold">PASSWORD</h5>
+                        <h4 class="text-xl lg:text-2xl font-bold">
+                            {{ $this->event->detail->online_password }}
+                        </h4>
+
+                        <div class="mt-6">
+                            <h5 class="text-lg font-bold mb-2">WHAT TO PREPARE</h5>
+                            <ul class="list-inside list-disc">
+                                <li class="text-lg font-medium">Wear Business Attire</li>
+                                <li class="text-lg font-medium">Use Quality Internet Connection, Headset & Webcam</li>
+                                <li class="text-lg font-medium">Prepare Your Business Introduction</li>
+                                <li class="text-lg font-medium">Please be On-Cam all the time</li>
+                                <li class="text-lg font-medium">Use provided Zoom Meeting Background</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <a href="{{ asset('img/Background Zoom Altitude - Visitor.png') }}" download class="btn bg-red-bni text-center">
+                        DOWNLOAD ZOOM MEET BACKGROUND
+                    </a>
+
                 </div>
-
-                <a href="{{ asset('img/Background Zoom Altitude - Visitor.png') }}" download class="btn bg-red-bni text-center">
-                    DOWNLOAD ZOOM MEET BACKGROUND
-                </a>
-
-            </div>
+            @endif
 
             @if ($this->isOfflineSelected)
                 <div class="px-4 lg:px-6 py-4 space-y-4 border-black border">
