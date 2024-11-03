@@ -99,17 +99,21 @@ class RegistranFormComponent extends Component
 
     #[Computed]
     function online_hour() {
-        return $this->event->detail->online_time ?? '';
+        return $this->event->detail->online_time ? $this->removeSeconds($this->event->detail->online_time) : '';
     }
 
     #[Computed]
     function offline_hour() {
-        return $this->event->detail->offline_time ?? '';
+        return $this->event->detail->offline_time ? $this->removeSeconds($this->event->detail->offline_time) : '';
     }
 
     #[Computed]
     function offline_foods() {
         return $this->event->detail->offline_foods ?? [];
+    }
+
+    protected function removeSeconds($time) {
+        return date('h:i', strtotime($time));
     }
 
     public function render()
