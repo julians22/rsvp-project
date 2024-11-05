@@ -109,7 +109,15 @@
         <div class="space-y-4 text-center pt-6">
             <h2 class="text-xl lg:text-2xl font-bold text-center">WE LOOK FORWARD TO CONNECT WITH YOU!</h2>
 
-            <a class="bg-red-bni btn" href="{{ route('event.register', ['slug' => $slug]) }}">REGISTER NOW</a>
+            @if ($event->isEnded())
+                <p class="text-lg text-red-500 font-semibold">Registration has ended</p>
+            @else
+
+            <a class="bg-red-bni btn" href="{{ route('event.register', ['slug' => $slug]) }}"
+                >REGISTER NOW</a>
+
+            @endif
+
         </div>
     </div>
 

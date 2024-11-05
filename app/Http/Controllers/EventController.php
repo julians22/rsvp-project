@@ -9,6 +9,7 @@ class EventController extends Controller
 {
     function show($slug)
     {
+        $isDisabled = false;
         $event = Event::with('detail')->where('slug', $slug)->first();
 
         if ($event == null) {
@@ -19,7 +20,11 @@ class EventController extends Controller
             abort(404);
         }
 
-        return view('visitors.landing', ['slug' => $slug, 'event' => $event]);
+        if ($event->isEnded()) {
+            $isDisabled = true;
+        }
+
+        return view('visitors.landing', ['slug' => $slug, 'event' => $event, 'isDisabled' => $isDisabled]);
     }
 
     function register($slug)
@@ -32,6 +37,11 @@ class EventController extends Controller
 
         if ($event->detail == null || $event->detail->online_link == null) {
             abort(404);
+        }
+
+
+        if ($event->isEnded()) {
+            return redirect()->route('event.show', $slug);
         }
 
         return view('register-visitor', ['slug' => $slug, 'event' => $event]);

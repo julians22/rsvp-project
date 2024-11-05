@@ -98,5 +98,26 @@ class Event extends Model
         return $date->translatedFormat('l, d F Y');
     }
 
+    /**
+     * The event is ended.
+     */
+    public function isEnded()
+    {
+        $now = now();
+
+        // Set the end date
+        $endDate = $this->start_date . ' ' . "20:00:00";
+
+        // Parse the end date
+        $endDate = \Carbon\Carbon::parse($endDate);
+
+        // Check if the event is already ended / Now Greater than the end date
+        if ($now->gt($endDate)) {
+            $isDisabled = true;
+        }
+
+        return $isDisabled;
+    }
+
 
 }
