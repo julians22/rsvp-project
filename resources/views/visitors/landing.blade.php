@@ -7,18 +7,17 @@
     <div class="relative aspect-video lg:aspect-[16/7] w-full lg:bg-fixed bg-center bg-no-repeat bg-cover" style="background-image: url({{ asset('img/banner/webbanner.jpg') }})">
 
         <div class="container w-full lg:w-[1200px] mx-auto px-4 lg:px-0 absolute bottom-4 lg:bottom-2 inset-x-0 lg:mb-4">
-            <h2 class="font-black text-white text-4xl lg:text-[80px] lg:leading-[100px]">VISITOR <br> INFORMATION <br>MEETING</h2>
-
+            <span class="lg:leading-[100px]"><img src="{{ asset('img/logo_bni.svg') }}" alt="LOGO BNI" class="max-w-20 lg:max-w-48"></span>
+            <h2 class="font-black text-white text-4xl lg:text-[80px] lg:leading-[100px]">NETWORKING <br>MEETING</h2>
         </div>
     </div>
 
-    <div class="container w-full lg:lg:w-[1200px] mx-auto space-y-4 lg:space-y-6 pt-6 lg:pt-14 pb-16 px-4 lg:px-0">
+    <div class="container w-full lg:lg:w-[1200px] mx-auto space-y-4 lg:space-y-6 pt-6 lg:pt-14 pb-16">
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20">
 
-
-            <div class="">
-                <p class="text-lg text-gray-700 font-semibold mb-4 leading-loose">
+            <div>
+                <p class="text-lg text-gray-700 font-semibold mb-4 leading-loose px-4 lg:px-0">
                     You are invited to join our BNI VISITOR
                     INFORMATION MEETING, where most business
                     owners will come together to build
@@ -29,8 +28,11 @@
                     ideas, and create valuable partnerships that can
                     help you grow and succeed.</p>
 
-                <h4 class="text-gray-800 text-2xl font-bold mb-1 leading-loose">What is BNI?</h4>
-                <p class="text-lg text-gray-700 font-semibold leading-loose">
+                <img src="{{ asset('img/video_thumb.jpg') }}" alt="">
+
+                <h4 class="text-gray-800 text-2xl font-bold mb-1 leading-loose px-4 lg:px-0">What is <img src="{{ asset('img/logo_bni.svg') }}" alt="LOGO BNI" class="max-w-14 inline">?</h4>
+
+                <p class="text-lg text-gray-700 font-semibold leading-loose px-4 lg:px-0">
                     BNI (Business Network International) is the
                     world’s largest business networking organization. It operates on a referral-based model,
                     where members meet regularly to build trust,
@@ -42,7 +44,7 @@
                 </p>
             </div>
 
-            <div class="space-y-6">
+            <div class="space-y-6 px-4 lg:px-0">
 
                 <img src="{{ asset('img/logo_bni.jpg') }}" alt="" class="max-w-48 lg:max-w-[400px]">
 

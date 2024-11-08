@@ -136,71 +136,92 @@
 
                 @if ($this->isOfflineSelected === true)
 
+                    <div>
 
-                    <div class="text-xl block lg:border-b-0 border-b border-dashed border-black pb-2 lg:pb-0">
-                        <h4 class="font-semibold">OFFLINE MEETING LOCATION</h4>
-
-                        {!! $this->event->detail->offline_address !!}
-                    </div>
-
-                    <div class="flex flex-col gap-y-4 pt-2">
-
-                        {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
-                        <div
-                            class="flex flex-col gap-y-1"
-                        >
-                            <label for="food" class="text-lg text-black font-bold">
-                                PAY FOR YOUR LUNCH
-                            </label>
-                            @if (count($this->offline_foods) === 1)
-                                <input
-                                    type="text"
-                                    id="food"
-                                    wire:model="food"
-                                    class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
-                                    wire:init='food = "{{ $this->offline_foods[0]['food'] }}"'
-                                    readonly
-                                    />
-                            @else
-                            <select name="food" id="food" wire:model.live="food">
-                                <option value="">- PLEASE SELECT -</option>
-                                    @foreach ($this->offline_foods as $key => $item)
-                                        <option value="{{$item['food']}} - {{$item['drink']}}">
-                                            {{ $item['food'] }} - {{ $item['drink'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            @endif
-
-                            <div>
-                                @error('food') <span class="error-form-message">{{ $message }}</span> @enderror
+                        <div class="text-xl block lg:border-b-0 border-b border-dashed border-black pb-2 lg:pb-0">
+                            <div class="flex space-x-4 w-36 items-center">
+                                <label for="">
+                                    <img src="{{ asset('img/icons/pinpoint.png') }}" alt="" class="max-w-10">
+                                </label>
+                                <label class="text-lg text-black font-bold">
+                                    OFFLINE MEETING LOCATION
+                                </label>
                             </div>
 
-                            {{-- KETERANGAN --}}
-                            <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Fransisca - BCA 0657181513</strong></p>
-                            <div class="bg-red-200 p-2 rounded-lg">
-                                <p class="mb-2">Sertakan Berita dengan format penulisan: <strong>“Chapter/Visitor" + “Nama”</strong></p>
-                                <p>Contoh:</p>
-                                <ul class="list-inside list-disc pl-1 lg:pl-2 ">
-                                    <li class="font-semibold">Magnitude Deddy</li>
-                                    <li class="font-semibold">Altitude Edo</li>
-                                    <li class="font-semibold">Visitor Daniel</li>
-                                </ul>
-                            </div>
+                            {!! $this->event->detail->offline_address !!}
                         </div>
 
+                        <div class="flex flex-col gap-y-4 pt-2">
 
-                        {{-- UPLOAD BUKTI PEMBAYARAN --}}
+                            {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
+                            <div
+                                class="flex flex-col gap-y-1"
+                            >
+                                <div class="flex space-x-4 w-36 items-center">
+                                    <label for="">
+                                        <img src="{{ asset('img/icons/spoon.png') }}" alt="" class="max-w-10">
+                                    </label>
+                                    <label for="food" class="text-lg text-black font-bold">
+                                        PAY FOR YOUR LUNCH
+                                    </label>
+                                </div>
 
-                        <div
-                            class="form-group">
-                            <label for="payment" class="form-label text-black">UPLOAD PROOF OF PAYMENT:</label>
-                            <input type="file" accept="image/*" wire:model='payment' name="payment" id="payment" class="w-full border border-black p-2" />
-                            <div>
-                                @error('payment') <span class="error-form-message">{{ $message }}</span> @enderror
+                                @if (count($this->offline_foods) === 1)
+                                    <input
+                                        type="text"
+                                        id="food"
+                                        wire:model="food"
+                                        class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                        wire:init='food = "{{ $this->offline_foods[0]['food'] }}"'
+                                        readonly
+                                        />
+                                @else
+                                <select name="food" id="food" wire:model.live="food">
+                                    <option value="">- PLEASE SELECT -</option>
+                                        @foreach ($this->offline_foods as $key => $item)
+                                            <option value="{{$item['food']}} - {{$item['drink']}}">
+                                                {{ $item['food'] }} - {{ $item['drink'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @endif
+
+                                <div>
+                                    @error('food') <span class="error-form-message">{{ $message }}</span> @enderror
+                                </div>
+
+                                {{-- KETERANGAN --}}
+                                <p class="font-semibold">Please transfer payment to <br><strong class="text-lg">Fransisca - BCA 0657181513</strong></p>
+                                <div class="bg-gray-200 p-2 rounded-lg">
+                                    <p class="mb-2">Sertakan Berita dengan format penulisan: <strong>“Chapter/Visitor" + “Nama”</strong></p>
+                                    <p>Contoh:</p>
+                                    <ul class="list-inside list-disc pl-1 lg:pl-2 ">
+                                        <li class="font-semibold">Magnitude Deddy</li>
+                                        <li class="font-semibold">Altitude Edo</li>
+                                        <li class="font-semibold">Visitor Daniel</li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
 
+
+                            {{-- UPLOAD BUKTI PEMBAYARAN --}}
+
+                            <div
+                                class="form-group">
+                                <label for="payment" class="form-label text-black">UPLOAD PROOF OF PAYMENT:</label>
+                                <input type="file" accept="image/*" wire:model.live='payment' name="payment" id="payment" class="w-full border border-black p-2" />
+                                @if ($payment)
+                                    <div class="bg-gray my-3 px-2">
+                                        <img src="{{ $payment->temporaryUrl() }}" alt="" class="max-w-screen-lg w-full lg:max-w-screen-sm">
+                                    </div>
+                                @endif
+                                {{-- <x-filepond::upload wire:model="payment" required="{{ $this->isOfflineSelected }}" /> --}}
+                                <div>
+                                    @error('payment') <span class="error-form-message">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                 @endif

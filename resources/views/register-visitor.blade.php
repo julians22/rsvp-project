@@ -11,6 +11,8 @@
 
 @push('after-scipts')
 
+@filepondScripts
+
 <script>
     Livewire.hook('commit', ({ succeed }) => {
         succeed(() => {

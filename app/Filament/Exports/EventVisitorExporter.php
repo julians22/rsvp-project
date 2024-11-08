@@ -24,8 +24,7 @@ class EventVisitorExporter extends Exporter
             ExportColumn::make('is_online')
                 ->label('Online'),
             ExportColumn::make('is_offline')
-                ->label('Offline'),
-            ExportColumn::make('meta')
+                ->label('Offline')
 
         ];
     }

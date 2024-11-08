@@ -46,7 +46,7 @@ return [
 
         'payments' => [
             'driver' => 'local',
-            'root' => storage_path('app/payments'),
+            'root' => storage_path('app/visitor-payments'),
             'url' => env('APP_URL'),
             'visibility' => 'public',
             'throw' => false,

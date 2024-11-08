@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -84,7 +85,8 @@ class ManageVisitor extends ManageRelatedRecords
                     }),
                 Tables\Columns\TextColumn::make('food')
                     ->label('Packaged Food'),
-                Tables\Columns\ImageColumn::make('payment_path_url')
+                SpatieMediaLibraryImageColumn::make('Payment Proof')
+                    ->collection('payment_proof')
                     ->checkFileExistence(false)
                     ->action(
                         Action::make('show_payment_proof')
@@ -92,14 +94,14 @@ class ManageVisitor extends ManageRelatedRecords
                             // ->action(fn (Visitor $visitor) => $visitor->payment_path_url)
                             ->modalContent(fn (Visitor $visitor): View => view(
                                 'filament.resources.event-resource.pages.image-modal',
-                                ['image' => $visitor->payment_path_url]
+                                ['image' => $visitor->getFirstMediaUrl('payment_proof')]
                                 )
                             )
                             ->modalSubmitAction(false)
                             ->modalCancelAction(false)
                             ->modalWidth(MaxWidth::ScreenMedium)
                     )
-                    ->label('Payment Proof'),
+                    ->label('Payment Proof')
             ])
             ->filters([
                 //
@@ -110,7 +112,8 @@ class ManageVisitor extends ManageRelatedRecords
             ->actions([
                 // Tables\Actions\ViewAction::make(),
                 // Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->modalDescription('Are you sure you want to delete this visitor? This action cannot be undone, and all data will be lost (including payment proof).')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

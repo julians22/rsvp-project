@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Visitor extends Model
+class Visitor extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory,
+        InteractsWithMedia;
 
     /**
      * The attributes that aren't mass assignable.
@@ -27,6 +31,12 @@ class Visitor extends Model
         'is_offline' => 'boolean',
         'is_online' => 'boolean'
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('payment_proof')
+            ->singleFile();
+    }
 
     /**
      * Get the event that owns the visitor.

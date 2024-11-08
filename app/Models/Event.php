@@ -103,8 +103,9 @@ class Event extends Model
      */
     public function isEnded()
     {
-        $now = now();
+        $isDisabled = false;
 
+        $now = now();
         // Set the end date
         $endDate = $this->start_date . ' ' . "20:00:00";
 

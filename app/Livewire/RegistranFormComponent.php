@@ -8,10 +8,13 @@ use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Spatie\LivewireFilepond\WithFilePond;
+use Spatie\Image;
 
 class RegistranFormComponent extends Component
 {
     use WithFileUploads;
+    // use WithFilePond;
 
     public $isSubmitted = false;
 
@@ -53,6 +56,8 @@ class RegistranFormComponent extends Component
                 })
             ],
             "payment" => [
+                'mimetypes:image/jpg,image/jpeg,image/png',
+                'max:3000',
                 Rule::requiredIf(function () {
                     return in_array('offline', $this->sessions);
                 })
@@ -139,9 +144,11 @@ class RegistranFormComponent extends Component
 
         if ($this->isOfflineSelected()) {
 
-            $paymentValidate = $this->validate([
+
+            $this->validate([
                 'payment' => 'image|max:4096',
             ], [], ['payment' => 'PROOF OF PAYMENT']);
+
             $data['is_offline'] = true;
 
             $lastVisitor = Visitor::where('event_id', $this->event->id)
@@ -149,15 +156,7 @@ class RegistranFormComponent extends Component
                 ->orderBy('id', 'desc')
                 ->first();
 
-            // upload the payment to public storage
-            $payment_path = $this->payment->store(path: 'payments');
-
             $data['order_id'] = $this->generateOrderId($lastVisitor);
-
-            $data['meta'] = [
-                'offline_food' => $this->food,
-                'payment_path' => $payment_path,
-            ];
 
         }
 
@@ -167,13 +166,13 @@ class RegistranFormComponent extends Component
 
         $visitor = Visitor::create($data);
 
-        $this->isSubmitted = true;
+        $visitor->addMedia($this->payment->getRealPath())
+            ->preservingOriginal()
+            ->toMediaCollection('payment_proof');
+
         $this->visitor = $visitor;
 
-        // Print the data
-        // dd(
-        //     'Data yang akan disimpan:',
-        //     $this->sessions, $this->name, $this->business, $this->company, $this->phone, $this->email, $this->invited_by, $this->food, $this->payment);
+        $this->isSubmitted = true;
     }
 
     protected function generateOrderId($lastOrderId) {
