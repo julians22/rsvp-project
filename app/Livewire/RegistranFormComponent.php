@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Mail\VisitorMail;
 use App\Models\Event;
 use App\Models\Visitor;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -171,6 +173,16 @@ class RegistranFormComponent extends Component
             ->toMediaCollection('payment_proof');
 
         $this->visitor = $visitor;
+
+        try {
+            // Mail to visitor
+
+            Mail::to($this->email)
+                ->send(new VisitorMail($this->visitor));
+
+        } catch (\Throwable $th) {
+            // Log error
+        }
 
         $this->isSubmitted = true;
     }
