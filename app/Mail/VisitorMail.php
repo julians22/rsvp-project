@@ -29,7 +29,7 @@ class VisitorMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Visitor Attendace Information',
+            subject: 'Visitor Attendance Information',
         );
     }
 

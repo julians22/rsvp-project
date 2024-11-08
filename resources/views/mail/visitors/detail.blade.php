@@ -29,7 +29,7 @@ Thank you for registering to our event. Here are the details of the event you ha
 - Location: {!! $visitor->event->detail->offline_address !!}
 
 {{-- Add map url button --}}
-<x-mail::button :url="$visitor->event->detail->offline_map_url">
+<x-mail::button :url="$visitor->event->detail->offline_location">
     View Map Location
 </x-mail::button>
 
