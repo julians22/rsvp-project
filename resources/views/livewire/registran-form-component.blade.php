@@ -18,25 +18,23 @@
                     <img src="{{ asset('img/logo_bni.jpg') }}" alt="" class="max-w-48 lg:max-w-[300px] mb-6">
 
                     <div>
-                        <h1 class="text-3xl lg:text-[42px] font-medium leading-none">
-                            VISITOR INFORMATION MEETING
-                        </h1>
-                        <h1 class="text-[40px] lg:text-[78px] font-bold mb-2 leading-none">
-                            REGISTRATION
-                        </h1>
+                        <div>
+                            <p class="text-2xl lg:text-[42px] font-medium leading-none flex items-center space-x-1"><img class=" w-10 lg:w-16" src="{{ asset('img/logo_bni.svg') }}" alt=""><span> NETWORKING MEETING</span></p>
+                            <h1 class="text-[40px] lg:text-[78px] font-bold mb-2 leading-none">REGISTRATION</h1>
+                            <span class="text-xl font-bold uppercase bg-black text-white p-1 rounded-lg">
+                                {{ $this->event->start_date_full_formatted }}
+                            </span>
+                        </div>
 
                     </div>
 
 
-                    <h2 class="text-xl lg:text-[42px] font-bold uppercase">
-                        {{ $this->event->start_date_full_formatted }}
-                    </h2>
                 </div>
 
-                <div class="py-4">
-                    <h4 class="text-xl lg:text-[24px]"><strong>NOTES:</strong></h4>
-                    <p class="font-bold text-black text-3xl lg:text-[36px]">
-                        REGISTRATION WILL BE CLOSED H-1 <br> AT 18.00 WIB
+                <div class="py-4 px-4 bg-gray-300 rounded my-2">
+                    <h4 class="text-base"><strong>NOTES:</strong></h4>
+                    <p class="font-bold text-black text-base">
+                        REGISTRATION WILL BE CLOSED H-1 AT 22.00 WIB
                     </p>
                 </div>
 
@@ -143,25 +141,28 @@
                                 <label for="">
                                     <img src="{{ asset('img/icons/pinpoint.png') }}" alt="" class="max-w-10">
                                 </label>
-                                <label class="text-lg text-black font-bold">
+                                <label class="text-lg text-black font-bold leading-none">
                                     OFFLINE MEETING LOCATION
                                 </label>
                             </div>
 
-                            {!! $this->event->detail->offline_address !!}
+                            <div class="font-semibold text-base my-2">
+                                {!! $this->event->detail->offline_address !!}
+                            </div>
+
                         </div>
 
                         <div class="flex flex-col gap-y-4 pt-2">
 
                             {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
                             <div
-                                class="flex flex-col gap-y-1"
+                                class="flex flex-col gap-y-1 my-2"
                             >
                                 <div class="flex space-x-4 w-36 items-center">
                                     <label for="">
                                         <img src="{{ asset('img/icons/spoon.png') }}" alt="" class="max-w-10">
                                     </label>
-                                    <label for="food" class="text-lg text-black font-bold">
+                                    <label for="food" class="text-lg text-black font-bold leading-none">
                                         PAY FOR YOUR LUNCH
                                     </label>
                                 </div>
@@ -212,7 +213,7 @@
                                 <input type="file" accept="image/*" wire:model.live='payment' name="payment" id="payment" class="w-full border border-black p-2" />
                                 @if ($payment)
                                     <div class="bg-gray my-3 px-2">
-                                        <img src="{{ $payment->temporaryUrl() }}" alt="" class="max-w-screen-lg w-full lg:max-w-screen-sm">
+                                        <img src="{{ $payment->temporaryUrl() }}" alt="" class="max-w-screen-lg w-full lg:max-w-sm">
                                     </div>
                                 @endif
                                 {{-- <x-filepond::upload wire:model="payment" required="{{ $this->isOfflineSelected }}" /> --}}

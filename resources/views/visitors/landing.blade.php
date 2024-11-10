@@ -28,7 +28,10 @@
                     ideas, and create valuable partnerships that can
                     help you grow and succeed.</p>
 
-                <img src="{{ asset('img/video_thumb.jpg') }}" alt="">
+                <video onloadeddata="this.play();this.muted=true;" poster="{{ asset('img/video_thumb.jpg') }}" playsinline loop muted controls>
+                    <source src="{{ asset('videos/BNI Video low.mp4') }}" type="video/mp4" />
+                    Your browser does not support the video tag or the file format of this video.
+                </video>
 
                 <h4 class="text-gray-800 text-2xl font-bold mb-1 leading-loose px-4 lg:px-0">What is <img src="{{ asset('img/logo_bni.svg') }}" alt="LOGO BNI" class="max-w-14 inline">?</h4>
 
