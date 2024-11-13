@@ -60,7 +60,7 @@ class RegistranFormComponent extends Component
     public function rules()
     {
         return [
-            "sessions" => ["required", Rule::in(['offline', 'online'])],
+            "sessions" => "required",
             "name" => "required",
             "business" => "required",
             "company" => "required",
