@@ -3,10 +3,12 @@
 @section('page')
     <header>
 
-        <div class="relative aspect-video w-full bg-cover bg-center bg-no-repeat lg:aspect-[16/7] lg:bg-fixed"
+        {{-- <div class="relative aspect-video w-full bg-cover bg-center bg-no-repeat lg:aspect-[16/7] lg:bg-fixed"
             style="background-image: url({{ $event->getFirstMediaUrl('banner') }})">
 
-        </div>
+        </div> --}}
+
+        <img src="{{ $event->getFirstMediaUrl('banner') }}" alt="" class="w-full">
 
         <div class="container mx-auto w-full space-y-4 pb-16 pt-6 lg:lg:w-[1200px] lg:space-y-6 lg:pt-14">
 
