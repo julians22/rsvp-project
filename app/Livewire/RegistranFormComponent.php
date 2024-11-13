@@ -49,7 +49,7 @@ class RegistranFormComponent extends Component
 
     public function updatedType()
     {
-        $this->invited_by_disabled = $this->type === VisitorType::VISITOR->value;
+        $this->invited_by_disabled = $this->type !== VisitorType::VISITOR->value;
 
         if ($this->invited_by_disabled) {
             $this->reset(['invited_by']);
