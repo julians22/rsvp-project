@@ -149,7 +149,7 @@
                                     <label class="inline-flex items-center">
                                         <input
                                             class="peer h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black disabled:border-gray-200"
-                                            type="checkbox" value="online" wire:model.live="sessions" disabled>
+                                            type="checkbox" value="online" wire:model.live="sessions">
                                         <span class="ml-2 text-lg font-semibold peer-disabled:text-gray-200">Online
                                             {{ $this->online_hour }} Pagi</span>
                                     </label>
