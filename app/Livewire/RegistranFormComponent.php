@@ -25,7 +25,7 @@ class RegistranFormComponent extends Component
 
     public $visitor;
 
-    public $sessions = ['offline'];
+    public $sessions = ['offline', 'online'];
 
     public $type = '';
 
@@ -60,7 +60,7 @@ class RegistranFormComponent extends Component
     public function rules()
     {
         return [
-            "sessions" => "required",
+            "sessions" => ["required", Rule::in(['offline', 'online'])],
             "name" => "required",
             "business" => "required",
             "company" => "required",
