@@ -199,10 +199,11 @@ class RegistranFormComponent extends Component
         }
 
         $visitor = Visitor::create($data);
-
-        $visitor->addMedia($this->payment->getRealPath())
-            ->preservingOriginal()
-            ->toMediaCollection('payment_proof');
+        if ($this->isOfflineSelected()) {
+            $visitor->addMedia($this->payment->getRealPath())
+                ->preservingOriginal()
+                ->toMediaCollection('payment_proof');
+        }
 
         $this->visitor = $visitor;
 
