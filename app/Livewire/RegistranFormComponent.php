@@ -68,18 +68,18 @@ class RegistranFormComponent extends Component
             "email" => "required",
             "invited_by" => "sometimes",
             'type' => ['required', Rule::enum(VisitorType::class)],
-            "food" =>  [
-                Rule::requiredIf(function () {
-                    return in_array('offline', $this->sessions);
-                })
-            ],
-            "payment" => [
-                'mimetypes:image/jpg,image/jpeg,image/png',
-                'max:3000',
-                Rule::requiredIf(function () {
-                    return in_array('offline', $this->sessions);
-                })
-            ],
+            // "food" =>  [
+            //     Rule::requiredIf(function () {
+            //         return in_array('offline', $this->sessions);
+            //     })
+            // ],
+            // "payment" => [
+            //     'mimetypes:image/jpg,image/jpeg,image/png',
+            //     'max:3000',
+            //     Rule::requiredIf(function () {
+            //         return in_array('offline', $this->sessions);
+            //     })
+            // ],
         ];
     }
 
@@ -176,8 +176,13 @@ class RegistranFormComponent extends Component
 
 
             $this->validate([
+                'food' => 'required',
                 'payment' => 'image|max:4096',
-            ], [], ['payment' => 'PROOF OF PAYMENT']);
+            ], [
+                'food.required' => '* mandatory',
+                'payment.image' => 'File must be an image',
+                'payment.max' => 'File size must be less than 4MB',
+            ], ['payment' => 'PROOF OF PAYMENT'], ['food' => 'FOOD']);
 
             $data['is_offline'] = true;
 
