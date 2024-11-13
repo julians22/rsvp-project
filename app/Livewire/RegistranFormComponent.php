@@ -89,6 +89,7 @@ class RegistranFormComponent extends Component
             "type.required" => "* mandatory",
             "type.enum" => "* mandatory",
             "sessions.required" => "* mandatory",
+            "sessions.*" => "* mandatory",
             "name.required" => "* mandatory",
             "business.required" => "* mandatory",
             "company.required" => "* mandatory",
