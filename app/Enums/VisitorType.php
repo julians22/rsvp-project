@@ -42,7 +42,7 @@ enum VisitorType: string implements HasLabel
             self::VISITOR => 'Visitor',
             self::INTERNATIONAL_MEMBER => 'International Member',
             self::NATIONAL_DIRECTOR => 'National Director',
-            self::DC_AND_AMBASSADOR => 'DC And Ambassador',
+            self::DC_AND_AMBASSADOR => 'DC & Ambassador',
             self::ALTITUDE => 'Altitude',
             self::MAGNITUDE => 'Magnitude',
             self::MAGNIFY => 'Magnify',
