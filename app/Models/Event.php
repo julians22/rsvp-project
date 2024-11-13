@@ -5,12 +5,15 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Event extends Model
+class Event extends Model implements HasMedia
 {
     use HasFactory,
+        InteractsWithMedia,
         HasSlug;
 
     /**
@@ -23,7 +26,7 @@ class Event extends Model
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom(['name', 'start_date'])
@@ -120,5 +123,10 @@ class Event extends Model
         return $isDisabled;
     }
 
-
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('banner')
+            ->useFallbackUrl(asset('img/banner/webbanner.jpg'))
+            ->singleFile();
+    }
 }

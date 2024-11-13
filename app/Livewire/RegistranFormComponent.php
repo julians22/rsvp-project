@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\VisitorType;
 use App\Mail\VisitorMail;
 use App\Models\Event;
 use App\Models\Visitor;
@@ -26,6 +27,8 @@ class RegistranFormComponent extends Component
 
     public $sessions = ['offline'];
 
+    public $type = '';
+
     public $name = '';
 
     public $business = '';
@@ -42,6 +45,18 @@ class RegistranFormComponent extends Component
 
     public $payment;
 
+    public $invited_by_disabled = false;
+
+    public function updatedType()
+    {
+        $this->invited_by_disabled = $this->type === VisitorType::VISITOR->value;
+
+        if ($this->invited_by_disabled) {
+            $this->reset(['invited_by']);
+        }
+    }
+
+
     public function rules()
     {
         return [
@@ -52,6 +67,7 @@ class RegistranFormComponent extends Component
             "phone" => "required",
             "email" => "required",
             "invited_by" => "sometimes",
+            'type' => ['required', Rule::enum(VisitorType::class)],
             "food" =>  [
                 Rule::requiredIf(function () {
                     return in_array('offline', $this->sessions);
@@ -82,44 +98,51 @@ class RegistranFormComponent extends Component
     }
 
     #[Computed]
-    function isOfflineSelected() {
+    function isOfflineSelected()
+    {
         return in_array('offline', $this->sessions);
     }
 
     #[Computed]
-    function isOnlineSelected() {
+    function isOnlineSelected()
+    {
         return in_array('online', $this->sessions);
     }
 
     #[Computed]
-    function isEmptySessions() : bool
+    function isEmptySessions(): bool
     {
         return !$this->isOfflineSelected() && !$this->isOnlineSelected();
     }
 
     #[Computed]
-    function event() {
+    function event()
+    {
         return Event::slug($this->slug)
             ->with('detail')
             ->first();
     }
 
     #[Computed]
-    function online_hour() {
+    function online_hour()
+    {
         return $this->event->detail->online_time ? $this->removeSeconds($this->event->detail->online_time) : '';
     }
 
     #[Computed]
-    function offline_hour() {
+    function offline_hour()
+    {
         return $this->event->detail->offline_time ? $this->removeSeconds($this->event->detail->offline_time) : '';
     }
 
     #[Computed]
-    function offline_foods() {
+    function offline_foods()
+    {
         return $this->event->detail->offline_foods ?? [];
     }
 
-    protected function removeSeconds($time) {
+    protected function removeSeconds($time)
+    {
         return date('h:i', strtotime($time));
     }
 
@@ -128,12 +151,14 @@ class RegistranFormComponent extends Component
         return view('livewire.registran-form-component');
     }
 
-    public function save() {
+    public function save()
+    {
         $validated = $this->validate();
 
 
         $data = [
             'sessions' => $this->sessions,
+            'type' => $this->type,
             'name' => $this->name,
             'business' => $this->business,
             'company' => $this->company,
@@ -159,7 +184,6 @@ class RegistranFormComponent extends Component
                 ->first();
 
             $data['order_id'] = $this->generateOrderId($lastVisitor);
-
         }
 
         if ($this->isOnlineSelected()) {
@@ -179,7 +203,6 @@ class RegistranFormComponent extends Component
 
             Mail::to($this->email)
                 ->send(new VisitorMail($this->visitor));
-
         } catch (\Throwable $th) {
             // Log error
         }
@@ -187,14 +210,16 @@ class RegistranFormComponent extends Component
         $this->isSubmitted = true;
     }
 
-    protected function generateOrderId($lastOrderId) {
+    protected function generateOrderId($lastOrderId)
+    {
         $lastOrderId = $lastOrderId ? $lastOrderId->order_id : '00000';
         $lastOrderId = (int) $lastOrderId;
         $lastOrderId++;
         return str_pad($lastOrderId, 5, '0', STR_PAD_LEFT);
     }
 
-    public function mount($slug) {
+    public function mount($slug)
+    {
         $this->slug = $slug;
     }
 }
