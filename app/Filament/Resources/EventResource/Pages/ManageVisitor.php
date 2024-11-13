@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
+use App\Enums\VisitorType;
 use App\Filament\Resources\EventResource;
 use App\Models\Visitor;
 use Filament\Actions;
@@ -12,6 +13,7 @@ use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,6 +26,8 @@ class ManageVisitor extends ManageRelatedRecords
     protected static string $relationship = 'visitors';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected $userType = [];
 
     public static function getNavigationLabel(): string
     {
@@ -63,6 +67,10 @@ class ManageVisitor extends ManageRelatedRecords
         return $table
             ->recordTitleAttribute('name')
             ->columns([
+                Tables\Columns\TextColumn::make('type')
+                    ->placeholder('Type')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('business'),
                 Tables\Columns\TextColumn::make('company'),

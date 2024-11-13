@@ -86,6 +86,8 @@ class RegistranFormComponent extends Component
     public function messages()
     {
         return [
+            "type.required" => "* mandatory",
+            "type.enum" => "* mandatory",
             "sessions.required" => "* mandatory",
             "name.required" => "* mandatory",
             "business.required" => "* mandatory",
