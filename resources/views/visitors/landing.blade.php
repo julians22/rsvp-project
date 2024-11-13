@@ -10,7 +10,7 @@
 
         <div class="container mx-auto w-full space-y-4 pb-16 pt-6 lg:lg:w-[1200px] lg:space-y-6 lg:pt-14">
 
-            <div class="container w-full lg:w-[1200px] lg:px-0">
+            <div class="container w-full px-4 lg:w-[1200px] lg:px-0">
                 <span class="lg:leading-[100px]"><img class="max-w-20 lg:max-w-48" src="{{ asset('img/logo_bni.svg') }}"
                         alt="LOGO BNI"></span>
                 <h2 class="text-4xl font-black lg:text-[80px] lg:leading-[100px]">NETWORKING <br>MEETING</h2>
