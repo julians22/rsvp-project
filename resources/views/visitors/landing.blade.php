@@ -21,15 +21,7 @@
 
                 <div>
                     <p class="mb-4 px-4 text-lg font-semibold leading-loose text-gray-700 lg:px-0">
-                        You are invited to join our BNI VISITOR
-                        INFORMATION MEETING, where most business
-                        owners will come together to build
-                        connections, share business opportunities, and
-                        cultivate meaningful referrals or friendships.
-                        This event offers a unique platform to introduce
-                        your business to a wider audience, exchange
-                        ideas, and create valuable partnerships that can
-                        help you grow and succeed.</p>
+                        You are invited to join our <strong>BNI Altitude and BNI Magnitude Soft Launch</strong>, where many business owners will come together to witness the 1st Ever Twin Chapter Launched in Indonesia, to build connections, share business opportunities, and cultivate meaningful referrals or friendships. This event offers a unique platform to introduce your business to a wider audience, exchange ideas, and create valuable partnerships that can help you grow and succeed.</p>
 
                     <video onloadeddata="this.play();this.muted=true;" poster="{{ asset('img/video_thumb.jpg') }}"
                         playsinline loop muted controls>
