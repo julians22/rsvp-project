@@ -106,13 +106,13 @@ class RegistranFormComponent extends Component
     #[Computed]
     function isOfflineSelected()
     {
-        return in_array('offline', $this->sessions);
+        return in_array('offline', $this->sessions ?? []);
     }
 
     #[Computed]
     function isOnlineSelected()
     {
-        return in_array('online', $this->sessions);
+        return in_array('online', $this->sessions ?? []);
     }
 
     #[Computed]
@@ -234,6 +234,8 @@ class RegistranFormComponent extends Component
     {
         $this->slug = $slug;
         $this->event = $event;
+
+        $this->sessions = $event->session;
 
         $this->visitor_type = !$this->event->is_offline_event_only
             ? \App\Enums\VisitorType::cases()

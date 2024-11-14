@@ -68,6 +68,8 @@ class Event extends Model implements HasMedia
         'is_offline_event_only',
         'is_online_event',
         'is_online_event_only',
+        'is_both_event',
+
     ];
 
     /**

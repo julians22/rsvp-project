@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->longText('session');
+            $table->longText('session')->nullable();
+            $table->boolean('checkable')->default(true);
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('session');
+            $table->dropColumn('checkable');
         });
     }
 };

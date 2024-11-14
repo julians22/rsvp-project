@@ -140,7 +140,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div @class(['form-group', 'hidden' => !$this->event->checkable])>
                             <label class="form-label text-black" for="">WILL BE ATTENDING TO: (May choose
                                 both)</label>
 
@@ -148,11 +148,11 @@
                                 <div>
                                     <label @class([
                                         'inline-flex items-center',
-                                        'cursor-not-allowed opacity-50' => !$this->event->is_online_event,
+                                        'cursor-not-allowed opacity-50 hidden' => !$this->event->is_online_event,
                                     ])>
                                         <input @class([
                                             'h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black',
-                                            'cursor-not-allowed opacity-50' => !$this->event->is_online_event,
+                                            'cursor-not-allowed opacity-50 ' => !$this->event->is_online_event,
                                         ]) type="checkbox" value="online"
                                             @disabled(!$this->event->is_online_event) wire:model.live="sessions">
                                         <span class="ml-2 text-lg font-semibold">Online
@@ -163,11 +163,11 @@
                                 <div>
                                     <label @class([
                                         'inline-flex items-center',
-                                        'cursor-not-allowed opacity-50' => !$this->event->is_offline_event,
+                                        'cursor-not-allowed opacity-50 hidden' => !$this->event->is_offline_event,
                                     ])>
                                         <input @class([
                                             'h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black',
-                                            'cursor-not-allowed' => !$this->event->is_offline_event,
+                                            'cursor-not-allowed ' => !$this->event->is_offline_event,
                                         ]) type="checkbox" value="offline"
                                             wire:model.live="sessions" @disabled(!$this->event->is_offline_event)>
                                         <span class="ml-2 text-lg font-semibold">Offine {{ $this->offline_hour }}

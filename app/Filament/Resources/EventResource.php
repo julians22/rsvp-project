@@ -8,6 +8,7 @@ use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
@@ -18,6 +19,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
@@ -51,6 +53,8 @@ class EventResource extends Resource
                         'online' => 'Online',
                     ])
                     ->required(),
+
+                Toggle::make('checkable'),
 
                 Section::make(__('Event Date'))
                     ->description('Please fill in the event date.')
