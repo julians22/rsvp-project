@@ -51,7 +51,7 @@
                             <select id="type" name="type" wire:model.change="type" @class(['w-full border border-black p-2'])>
                                 <option disabled selected value=''> -- select an option -- </option>
 
-                                @foreach (\App\Enums\VisitorType::cases() as $type)
+                                @foreach ($this->is_offline_event ? \App\Enums\VisitorType::cases() : [\App\Enums\VisitorType::VISITOR, \App\Enums\VisitorType::MAGNITUDE, \App\Enums\VisitorType::ALTITUDE] as $type)
                                     <option value="{{ $type->value }}" @class([])>
                                         {{ $type->getLabel() }}
                                     </option>
@@ -146,19 +146,30 @@
 
                             <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-3 lg:space-y-0">
                                 <div>
-                                    <label class="inline-flex items-center">
-                                        <input
-                                            class="h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black"
-                                            type="checkbox" value="online" wire:model.live="sessions">
+                                    <label @class([
+                                        'inline-flex items-center',
+                                        'cursor-not-allowed opacity-50' => $this->is_offline_event,
+                                    ])>
+                                        <input @class([
+                                            'h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black',
+                                            'cursor-not-allowed opacity-50' => $this->is_offline_event,
+                                        ]) type="checkbox" value="online"
+                                            @disabled($this->is_offline_event) wire:model.live="sessions">
                                         <span class="ml-2 text-lg font-semibold">Online
                                             {{ $this->online_hour }} Pagi</span>
                                     </label>
                                 </div>
+
                                 <div>
-                                    <label class="inline-flex items-center">
-                                        <input
-                                            class="h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black"
-                                            type="checkbox" value="offline" wire:model.live="sessions">
+                                    <label @class([
+                                        'inline-flex items-center',
+                                        'cursor-not-allowed opacity-50' => !$this->is_offline_event,
+                                    ])>
+                                        <input @class([
+                                            'h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black',
+                                            'cursor-not-allowed' => !$this->is_offline_event,
+                                        ]) type="checkbox" value="offline"
+                                            wire:model.live="sessions" @disabled(!$this->is_offline_event)>
                                         <span class="ml-2 text-lg font-semibold">Offine {{ $this->offline_hour }}
                                             Siang</span>
                                     </label>

@@ -25,7 +25,7 @@ class RegistranFormComponent extends Component
 
     public $visitor;
 
-    public $sessions = ['offline', 'online'];
+    public $sessions = [];
 
     public $type = '';
 
@@ -46,6 +46,8 @@ class RegistranFormComponent extends Component
     public $payment;
 
     public $invited_by_disabled = false;
+
+    public $is_offline_event = false;
 
     public function updatedType()
     {
@@ -230,5 +232,9 @@ class RegistranFormComponent extends Component
     public function mount($slug)
     {
         $this->slug = $slug;
+
+        $this->is_offline_event = str_contains($this->event->slug, 'offline');
+
+        $this->sessions = $this->is_offline_event ? ['offline'] : ['online'];
     }
 }
