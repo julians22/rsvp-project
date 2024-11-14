@@ -51,7 +51,7 @@
                             <select id="type" name="type" wire:model.change="type" @class(['w-full border border-black p-2'])>
                                 <option disabled selected value=''> -- select an option -- </option>
 
-                                @foreach ($this->is_offline_event ? \App\Enums\VisitorType::cases() : [\App\Enums\VisitorType::VISITOR, \App\Enums\VisitorType::MAGNITUDE, \App\Enums\VisitorType::ALTITUDE] as $type)
+                                @foreach (!$this->is_offline_event ? \App\Enums\VisitorType::cases() : [\App\Enums\VisitorType::VISITOR, \App\Enums\VisitorType::MAGNITUDE, \App\Enums\VisitorType::ALTITUDE] as $type)
                                     <option value="{{ $type->value }}" @class([])>
                                         {{ $type->getLabel() }}
                                     </option>
