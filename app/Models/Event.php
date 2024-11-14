@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -60,7 +62,59 @@ class Event extends Model implements HasMedia
      *
      * @var array
      */
-    protected $appends = ['url'];
+    protected $appends = [
+        'url',
+        'is_offline_event',
+        'is_offline_event_only',
+        'is_online_event',
+        'is_online_event_only',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'session' => 'array',
+    ];
+
+    /**
+     * Check if the event is offline only.
+     */
+    protected function getIsOfflineEventAttribute()
+    {
+        return in_array('offline', $this->session ?? []);
+    }
+
+    /**
+     * Check if the event is online only.
+     */
+    protected function getIsOnlineEventAttribute()
+    {
+        return in_array('online', $this->session ?? []);
+    }
+
+    /**
+     * Check if the event is offline only.
+     */
+    protected function getIsOfflineEventOnlyAttribute()
+    {
+        return in_array('offline', $this->session ?? []) && !in_array('online', $this->session ?? []);
+    }
+
+    protected function getIsOnlineEventOnlyAttribute()
+    {
+        return in_array('online', $this->session ?? []) && !in_array('offline', $this->session ?? []);
+    }
+
+    /**
+     * Check if the event is both session.
+     */
+    protected function getIsBothEventAttribute()
+    {
+        return $this->is_offline_event && $this->is_online_event;
+    }
 
 
     /**

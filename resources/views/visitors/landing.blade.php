@@ -8,6 +8,8 @@
 
         </div> --}}
 
+        {{-- @dd($event->is_offline_event) --}}
+
         <img class="w-full" src="{{ $event->getFirstMediaUrl('banner') }}" alt="">
 
         <div class="container mx-auto w-full space-y-4 pb-16 pt-6 lg:lg:w-[1200px] lg:space-y-6 lg:pt-14">
@@ -63,7 +65,7 @@
                             </h5>
                         </div>
 
-                        @if (!$is_offline_event)
+                        @if ($event->is_online_event)
                             <div class="relative border border-black px-4 pb-4 pt-4 lg:px-8 lg:pb-8 lg:pt-6">
                                 <div class="flex items-end justify-between">
                                     <div>
@@ -80,14 +82,16 @@
                                     </div>
                                 </div>
 
-                                {{-- <div
+                                @if ($event->is_offline_event && $event->is_online_event)
+                                    <div
                                         class="absolute bottom-0 translate-y-2 bg-black p-px text-sm font-bold leading-[17px] text-white lg:translate-y-4 lg:p-1">
                                         AND / OR
-                                    </div> --}}
+                                    </div>
+                                @endif
                             </div>
                         @endif
 
-                        @if ($is_offline_event)
+                        @if ($event->is_offline_event)
                             <div class="border border-black px-4 pb-4 pt-4 lg:px-8 lg:pb-6 lg:pt-8">
                                 <div class="flex flex-col space-y-4">
                                     <div>
@@ -113,7 +117,7 @@
                             <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                             <ul class="list-inside list-disc">
                                 <li class="text-lg font-medium">Wear Business Attire</li>
-                                @if ($is_offline_event)
+                                @if ($event->is_offline_event)
                                     <li class="text-lg font-medium">Bring Professional Namecards</li>
                                 @endif
                                 <li class="text-lg font-medium">Prepare Your Business Introduction</li>

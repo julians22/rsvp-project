@@ -30,6 +30,7 @@ enum VisitorType: string implements HasLabel
     case STAR = 'star';
     case PIONEER = 'pioneer';
     case MULTIRICH = 'multirich';
+    case OTHER = 'other';
 
     /**
      * Get the label for the given enum value.
@@ -63,6 +64,7 @@ enum VisitorType: string implements HasLabel
             self::STAR => 'Star',
             self::PIONEER => 'Pioneer',
             self::MULTIRICH => 'Multirich',
+            self::OTHER => 'Other Chapter / Core Group',
         };
     }
 }

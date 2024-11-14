@@ -8,6 +8,7 @@ use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
@@ -40,8 +41,17 @@ class EventResource extends Resource
                 SpatieMediaLibraryFileUpload::make('banner')
                     ->collection('banner')
                     ->columnSpanFull(),
+
                 TextInput::make('name')
                     ->label(__('Name')),
+
+                CheckboxList::make('session')
+                    ->options([
+                        'offline' => 'Offline',
+                        'online' => 'Online',
+                    ])
+                    ->required(),
+
                 Section::make(__('Event Date'))
                     ->description('Please fill in the event date.')
                     ->columns(12)

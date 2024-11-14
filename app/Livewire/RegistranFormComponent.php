@@ -45,9 +45,10 @@ class RegistranFormComponent extends Component
 
     public $payment;
 
+    public $visitor_type = [];
+
     public $invited_by_disabled = false;
 
-    public $is_offline_event = false;
 
     public function updatedType()
     {
@@ -229,12 +230,13 @@ class RegistranFormComponent extends Component
         return str_pad($lastOrderId, 5, '0', STR_PAD_LEFT);
     }
 
-    public function mount($slug)
+    public function mount($slug, $event)
     {
         $this->slug = $slug;
+        $this->event = $event;
 
-        $this->is_offline_event = str_contains($this->event->slug, 'offline');
-
-        $this->sessions = $this->is_offline_event ? ['offline'] : ['online'];
+        $this->visitor_type = !$this->event->is_offline_event_only
+            ? \App\Enums\VisitorType::cases()
+            : [\App\Enums\VisitorType::VISITOR, \App\Enums\VisitorType::MAGNITUDE, \App\Enums\VisitorType::ALTITUDE];
     }
 }
