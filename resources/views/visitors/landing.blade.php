@@ -113,7 +113,9 @@
                             <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                             <ul class="list-inside list-disc">
                                 <li class="text-lg font-medium">Wear Business Attire</li>
-                                <li class="text-lg font-medium">Bring Professional Namecards</li>
+                                @if ($is_offline_event)
+                                    <li class="text-lg font-medium">Bring Professional Namecards</li>
+                                @endif
                                 <li class="text-lg font-medium">Prepare Your Business Introduction</li>
                             </ul>
                         </div>
