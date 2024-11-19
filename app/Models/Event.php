@@ -31,7 +31,7 @@ class Event extends Model implements HasMedia
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['name', 'start_date'])
+            ->generateSlugsFrom(['name'])
             ->doNotGenerateSlugsOnUpdate()
             ->saveSlugsTo('slug');
     }

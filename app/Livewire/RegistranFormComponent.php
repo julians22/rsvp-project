@@ -68,7 +68,10 @@ class RegistranFormComponent extends Component
             "business" => "required",
             "company" => "required",
             "phone" => "required",
-            "email" => "required",
+            "email" => Rule::unique('visitors')->where(function ($query) {
+                return $query->where('email', $this->email)
+                    ->where('event_id', $this->event->id);
+            }),
             "invited_by" => "sometimes",
             'type' => ['required', Rule::enum(VisitorType::class)],
             // "food" =>  [
