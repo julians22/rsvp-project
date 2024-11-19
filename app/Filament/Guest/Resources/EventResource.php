@@ -78,6 +78,10 @@ class EventResource extends Resource
         ];
     }
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 
     protected static function startDateSelected(Set $set, $date)
     {
