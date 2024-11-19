@@ -69,7 +69,7 @@ class ManageVisitor extends ManageRelatedRecords
             ->columns([
                 Tables\Columns\TextColumn::make('type')
                     ->placeholder('Type')
-                    ->sortable()
+                    // ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
@@ -120,7 +120,7 @@ class ManageVisitor extends ManageRelatedRecords
             ])
             ->filters([
                 SelectFilter::make('type')
-                    ->multiple()
+                    // ->multiple()
                     ->options(VisitorType::class)
             ])
             ->headerActions([
