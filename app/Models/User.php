@@ -17,8 +17,15 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->email, '@designcub3.com');
+        if ($panel->getId() === 'admin') {
+            return $this->email === 'dean@designcub3.com';
+        } else {
+            return $this->email === 'magnitude.bni@gmail.com';
+        }
     }
+
+
+
 
     /**
      * The attributes that are mass assignable.

@@ -25,6 +25,7 @@ class GuestPanelProvider extends PanelProvider
         return $panel
             ->id('guest')
             ->path('guest')
+            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -35,7 +36,7 @@ class GuestPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Guest/Widgets'), for: 'App\\Filament\\Guest\\Widgets')
             ->widgets([
-                // Widgets\AccountWidget::class,
+                Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
@@ -48,9 +49,11 @@ class GuestPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-            ])
+            ])->profile()
+
             ->authMiddleware([
-                // Authenticate::class,
-            ]);
+                Authenticate::class,
+            ])
+        ;
     }
 }

@@ -119,7 +119,9 @@ class ManageVisitor extends ManageRelatedRecords
                 //     ->label('Payment Proof')
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->multiple()
+                    ->options(VisitorType::class)
             ])
             ->headerActions([
                 //
