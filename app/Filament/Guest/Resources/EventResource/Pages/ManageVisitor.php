@@ -123,6 +123,7 @@ class ManageVisitor extends ManageRelatedRecords
                     // ->multiple()
                     ->options(VisitorType::class)
             ])
+            ->deferFilters()
             ->headerActions([
                 //
             ])
