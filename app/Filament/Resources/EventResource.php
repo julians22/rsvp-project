@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\VisitorType;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\Pages\ManageVisitor;
 use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
@@ -17,10 +19,13 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -81,72 +86,151 @@ class EventResource extends Resource
                     ->relationship(
                         'detail'
                     )
-                    ->schema([
-                        Grid::make(12)
-                            ->schema([
-                                Section::make('Online Event Detail')
-                                    ->columnSpan(6)
-                                    ->schema([
-                                        DateTimePicker::make('online_time')
-                                            ->timezone('Asia/Jakarta')
-                                            ->displayFormat('H:i')
-                                            ->default('09:00')
-                                            ->date(false)
-                                            ->seconds(false)
-                                            ->columnSpanFull(),
-                                        TextInput::make('online_link')
-                                            ->label(__('Online Link'))
-                                            ->required()
-                                            ->columnSpanFull(),
-                                        TextInput::make('online_password')
-                                            ->label(__('Online Password'))
-                                            ->required()
-                                            ->columnSpanFull(),
-                                    ]),
+                    ->schema(
+                        [
+                            Grid::make(12)
+                                ->schema([
+                                    Section::make('Online Event Detail')
+                                        ->columnSpan(6)
+                                        ->schema([
+                                            DateTimePicker::make('online_time')
+                                                ->timezone('Asia/Jakarta')
+                                                ->displayFormat('H:i')
+                                                ->default('09:00')
+                                                ->date(false)
+                                                ->seconds(false)
+                                                ->columnSpanFull(),
+                                            TextInput::make('online_link')
+                                                ->label(__('Online Link'))
+                                                ->required()
+                                                ->columnSpanFull(),
+                                            TextInput::make('online_password')
+                                                ->label(__('Online Password'))
+                                                ->required()
+                                                ->columnSpanFull(),
+                                        ]),
 
-                                Section::make('Offline Event Detail')
-                                    ->columnSpan(6)
-                                    ->schema([
-                                        DateTimePicker::make('offline_time')
-                                            ->label(__('Offline Time'))
-                                            ->timezone('Asia/Jakarta')
-                                            ->displayFormat('H:i')
-                                            ->default('14:00')
-                                            ->date(false)
-                                            ->seconds(false)
-                                            ->columnSpanFull(),
-                                        RichEditor::make('offline_address')
-                                            ->label(__('Offline Address'))
-                                            ->required()
-                                            ->columnSpanFull(),
-                                        TextInput::make('offline_location')
-                                            ->label(__('Offline Location URL'))
-                                            ->required()
-                                            ->url()
-                                            ->columnSpanFull(),
-                                        TextInput::make('offline_food_price')
-                                            ->label(__('Offline Food Price'))
-                                            ->required()
-                                            ->numeric()
-                                            ->prefix('Rp')
-                                            ->columnSpanFull(),
-                                        Repeater::make('offline_foods')
-                                            ->label(__('Foods Items'))
-                                            ->defaultItems(3)
-                                            ->columnSpanFull()
-                                            ->schema([
-                                                TextInput::make('food')
-                                                    ->label(__('Food'))
-                                                    ->required()
-                                                    ->columnSpan(6),
-                                                TextInput::make('drink')
-                                                    ->label(__('Drink'))
-                                                    ->required()
-                                                    ->columnSpan(6),
-                                            ]),
-                                    ]),
-                            ])
-                    ])
+                                    Section::make('Offline Event Detail')
+                                        ->columnSpan(6)
+                                        ->schema([
+                                            DateTimePicker::make('offline_time')
+                                                ->label(__('Offline Time'))
+                                                ->timezone('Asia/Jakarta')
+                                                ->displayFormat('H:i')
+                                                ->default('14:00')
+                                                ->date(false)
+                                                ->seconds(false)
+                                                ->columnSpanFull(),
+                                            RichEditor::make('offline_address')
+                                                ->label(__('Offline Address'))
+                                                ->required()
+                                                ->columnSpanFull(),
+                                            TextInput::make('offline_location')
+                                                ->label(__('Offline Location URL'))
+                                                ->required()
+                                                ->url()
+                                                ->columnSpanFull(),
+                                            TextInput::make('offline_food_price')
+                                                ->label(__('Offline Food Price'))
+                                                ->required()
+                                                ->numeric()
+                                                ->prefix('Rp')
+                                                ->columnSpanFull(),
+                                            Repeater::make('offline_foods')
+                                                ->label(__('Foods Items'))
+                                                ->defaultItems(3)
+                                                ->columnSpanFull()
+                                                ->schema([
+                                                    TextInput::make('food')
+                                                        ->label(__('Food'))
+                                                        ->required()
+                                                        ->columnSpan(6),
+                                                    TextInput::make('drink')
+                                                        ->label(__('Drink'))
+                                                        ->required()
+                                                        ->columnSpan(6),
+                                                ]),
+                                        ]),
+                                ]),
+                            Section::make('Event Detail Override')
+                                ->schema([
+                                    Select::make('event_type')
+                                        ->options([
+                                            'soft launch' => 'SOFT LAUNCH',
+                                            'grand launch' => 'GRAND LAUNCH',
+                                        ])
+                                        ->default('soft launch'),
+
+                                    Toggle::make('override_online_visitor_type')
+                                        ->live(),
+                                    Select::make('online_visitor_type_list')
+                                        ->multiple()
+                                        ->options(
+                                            VisitorType::class
+                                        )
+                                        ->hidden(fn(Get $get): bool =>  !$get('override_online_visitor_type'))
+                                        ->required(fn(Get $get): bool => $get('override_online_visitor_type'))
+                                        ->hintActions(
+                                            [
+                                                fn(Select $component) => Action::make('select all')
+                                                    ->action(
+                                                        fn() => $component->state(array_column(VisitorType::cases(), 'value'))
+                                                    ),
+                                                fn(Select $component) => Action::make('deselect all')
+                                                    ->action(
+                                                        fn() => $component->state([])
+                                                    )
+                                            ]
+                                        ),
+
+                                    Toggle::make('override_offline_visitor_type')
+                                        ->live(),
+                                    Select::make('offline_visitor_type_list')
+                                        ->multiple()
+                                        ->options(
+                                            VisitorType::class
+                                        )
+                                        ->hidden(fn(Get $get): bool =>  !$get('override_offline_visitor_type'))
+                                        ->required(fn(Get $get): bool => $get('override_offline_visitor_type'))
+                                        ->hintActions(
+                                            [
+                                                fn(Select $component) => Action::make('select all')
+                                                    ->action(
+                                                        fn() => $component->state(array_column(VisitorType::cases(), 'value'))
+                                                    ),
+
+                                                fn(Select $component) => Action::make('deselect all')
+                                                    ->action(
+                                                        fn() => $component->state([])
+                                                    )
+                                            ]
+                                        ),
+
+                                    Toggle::make('override_description_1')
+                                        ->live(),
+                                    RichEditor::make('description_1')
+                                        ->hidden(fn(Get $get): bool =>  !$get('override_description_1'))
+                                        ->required(fn(Get $get): bool => $get('override_description_1'))
+                                        ->columnSpanFull(),
+
+                                    Toggle::make('override_description_2')
+                                        ->live(),
+                                    RichEditor::make('description_2')
+                                        ->hidden(fn(Get $get): bool =>  !$get('override_description_2'))
+                                        ->required(fn(Get $get): bool => $get('override_description_2'))
+                                        ->columnSpanFull(),
+
+                                    Toggle::make('override_video')
+                                        ->live(),
+                                    SpatieMediaLibraryFileUpload::make('video')
+                                        ->hidden(fn(Get $get): bool =>  !$get('override_video'))
+                                        ->required(fn(Get $get): bool => $get('override_video'))
+                                        ->collection('video')
+                                        ->acceptedFileTypes(['video/*']),
+                                ])
+                        ],
+
+                    )
             ]);
     }
 

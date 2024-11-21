@@ -82,7 +82,7 @@ class ManageVisitor extends ManageRelatedRecords
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
-                // Tables\Columns\TextColumn::make('invited_by'),
+                Tables\Columns\TextColumn::make('invited_by'),
                 Tables\Columns\IconColumn::make('is_online')
                     ->label('Online Presence')
                     ->icon(fn(string $state): string => match ($state) {

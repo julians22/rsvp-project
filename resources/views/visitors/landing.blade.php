@@ -22,32 +22,58 @@
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-20">
 
                 <div>
-                    <p class="mb-4 px-4 text-lg font-semibold leading-loose text-gray-700 lg:px-0">
-                        You are invited to join our <strong>BNI Altitude and BNI Magnitude Soft Launch</strong>, where many
-                        business owners will come together to witness the 1st Ever Twin Chapter Launched in Indonesia, to
-                        build connections, share business opportunities, and cultivate meaningful referrals or friendships.
-                        This event offers a unique platform to introduce your business to a wider audience, exchange ideas,
-                        and create valuable partnerships that can help you grow and succeed.</p>
+                    <div class="mb-4 px-4 text-lg font-semibold leading-loose text-gray-700 lg:px-0">
+                        @if ($event->detail->override_description_1)
+                            {!! $event->detail->description_1 !!}
+                        @else
+                            <p>
+                                You are invited to join our <strong>BNI Altitude and BNI Magnitude
+                                    <span>{{ ucwords($event->detail->event_type) }}</span></strong>,
+                                where
+                                many
+                                business owners will come together to witness the 1st Ever Twin Chapter Launched in
+                                Indonesia,
+                                to
+                                build connections, share business opportunities, and cultivate meaningful referrals or
+                                friendships.
+                                This event offers a unique platform to introduce your business to a wider audience, exchange
+                                ideas,
+                                and create valuable partnerships that can help you grow and succeed.
+                            </p>
+                        @endif
+
+                    </div>
 
                     <video onloadeddata="this.play();this.muted=true;" poster="{{ asset('img/video_thumb.jpg') }}"
                         playsinline loop muted controls>
-                        <source src="{{ asset('videos/BNI Video low.mp4') }}" type="video/mp4" />
+                        @if ($event->detail->override_video)
+                            {{-- todo: sementara mp4, nanti ganti ambil mime type --}}
+                            <source src="{{ $event->detail->getFirstMediaUrl('video') }}" type="video/mp4" />
+                        @else
+                            <source src="{{ asset('videos/BNI Video low.mp4') }}" type="video/mp4" />
+                        @endif
                         Your browser does not support the video tag or the file format of this video.
                     </video>
 
                     <h4 class="mb-1 px-4 text-2xl font-bold leading-loose text-gray-800 lg:px-0">What is <img
                             class="max-w-14 inline" src="{{ asset('img/logo_bni.svg') }}" alt="LOGO BNI">?</h4>
 
-                    <p class="px-4 text-lg font-semibold leading-loose text-gray-700 lg:px-0">
-                        BNI (Business Network International) is the
-                        world’s largest business networking organization. It operates on a referral-based model,
-                        where members meet regularly to build trust,
-                        refer business to each other, and grow through
-                        collaborative networking. Through BNI, members generate more business for one another,
-                        based on the philosophy of "Givers Gain" —
-                        helping others to grow their business in order
-                        to receive help in return.
-                    </p>
+                    <div class="px-4 text-lg font-semibold leading-loose text-gray-700 lg:px-0">
+                        @if ($event->detail->override_description_2)
+                            {!! $event->detail->description_2 !!}
+                        @else
+                            <p>
+                                BNI (Business Network International) is the
+                                world’s largest business networking organization. It operates on a referral-based model,
+                                where members meet regularly to build trust,
+                                refer business to each other, and grow through
+                                collaborative networking. Through BNI, members generate more business for one another,
+                                based on the philosophy of "Givers Gain" —
+                                helping others to grow their business in order
+                                to receive help in return.
+                            </p>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="space-y-6 px-4 lg:px-0">

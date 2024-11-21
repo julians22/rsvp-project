@@ -49,7 +49,6 @@ class RegistranFormComponent extends Component
 
     public $invited_by_disabled = false;
 
-
     public function updatedType()
     {
         $this->invited_by_disabled = $this->type !== VisitorType::VISITOR->value;
@@ -59,6 +58,71 @@ class RegistranFormComponent extends Component
         }
     }
 
+    public function updatedSessions()
+    {
+        $this->updateVisitorType();
+    }
+
+    /**
+     * Updates the visitor type array based on the online and offline sessions selected.
+     *
+     * If both online and offline sessions are selected, all visitor types are available.
+     * If only online sessions are selected, all visitor types are available.
+     * If only offline sessions are selected, only visitor types that are applicable to offline
+     * events are available.
+     * If no sessions are selected, the visitor type array is empty.
+     *
+     * @return void
+     */
+    public function updateVisitorType()
+    {
+        if ($this->event->detail->override_offline_visitor_type) {
+            $offlineVisitorTypes = [];
+
+            foreach ($this->event->detail->offline_visitor_type_list as $visitor_type) {
+
+                $enumVisitor = VisitorType::tryFrom($visitor_type);
+
+                if ($enumVisitor !== null) {
+                    $offlineVisitorTypes[] = $enumVisitor;
+                }
+            }
+        } else {
+            $offlineVisitorTypes = [
+                \App\Enums\VisitorType::VISITOR,
+                \App\Enums\VisitorType::MAGNITUDE,
+                \App\Enums\VisitorType::ALTITUDE
+            ];
+        }
+
+        if ($this->event->detail->override_online_visitor_type) {
+            $onlineVisitorTypes = [];
+
+            foreach ($this->event->detail->online_visitor_type_list as $visitor_type) {
+
+                $enumVisitor = VisitorType::tryFrom($visitor_type);
+
+                if ($enumVisitor !== null) {
+                    $onlineVisitorTypes[] = $enumVisitor;
+                }
+            }
+        } else {
+            $onlineVisitorTypes = \App\Enums\VisitorType::cases();
+        }
+
+
+        $this->type = '';
+
+        if ($this->isOfflineSelected() && $this->isOnlineSelected()) {
+            $this->visitor_type = $onlineVisitorTypes + $offlineVisitorTypes;
+        } elseif ($this->isOnlineSelected()) {
+            $this->visitor_type = $onlineVisitorTypes;
+        } elseif ($this->isOfflineSelected()) {
+            $this->visitor_type = $offlineVisitorTypes;
+        } else {
+            $this->visitor_type = [];
+        }
+    }
 
     public function rules()
     {
@@ -164,7 +228,6 @@ class RegistranFormComponent extends Component
     {
         $validated = $this->validate();
 
-
         $data = [
             'sessions' => $this->sessions,
             'type' => $this->type,
@@ -181,14 +244,16 @@ class RegistranFormComponent extends Component
         if ($this->isOfflineSelected()) {
 
 
-            $this->validate([
-                'food' => 'required',
-                'payment' => 'image|max:4096',
-            ], [
-                'food.required' => '* mandatory',
-                'payment.image' => 'File must be an image',
-                'payment.max' => 'File size must be less than 4MB',
-            ], ['payment' => 'PROOF OF PAYMENT'], ['food' => 'FOOD']);
+            if (count($this->offline_foods)) {
+                $this->validate([
+                    'food' => 'required',
+                    'payment' => 'image|max:4096',
+                ], [
+                    'food.required' => '* mandatory',
+                    'payment.image' => 'File must be an image',
+                    'payment.max' => 'File size must be less than 4MB',
+                ], ['payment' => 'PROOF OF PAYMENT'], ['food' => 'FOOD']);
+            }
 
             $data['is_offline'] = true;
 
@@ -205,7 +270,7 @@ class RegistranFormComponent extends Component
         }
 
         $visitor = Visitor::create($data);
-        if ($this->isOfflineSelected()) {
+        if ($this->isOfflineSelected() && count($this->offline_foods)) {
             $visitor->addMedia($this->payment->getRealPath())
                 ->preservingOriginal()
                 ->toMediaCollection('payment_proof');
@@ -240,8 +305,6 @@ class RegistranFormComponent extends Component
 
         $this->sessions = $event->session;
 
-        $this->visitor_type = !$this->event->is_offline_event_only
-            ? \App\Enums\VisitorType::cases()
-            : [\App\Enums\VisitorType::VISITOR, \App\Enums\VisitorType::MAGNITUDE, \App\Enums\VisitorType::ALTITUDE];
+        $this->updateVisitorType();
     }
 }

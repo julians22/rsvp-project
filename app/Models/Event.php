@@ -36,7 +36,6 @@ class Event extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-
     public function detail()
     {
         return $this->hasOne(EventDetail::class, 'event_id', 'id');

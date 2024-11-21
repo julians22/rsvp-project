@@ -206,81 +206,85 @@
 
                             </div>
 
-                            <div class="flex flex-col gap-y-4 pt-2">
+                            @if (count($this->offline_foods))
+                                <div class="flex flex-col gap-y-4 pt-2">
+                                    {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
+                                    <div class="my-2 flex flex-col gap-y-1">
+                                        <div class="flex w-36 items-center space-x-4">
+                                            <label for="">
+                                                <img class="max-w-10" src="{{ asset('img/icons/spoon.png') }}"
+                                                    alt="">
+                                            </label>
+                                            <label class="text-lg font-bold leading-none text-black" for="food">
+                                                PAY FOR YOUR LUNCH
+                                            </label>
+                                        </div>
 
-                                {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
-                                <div class="my-2 flex flex-col gap-y-1">
-                                    <div class="flex w-36 items-center space-x-4">
-                                        <label for="">
-                                            <img class="max-w-10" src="{{ asset('img/icons/spoon.png') }}"
-                                                alt="">
-                                        </label>
-                                        <label class="text-lg font-bold leading-none text-black" for="food">
-                                            PAY FOR YOUR LUNCH
-                                        </label>
+
+                                        @if (count($this->offline_foods) === 1)
+                                            <input
+                                                class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                                id="food" type="text" wire:model="food"
+                                                wire:init='food = "{{ $this->offline_foods[0]['food'] }}"' readonly />
+                                        @else
+                                            <select id="food" name="food" wire:model.live="food">
+                                                <option value="">- PLEASE SELECT -</option>
+                                                @foreach ($this->offline_foods as $key => $item)
+                                                    <option value="{{ $item['food'] }} - {{ $item['drink'] }}">
+                                                        {{ $item['food'] }} - {{ $item['drink'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+
+                                        <div>
+                                            @error('food')
+                                                <span class="error-form-message">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        {{-- KETERANGAN --}}
+                                        <p class="font-semibold">Please transfer payment to <br><strong
+                                                class="text-lg">Fransisca - BCA 0657181513</strong></p>
+                                        <div class="rounded-lg bg-gray-200 p-2">
+                                            <p class="mb-2">Sertakan Berita dengan format penulisan:
+                                                <strong>“Chapter/Visitor" + “Nama”</strong>
+                                            </p>
+                                            <p>Contoh:</p>
+                                            <ul class="list-inside list-disc pl-1 lg:pl-2">
+                                                <li class="font-semibold">Magnitude Deddy</li>
+                                                <li class="font-semibold">Altitude Edo</li>
+                                                <li class="font-semibold">Visitor Daniel</li>
+                                            </ul>
+                                        </div>
                                     </div>
 
-                                    @if (count($this->offline_foods) === 1)
-                                        <input
-                                            class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
-                                            id="food" type="text" wire:model="food"
-                                            wire:init='food = "{{ $this->offline_foods[0]['food'] }}"' readonly />
-                                    @else
-                                        <select id="food" name="food" wire:model.live="food">
-                                            <option value="">- PLEASE SELECT -</option>
-                                            @foreach ($this->offline_foods as $key => $item)
-                                                <option value="{{ $item['food'] }} - {{ $item['drink'] }}">
-                                                    {{ $item['food'] }} - {{ $item['drink'] }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    @endif
 
-                                    <div>
-                                        @error('food')
-                                            <span class="error-form-message">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                                    {{-- UPLOAD BUKTI PEMBAYARAN --}}
 
-                                    {{-- KETERANGAN --}}
-                                    <p class="font-semibold">Please transfer payment to <br><strong
-                                            class="text-lg">Fransisca - BCA 0657181513</strong></p>
-                                    <div class="rounded-lg bg-gray-200 p-2">
-                                        <p class="mb-2">Sertakan Berita dengan format penulisan:
-                                            <strong>“Chapter/Visitor" + “Nama”</strong>
-                                        </p>
-                                        <p>Contoh:</p>
-                                        <ul class="list-inside list-disc pl-1 lg:pl-2">
-                                            <li class="font-semibold">Magnitude Deddy</li>
-                                            <li class="font-semibold">Altitude Edo</li>
-                                            <li class="font-semibold">Visitor Daniel</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-
-                                {{-- UPLOAD BUKTI PEMBAYARAN --}}
-
-                                <div class="form-group">
-                                    <label class="form-label text-black" for="payment">UPLOAD PROOF OF
-                                        PAYMENT:</label>
-                                    <input class="w-full border border-black p-2" id="payment" type="file"
-                                        accept="image/*" wire:model.live='payment' name="payment" />
-                                    @if ($payment)
-                                        <div class="bg-gray my-3 px-2">
-                                            <img class="w-full max-w-screen-lg lg:max-w-sm"
-                                                src="{{ $payment->temporaryUrl() }}" alt="">
+                                    @if (count($this->offline_foods))
+                                        <div class="form-group">
+                                            <label class="form-label text-black" for="payment">UPLOAD PROOF OF
+                                                PAYMENT:</label>
+                                            <input class="w-full border border-black p-2" id="payment"
+                                                type="file" accept="image/*" wire:model.live='payment'
+                                                name="payment" />
+                                            @if ($payment)
+                                                <div class="bg-gray my-3 px-2">
+                                                    <img class="w-full max-w-screen-lg lg:max-w-sm"
+                                                        src="{{ $payment->temporaryUrl() }}" alt="">
+                                                </div>
+                                            @endif
+                                            {{-- <x-filepond::upload wire:model="payment" required="{{ $this->isOfflineSelected }}" /> --}}
+                                            <div>
+                                                @error('payment')
+                                                    <span class="error-form-message">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     @endif
-                                    {{-- <x-filepond::upload wire:model="payment" required="{{ $this->isOfflineSelected }}" /> --}}
-                                    <div>
-                                        @error('payment')
-                                            <span class="error-form-message">{{ $message }}</span>
-                                        @enderror
-                                    </div>
                                 </div>
-
-                            </div>
+                            @endif
                         </div>
 
                     @endif
