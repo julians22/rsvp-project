@@ -36,17 +36,17 @@ class EventController extends Controller
     {
         $event = Event::with('detail')->where('slug', $slug)->first();
 
-        // if ($event == null) {
-        //     abort(404);
-        // }
+        if ($event == null) {
+            abort(404);
+        }
 
-        // if ($event->detail == null || $event->detail->online_link == null) {
-        //     abort(404);
-        // }
+        if ($event->detail == null || $event->detail->online_link == null) {
+            abort(404);
+        }
 
-        // if ($event->isEnded()) {
-        //     return redirect()->route('event.show', $slug);
-        // }
+        if ($event->isEnded()) {
+            return redirect()->route('event.show', $slug);
+        }
 
         return view('register-visitor', ['slug' => $slug, 'event' => $event]);
     }

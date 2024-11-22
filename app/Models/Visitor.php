@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\FoodCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,8 @@ class Visitor extends Model implements HasMedia
     protected $casts = [
         'meta' => 'array',
         'is_offline' => 'boolean',
-        'is_online' => 'boolean'
+        'is_online' => 'boolean',
+        'food' => FoodCast::class //? bisa array atau string
     ];
 
     public function registerMediaCollections(): void

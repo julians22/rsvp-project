@@ -220,21 +220,21 @@
                                             </label>
                                         </div>
 
-
                                         @if (count($this->offline_foods) === 1)
                                             <input
                                                 class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
                                                 id="food" type="text" wire:model="food"
                                                 wire:init='food = "{{ $this->offline_foods[0]['food'] }}"' readonly />
                                         @else
-                                            <select id="food" name="food" wire:model.live="food">
-                                                <option value="">- PLEASE SELECT -</option>
-                                                @foreach ($this->offline_foods as $key => $item)
-                                                    <option value="{{ $item['food'] }} - {{ $item['drink'] }}">
-                                                        {{ $item['food'] }} - {{ $item['drink'] }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            @foreach ($this->offline_foods as $key => $item)
+                                                <div
+                                                    class="flex w-full items-center gap-x-4 border border-black p-2 font-extrabold disabled:bg-gray-500">
+                                                    <input id="food-{{ $key }}" type="checkbox"
+                                                        value="{{ $item['food'] }}" wire:model="food" />
+                                                    <label class="flex-grow"
+                                                        for="food-{{ $key }}">{{ $item['food'] }}</label>
+                                                </div>
+                                            @endforeach
                                         @endif
 
                                         <div>
@@ -244,45 +244,48 @@
                                         </div>
 
                                         {{-- KETERANGAN --}}
-                                        <p class="font-semibold">Please transfer payment to <br><strong
-                                                class="text-lg">Fransisca - BCA 0657181513</strong></p>
-                                        <div class="rounded-lg bg-gray-200 p-2">
-                                            <p class="mb-2">Sertakan Berita dengan format penulisan:
-                                                <strong>“Chapter/Visitor" + “Nama”</strong>
-                                            </p>
-                                            <p>Contoh:</p>
-                                            <ul class="list-inside list-disc pl-1 lg:pl-2">
-                                                <li class="font-semibold">Magnitude Deddy</li>
-                                                <li class="font-semibold">Altitude Edo</li>
-                                                <li class="font-semibold">Visitor Daniel</li>
-                                            </ul>
-                                        </div>
+                                        @if ($this->event->detail->show_invoice_upload)
+
+                                            <p class="font-semibold">Please transfer payment to <br><strong
+                                                    class="text-lg">Fransisca - BCA 0657181513</strong></p>
+                                            <div class="rounded-lg bg-gray-200 p-2">
+                                                <p class="mb-2">Sertakan Berita dengan format penulisan:
+                                                    <strong>“Chapter/Visitor" + “Nama”</strong>
+                                                </p>
+                                                <p>Contoh:</p>
+                                                <ul class="list-inside list-disc pl-1 lg:pl-2">
+                                                    <li class="font-semibold">Magnitude Deddy</li>
+                                                    <li class="font-semibold">Altitude Edo</li>
+                                                    <li class="font-semibold">Visitor Daniel</li>
+                                                </ul>
+                                            </div>
+
+                                            {{-- UPLOAD BUKTI PEMBAYARAN --}}
+                                            <div class="form-group">
+                                                <label class="form-label text-black" for="payment">UPLOAD PROOF OF
+                                                    PAYMENT:</label>
+                                                <input class="w-full border border-black p-2" id="payment"
+                                                    type="file" accept="image/*" wire:model.live='payment'
+                                                    name="payment" />
+                                                @if ($payment)
+                                                    <div class="bg-gray my-3 px-2">
+                                                        <img class="w-full max-w-screen-lg lg:max-w-sm"
+                                                            src="{{ $payment->temporaryUrl() }}" alt="">
+                                                    </div>
+                                                @endif
+                                                {{-- <x-filepond::upload wire:model="payment" required="{{ $this->isOfflineSelected }}" /> --}}
+
+                                                <div>
+                                                    @error('payment')
+                                                        <span class="error-form-message">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
 
 
-                                    {{-- UPLOAD BUKTI PEMBAYARAN --}}
 
-                                    @if (count($this->offline_foods))
-                                        <div class="form-group">
-                                            <label class="form-label text-black" for="payment">UPLOAD PROOF OF
-                                                PAYMENT:</label>
-                                            <input class="w-full border border-black p-2" id="payment"
-                                                type="file" accept="image/*" wire:model.live='payment'
-                                                name="payment" />
-                                            @if ($payment)
-                                                <div class="bg-gray my-3 px-2">
-                                                    <img class="w-full max-w-screen-lg lg:max-w-sm"
-                                                        src="{{ $payment->temporaryUrl() }}" alt="">
-                                                </div>
-                                            @endif
-                                            {{-- <x-filepond::upload wire:model="payment" required="{{ $this->isOfflineSelected }}" /> --}}
-                                            <div>
-                                                @error('payment')
-                                                    <span class="error-form-message">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    @endif
                                 </div>
                             @endif
                         </div>

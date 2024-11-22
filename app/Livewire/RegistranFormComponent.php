@@ -41,7 +41,7 @@ class RegistranFormComponent extends Component
 
     public $invited_by = '';
 
-    public $food = "";
+    public $food = [];
 
     public $payment;
 
@@ -121,6 +121,15 @@ class RegistranFormComponent extends Component
             $this->visitor_type = $offlineVisitorTypes;
         } else {
             $this->visitor_type = [];
+        }
+    }
+
+    public function handleFoodChange($food)
+    {
+        if (!in_array($food, $this->food)) {
+            $this->food = array_merge($this->food, [$food]);
+        } else {
+            $this->food = array_diff($this->food, [$food]);
         }
     }
 
@@ -237,7 +246,9 @@ class RegistranFormComponent extends Component
             'phone' => $this->phone,
             'email' => $this->email,
             'invited_by' => $this->invited_by ?? null,
-            'food' => $this->food,
+            'food' =>
+            count($this->offline_foods) ?
+                is_array($this->food) ? json_encode($this->food) : $this->food : null,
             'event_id' => $this->event->id,
         ];
 
@@ -247,12 +258,22 @@ class RegistranFormComponent extends Component
             if (count($this->offline_foods)) {
                 $this->validate([
                     'food' => 'required',
-                    'payment' => 'image|max:4096',
                 ], [
                     'food.required' => '* mandatory',
-                    'payment.image' => 'File must be an image',
-                    'payment.max' => 'File size must be less than 4MB',
-                ], ['payment' => 'PROOF OF PAYMENT'], ['food' => 'FOOD']);
+                ], ['food' => 'FOOD']);
+
+                if ($this->event->detail->show_invoice_upload) {
+                    $this->validate(
+                        [
+                            'payment' => 'image|max:4096',
+                        ],
+                        [
+                            'payment.image' => 'File must be an image',
+                            'payment.max' => 'File size must be less than 4MB',
+                        ],
+                        ['payment' => 'PROOF OF PAYMENT']
+                    );
+                }
             }
 
             $data['is_offline'] = true;
@@ -270,7 +291,7 @@ class RegistranFormComponent extends Component
         }
 
         $visitor = Visitor::create($data);
-        if ($this->isOfflineSelected() && count($this->offline_foods)) {
+        if ($this->isOfflineSelected() && count($this->offline_foods) && $this->event->detail->show_invoice_upload) {
             $visitor->addMedia($this->payment->getRealPath())
                 ->preservingOriginal()
                 ->toMediaCollection('payment_proof');

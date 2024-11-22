@@ -79,19 +79,20 @@ class ManageVisitor extends ManageRelatedRecords
                 Tables\Columns\TextColumn::make('invited_by'),
                 Tables\Columns\IconColumn::make('is_online')
                     ->label('Online Presence')
-                    ->icon(fn (string $state): string => match ($state) {
+                    ->icon(fn(string $state): string => match ($state) {
                         '1' => 'heroicon-o-check-circle',
                         '0' => 'heroicon-o-x-circle',
                         default => 'heroicon-o-x-circle',
                     }),
                 Tables\Columns\IconColumn::make('is_offline')
                     ->label('Offline Presence')
-                    ->icon(fn (string $state): string => match ($state) {
+                    ->icon(fn(string $state): string => match ($state) {
                         '1' => 'heroicon-o-check-circle',
                         '0' => 'heroicon-o-x-circle',
                         default => 'heroicon-o-x-circle',
                     }),
                 Tables\Columns\TextColumn::make('food')
+                    ->listWithLineBreaks()
                     ->label('Packaged Food'),
                 SpatieMediaLibraryImageColumn::make('Payment Proof')
                     ->collection('payment_proof')
@@ -100,9 +101,10 @@ class ManageVisitor extends ManageRelatedRecords
                         Action::make('show_payment_proof')
                             ->label('Payment Proof')
                             // ->action(fn (Visitor $visitor) => $visitor->payment_path_url)
-                            ->modalContent(fn (Visitor $visitor): View => view(
-                                'filament.resources.event-resource.pages.image-modal',
-                                ['image' => $visitor->getFirstMediaUrl('payment_proof')]
+                            ->modalContent(
+                                fn(Visitor $visitor): View => view(
+                                    'filament.resources.event-resource.pages.image-modal',
+                                    ['image' => $visitor->getFirstMediaUrl('payment_proof')]
                                 )
                             )
                             ->modalSubmitAction(false)

@@ -131,7 +131,7 @@ class EventResource extends Resource
                                                 ->url()
                                                 ->columnSpanFull(),
 
-                                            // Toggle::make('is_offline_food_free'),
+                                            Toggle::make('show_invoice_upload'),
 
                                             Toggle::make('override_offline_food_price_text')
                                                 ->live(),
@@ -158,10 +158,10 @@ class EventResource extends Resource
                                                         ->label(__('Food'))
                                                         ->required()
                                                         ->columnSpan(6),
-                                                    TextInput::make('drink')
-                                                        ->label(__('Drink'))
-                                                        ->required()
-                                                        ->columnSpan(6),
+                                                    // TextInput::make('drink')
+                                                    //     ->label(__('Drink'))
+                                                    //     ->required()
+                                                    //     ->columnSpan(6),
                                                 ]),
                                         ]),
                                 ]),
