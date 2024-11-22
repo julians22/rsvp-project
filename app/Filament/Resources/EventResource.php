@@ -130,12 +130,25 @@ class EventResource extends Resource
                                                 ->required()
                                                 ->url()
                                                 ->columnSpanFull(),
+
+                                            // Toggle::make('is_offline_food_free'),
+
+                                            Toggle::make('override_offline_food_price_text')
+                                                ->live(),
+
+                                            TextInput::make('offline_food_price_text')
+                                                ->label(__('Offline Food Price Text'))
+                                                ->hidden(fn(Get $get): bool =>  !$get('override_offline_food_price_text'))
+                                                ->required(fn(Get $get): bool => $get('override_offline_food_price_text')),
+
                                             TextInput::make('offline_food_price')
                                                 ->label(__('Offline Food Price'))
-                                                ->required()
+                                                ->hidden(fn(Get $get): bool =>  $get('override_offline_food_price_text'))
+                                                ->required(fn(Get $get): bool => !$get('override_offline_food_price_text'))
                                                 ->numeric()
                                                 ->prefix('Rp')
                                                 ->columnSpanFull(),
+
                                             Repeater::make('offline_foods')
                                                 ->label(__('Foods Items'))
                                                 ->defaultItems(3)

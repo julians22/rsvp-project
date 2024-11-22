@@ -128,12 +128,20 @@
                                         {!! $event->detail->offline_address !!}
                                     </div>
                                     <div class="bg-gray-200 px-4 py-2 text-center">
-                                        <h5 class="text-xl font-bold leading-[25px]">
-                                            PAY FOR YOUR LUNCH
-                                        </h5>
-                                        <p class="text-lg font-bold">
-                                            {{ $event->detail->offline_food_price_currency }} IDR/pax
-                                        </p>
+
+                                        @if ($event->detail->override_offline_food_price_text)
+                                            <h5 class="text-xl font-bold leading-[25px]">
+                                                {{ $event->detail->offline_food_price_text }}
+                                            </h5>
+                                        @else
+                                            <h5 class="text-xl font-bold leading-[25px]">
+                                                PAY FOR YOUR LUNCH
+                                            </h5>
+                                            <p class="text-lg font-bold">
+                                                {{ $event->detail->offline_food_price_currency }} IDR/pax
+                                            </p>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
