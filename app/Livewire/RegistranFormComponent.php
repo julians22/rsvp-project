@@ -114,7 +114,7 @@ class RegistranFormComponent extends Component
         $this->type = '';
 
         if ($this->isOfflineSelected() && $this->isOnlineSelected()) {
-            $this->visitor_type = $onlineVisitorTypes + $offlineVisitorTypes;
+            $this->visitor_type = array_unique(array_merge($onlineVisitorTypes, $offlineVisitorTypes));
         } elseif ($this->isOnlineSelected()) {
             $this->visitor_type = $onlineVisitorTypes;
         } elseif ($this->isOfflineSelected()) {
