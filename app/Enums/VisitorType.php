@@ -31,7 +31,8 @@ enum VisitorType: string implements HasLabel
     case PIONEER = 'pioneer';
     case MULTIRICH = 'multirich';
     case OTHER = 'other';
-
+    case OBSERVER = 'observer';
+    case VISITOR_HOST = 'visitor Host';
     /**
      * Get the label for the given enum value.
      *
@@ -65,6 +66,20 @@ enum VisitorType: string implements HasLabel
             self::PIONEER => 'Pioneer',
             self::MULTIRICH => 'Multirich',
             self::OTHER => 'Other Chapter / Core Group',
+            self::OBSERVER => 'Observer',
+            self::VISITOR_HOST => 'Visitor Host',
+        };
+    }
+
+    public function getBgImgPath(): string
+    {
+        return match ($this) {
+            self::VISITOR => asset('img/zoom-bg/Visitor.png'),
+            self::NATIONAL_DIRECTOR => asset('img/zoom-bg/National Director.png'),
+            self::ALTITUDE,
+            self::MAGNITUDE => asset('img/zoom-bg/Member.png'),
+
+            default => 'https://www.dropbox.com/t/ZRmIrWUIHa74s6Vg',
         };
     }
 }

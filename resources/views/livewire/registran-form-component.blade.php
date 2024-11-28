@@ -357,8 +357,10 @@
                                 </div>
                             </div>
 
-                            <a class="btn bg-red-bni text-center"
-                                href="{{ asset('img/Background Zoom Altitude - Visitor.png') }}" download>
+                            <a class="btn bg-red-bni text-center" target="_blank" rel="noreferrer noopener"
+                                href="{{ \App\Enums\VisitorType::tryFrom($this->type)?->getBgImgPath() ??
+                                    'https://www.dropbox.com/t/ZRmIrWUIHa74s6Vg' }}"
+                                download>
                                 DOWNLOAD ZOOM MEET BACKGROUND
                             </a>
 
