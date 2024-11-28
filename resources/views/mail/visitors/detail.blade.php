@@ -1,41 +1,37 @@
 <x-mail::message>
-    # YOUR BOOKING CONFIRMATION
+# YOUR BOOKING CONFIRMATION
+
+Hi {{ $visitor->name }},
+
+Thank you for registering to our event. Here are the details of the event you have registered for:
+@if ($visitor->is_online)
+- Date: {{ $visitor->event->start_date_full_formatted }}
+- Time: {{ $visitor->event->detail->online_time_no_seconds }}
+- Location: Online
+- Admission: Free
+
+<x-mail::button :url="\App\Enums\VisitorType::tryFrom($visitor->type)?->getBgImgPath() ?? 'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing'">
+Download Zoom Meeting Background
+</x-mail::button>
+
+<x-mail::button :url="$visitor->event->detail->online_link">
+Zoom Link: {{ $visitor->event->detail->online_link }}
+</x-mail::button>
+@endif
+
+@if ($visitor->is_offline)
+- ORDER ID : #{{ $visitor->order_id }}
+- Date: {{ $visitor->event->start_date_full_formatted }}
+- Time: {{ $visitor->event->detail->offline_time_no_seconds }}
+- Location: {!! $visitor->event->detail->offline_address !!}
+
+{{-- Add map url button --}}
+<x-mail::button :url="$visitor->event->detail->offline_location">
+    View Map Location
+</x-mail::button>
+@endif
 
 
-    Hi {{ $visitor->name }},
-
-    Thank you for registering to our event. Here are the details of the event you have registered for:
-    @if ($visitor->is_online)
-        - Date: {{ $visitor->event->start_date_full_formatted }}
-        - Time: {{ $visitor->event->detail->online_time_no_seconds }}
-        - Location: Online
-        - Admission: Free
-
-        {{-- Make Link Clickable --}}
-        <x-mail::button :url="\App\Enums\VisitorType::tryFrom($visitor->type)?->getBgImgPath() ??
-            'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing'">
-            Download Zoom Meeting Background
-        </x-mail::button>
-
-        <x-mail::button :url="$visitor->event->detail->online_link">
-            Zoom Link: {{ $visitor->event->detail->online_link }}
-        </x-mail::button>
-    @endif
-
-
-    @if ($visitor->is_offline)
-        - ORDER ID : #{{ $visitor->order_id }}
-        - Date: {{ $visitor->event->start_date_full_formatted }}
-        - Time: {{ $visitor->event->detail->offline_time_no_seconds }}
-        - Location: {!! $visitor->event->detail->offline_address !!}
-
-        {{-- Add map url button --}}
-        <x-mail::button :url="$visitor->event->detail->offline_location">
-            View Map Location
-        </x-mail::button>
-    @endif
-
-
-    Thanks,<br>
-    {{ config('app.name') }}
+Thanks,<br>
+{{ config('app.name') }}
 </x-mail::message>

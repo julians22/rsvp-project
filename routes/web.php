@@ -26,10 +26,9 @@ Route::group(['prefix' => 'event', 'as' => 'event.'], function () {
     Route::get('{slug}/register', [EventController::class, 'register'])->name('register');
 });
 
-// Route::get('test-main', function() {
+// Route::get('test-main', function () {
 
-//     $visitor = Visitor::find(4);
+//     $visitor = Visitor::find(103);
 
 //     return new App\Mail\VisitorMail($visitor);
-
 // });
