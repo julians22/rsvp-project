@@ -12,7 +12,7 @@
         - Admission: Free
 
         {{-- Make Link Clickable --}}
-        <x-mail::button :url="\App\Enums\VisitorType::tryFrom($this->type)?->getBgImgPath() ??
+        <x-mail::button :url="\App\Enums\VisitorType::tryFrom($visitor->type)?->getBgImgPath() ??
             'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing'">
             Download Zoom Meeting Background
         </x-mail::button>
