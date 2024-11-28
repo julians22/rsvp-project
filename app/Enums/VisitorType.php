@@ -79,7 +79,8 @@ enum VisitorType: string implements HasLabel
             self::ALTITUDE,
             self::MAGNITUDE => asset('img/zoom-bg/Member.png'),
 
-            default => 'https://www.dropbox.com/t/ZRmIrWUIHa74s6Vg',
+                // TODO: WE REALLY SHOULD PUT THIS LINK IN A CONSTANT SOMEWHERE, NOT HARD CODED.
+            default => 'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing',
         };
     }
 }

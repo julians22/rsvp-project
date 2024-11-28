@@ -359,7 +359,7 @@
 
                             <a class="btn bg-red-bni text-center" target="_blank" rel="noreferrer noopener"
                                 href="{{ \App\Enums\VisitorType::tryFrom($this->type)?->getBgImgPath() ??
-                                    'https://www.dropbox.com/t/ZRmIrWUIHa74s6Vg' }}"
+                                    'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing' }}"
                                 download>
                                 DOWNLOAD ZOOM MEET BACKGROUND
                             </a>
