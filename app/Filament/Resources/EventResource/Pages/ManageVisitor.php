@@ -93,6 +93,7 @@ class ManageVisitor extends ManageRelatedRecords
                     }),
                 Tables\Columns\TextColumn::make('food')
                     ->listWithLineBreaks()
+                    ->bulleted()
                     ->label('Packaged Food'),
                 SpatieMediaLibraryImageColumn::make('Payment Proof')
                     ->collection('payment_proof')

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Enums\VisitorType;
 use App\Mail\VisitorMail;
 use App\Models\Event;
+use App\Models\Member;
 use App\Models\Visitor;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
@@ -13,6 +14,12 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Spatie\LivewireFilepond\WithFilePond;
 use Spatie\Image;
+
+/* ****************************************************** */
+/*         LASCIATE OGNE SPERANZA, VOI CH'INTRATE         */
+/* ****************************************************** */
+
+/* ******** We Really Should Refactor All Of This ******* */
 
 class RegistranFormComponent extends Component
 {
@@ -31,13 +38,15 @@ class RegistranFormComponent extends Component
 
     public $name = '';
 
-    public $business = '';
+    public $status = '';
 
-    public $company = '';
+    public $business = null;
 
-    public $phone = '';
+    public $company = null;
 
-    public $email = '';
+    public $phone = null;
+
+    public $email = null;
 
     public $invited_by = '';
 
@@ -114,7 +123,7 @@ class RegistranFormComponent extends Component
         $this->type = '';
 
         if ($this->isOfflineSelected() && $this->isOnlineSelected()) {
-            $this->visitor_type = array_merge($onlineVisitorTypes, $offlineVisitorTypes); // $onlineVisitorTypes + $offlineVisitorTypes;
+            $this->visitor_type =  array_unique(array_merge($onlineVisitorTypes, $offlineVisitorTypes), SORT_REGULAR);
         } elseif ($this->isOnlineSelected()) {
             $this->visitor_type = $onlineVisitorTypes;
         } elseif ($this->isOfflineSelected()) {
@@ -135,31 +144,42 @@ class RegistranFormComponent extends Component
 
     public function rules()
     {
-        return [
-            "sessions" => "required",
-            "name" => "required",
-            "business" => "required",
-            "company" => "required",
-            "phone" => "required",
-            "email" => Rule::unique('visitors')->where(function ($query) {
-                return $query->where('email', $this->email)
-                    ->where('event_id', $this->event->id);
-            }),
-            "invited_by" => "sometimes",
-            'type' => ['required', Rule::enum(VisitorType::class)],
-            // "food" =>  [
-            //     Rule::requiredIf(function () {
-            //         return in_array('offline', $this->sessions);
-            //     })
-            // ],
-            // "payment" => [
-            //     'mimetypes:image/jpg,image/jpeg,image/png',
-            //     'max:3000',
-            //     Rule::requiredIf(function () {
-            //         return in_array('offline', $this->sessions);
-            //     })
-            // ],
-        ];
+
+        if (!$this->isVisitorTypeMagnitude()) {
+            $rule = [
+                "sessions" => "required",
+                "name" => "required",
+                "status" => "required",
+                "business" => "required",
+                "company" => "required",
+                "phone" => "required",
+                "email" => Rule::unique('visitors')->where(function ($query) {
+                    return $query->where('email', $this->email)
+                        ->where('event_id', $this->event->id);
+                }),
+                "invited_by" => "sometimes",
+                'type' => ['required', Rule::enum(VisitorType::class)],
+                // "food" =>  [
+                //     Rule::requiredIf(function () {
+                //         return in_array('offline', $this->sessions);
+                //     })
+                // ],
+                // "payment" => [
+                //     'mimetypes:image/jpg,image/jpeg,image/png',
+                //     'max:3000',
+                //     Rule::requiredIf(function () {
+                //         return in_array('offline', $this->sessions);
+                //     })
+                // ],
+            ];
+        } else {
+            $rule = [
+                "name" => "required",
+                "status" => "required",
+            ];
+        }
+
+        return $rule;
     }
 
     public function messages()
@@ -177,6 +197,18 @@ class RegistranFormComponent extends Component
             "invited_by.required" => "* mandatory",
             "food.*" => "* mandatory",
         ];
+    }
+
+    #[Computed]
+    function isVisitorTypeMagnitude()
+    {
+        return $this->type === \App\Enums\VisitorType::MAGNITUDE->value;
+    }
+
+    #[Computed]
+    function allMember()
+    {
+        return $this->isVisitorTypeMagnitude() ? Member::all() : null;
     }
 
     #[Computed]
@@ -241,6 +273,7 @@ class RegistranFormComponent extends Component
             'sessions' => $this->sessions,
             'type' => $this->type,
             'name' => $this->name,
+            'status' => $this->status,
             'business' => $this->business,
             'company' => $this->company,
             'phone' => $this->phone,
@@ -251,6 +284,8 @@ class RegistranFormComponent extends Component
                 is_array($this->food) ? json_encode($this->food) : $this->food : null,
             'event_id' => $this->event->id,
         ];
+
+
 
         if ($this->isOfflineSelected()) {
 

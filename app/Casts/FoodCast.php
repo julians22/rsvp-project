@@ -14,7 +14,7 @@ class FoodCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        if (is_string($value) && strpos($value, '[') === 0) {
+        if (is_string($value) && (strpos($value, '[') === 0 || strpos($value, '{') === 0)) {
             return json_decode($value, true);
         }
 

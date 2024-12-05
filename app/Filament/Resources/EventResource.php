@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\FoodType;
 use App\Enums\VisitorType;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\Pages\ManageVisitor;
@@ -148,21 +149,42 @@ class EventResource extends Resource
                                                 ->numeric()
                                                 ->prefix('Rp')
                                                 ->columnSpanFull(),
+                                            Select::make('food_type')
+                                                ->options(FoodType::class)
+                                                ->default(FoodType::BUFFET)
+                                                ->live()
+                                                ->afterStateUpdated(fn(Set $set) => $set('offline_foods', null))
+                                                ->selectablePlaceholder(false),
 
                                             Repeater::make('offline_foods')
                                                 ->label(__('Foods Items'))
-                                                ->defaultItems(3)
-                                                ->columnSpanFull()
-                                                ->schema([
-                                                    TextInput::make('food')
-                                                        ->label(__('Food'))
-                                                        ->required()
-                                                        ->columnSpan(6),
-                                                    // TextInput::make('drink')
-                                                    //     ->label(__('Drink'))
-                                                    //     ->required()
-                                                    //     ->columnSpan(6),
-                                                ]),
+                                                // ? This is not really an elegant solution, but it works for now.
+                                                ->maxItems(fn(Get $get) => $get('food_type') === FoodType::ALA_CARTE->value ? 1 : 999)
+                                                ->schema(
+                                                    fn(Get $get): array => match ($get('food_type')) {
+                                                        FoodType::BUFFET->value => [
+                                                            TextInput::make('food')
+                                                                ->label(__('Food'))
+                                                                ->required()
+                                                                ->columnSpan(6),
+                                                        ],
+                                                        FoodType::ALA_CARTE->value =>    [
+                                                            Repeater::make('food')
+                                                                ->simple(
+                                                                    TextInput::make('food')
+                                                                        ->label(__('Food'))
+                                                                        ->required()
+                                                                ),
+                                                            Repeater::make('drink')
+                                                                ->simple(
+                                                                    TextInput::make('food')
+                                                                        ->label(__('Drinks'))
+                                                                        ->required()
+                                                                )
+                                                        ],
+                                                        default => [],
+                                                    }
+                                                ),
                                         ]),
                                 ]),
                             Section::make('Event Detail Override')

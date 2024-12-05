@@ -65,123 +65,11 @@
                             </div>
                         </div>
 
-                        {{-- NAMA LENGKAP --}}
-                        <div class="form-group">
-                            <label class="form-label text-black" for="name">FULL NAME:</label>
-                            <input class="w-full border border-black p-2" id="name" type="text"
-                                wire:model.blur="name" />
-                            <div>
-                                @error('name')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Klasifikasi Bisnis --}}
-                        <div class="form-group">
-                            <label class="form-label text-black" for="business">BUSINESS CLASSIFICATION:</label>
-                            <input class="w-full border border-black p-2" id="business" type="text"
-                                wire:model='business' />
-                            <div>
-                                @error('business')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Nama Perusahaan --}}
-                        <div class="form-group">
-                            <label class="form-label text-black" for="company">COMPANY NAME:</label>
-                            <input class="w-full border border-black p-2" id="company" type="text"
-                                wire:model='company' />
-                            <div>
-                                @error('company')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- NO HANDPHONE / WHATSAPP --}}
-                        <div class="form-group">
-                            <label class="form-label text-black" for="phone">MOBILE PHONE / WHATSAPP:</label>
-                            <input class="w-full border border-black p-2" id="phone" type="tel"
-                                wire:model='phone' />
-                            <div>
-                                @error('phone')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- EMAIL --}}
-                        <div class="form-group">
-                            <label class="form-label text-black" for="email">EMAIL:</label>
-                            <input class="w-full border border-black p-2" id="email" type="email"
-                                wire:model='email' />
-                            <div>
-                                @error('email')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- DIUNDANG OLEH: (Nama + Chapter) --}}
-                        <div class="form-group">
-                            <label class="form-label text-black" for="invited_by">INVITED BY: (Name + Chapter):</label>
-                            <input id="invited_by" @class([
-                                'w-full border border-black p-2',
-                                'bg-gray-400/50 cursor-not-allowed' => $this->invited_by_disabled,
-                            ]) @disabled($this->invited_by_disabled)
-                                type="text" wire:model='invited_by' />
-                            <div>
-                                @error('invited_by')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div @class(['form-group', 'hidden' => !$this->event->checkable])>
-                            <label class="form-label text-black" for="">WILL BE ATTENDING TO: (May choose
-                                both)</label>
-
-                            <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-3 lg:space-y-0">
-                                <div>
-                                    <label @class([
-                                        'inline-flex items-center',
-                                        'cursor-not-allowed opacity-50 hidden' => !$this->event->is_online_event,
-                                    ])>
-                                        <input @class([
-                                            'h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black',
-                                            'cursor-not-allowed opacity-50 ' => !$this->event->is_online_event,
-                                        ]) type="checkbox" value="online"
-                                            @disabled(!$this->event->is_online_event) wire:model.live="sessions">
-                                        <span class="ml-2 text-lg font-semibold">Online
-                                            {{ $this->online_hour }} Pagi</span>
-                                    </label>
-                                </div>
-
-                                <div>
-                                    <label @class([
-                                        'inline-flex items-center',
-                                        'cursor-not-allowed opacity-50 hidden' => !$this->event->is_offline_event,
-                                    ])>
-                                        <input @class([
-                                            'h-6 w-6 border-2 border-gray-300 text-black focus:border-gray-300 focus:ring-black',
-                                            'cursor-not-allowed ' => !$this->event->is_offline_event,
-                                        ]) type="checkbox" value="offline"
-                                            wire:model.live="sessions" @disabled(!$this->event->is_offline_event)>
-                                        <span class="ml-2 text-lg font-semibold">Offine {{ $this->offline_hour }}
-                                            Siang</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div>
-                                @error('sessions')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                        </div>
+                        @if ($this->isVisitorTypeMagnitude)
+                            <x-magnitude-form />
+                        @else
+                            <x-visitor-form />
+                        @endif
 
                     </div>
 
@@ -220,21 +108,79 @@
                                             </label>
                                         </div>
 
-                                        @if (count($this->offline_foods) === 1)
-                                            <input
-                                                class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
-                                                id="food" type="text" wire:model="food"
-                                                wire:init='food = "{{ $this->offline_foods[0]['food'] }}"' readonly />
+                                        loop
+
+
+                                        @if ($this->event->detail->food_type === App\Enums\FoodType::BUFFET->value)
+
+                                            {{-- ? Buffet food type --}}
+                                            {{-- ! TODO: Refactor to component and clean up --}}
+                                            @if (count($this->offline_foods) === 1)
+                                                <input
+                                                    class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                                    id="food" type="text" wire:model="food"
+                                                    wire:init='food = "{{ $this->offline_foods[0]['food'] }}"'
+                                                    readonly />
+                                            @else
+                                                @foreach ($this->offline_foods as $key => $item)
+                                                    <div
+                                                        class="flex w-full items-center gap-x-4 border border-black p-2 font-extrabold disabled:bg-gray-500">
+                                                        <input id="food-{{ $key }}" type="checkbox"
+                                                            value="{{ $item['food'] }}" wire:model="food" />
+                                                        <label class="flex-grow"
+                                                            for="food-{{ $key }}">{{ $item['food'] }}</label>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         @else
-                                            @foreach ($this->offline_foods as $key => $item)
-                                                <div
-                                                    class="flex w-full items-center gap-x-4 border border-black p-2 font-extrabold disabled:bg-gray-500">
-                                                    <input id="food-{{ $key }}" type="checkbox"
-                                                        value="{{ $item['food'] }}" wire:model="food" />
-                                                    <label class="flex-grow"
-                                                        for="food-{{ $key }}">{{ $item['food'] }}</label>
-                                                </div>
-                                            @endforeach
+                                            {{-- ? Ala Carte food type --}}
+
+                                            {{-- ? ala carte foods --}}
+
+                                            @if (count($this->offline_foods[0]['food']))
+
+                                                @if (count($this->offline_foods[0]['food']) === 1)
+                                                    <input
+                                                        class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                                        id="food" type="text" wire:model="food.food"
+                                                        wire:init='food.food = "{{ $this->offline_foods[0]['food'][0] }}"'
+                                                        readonly />
+                                                @else
+                                                    <select id="food" name="food" wire:model="food.food">
+                                                        <option required value="">- PLEASE SELECT FOOD -</option>
+
+                                                        @foreach ($this->offline_foods[0]['food'] as $food)
+                                                            <option value="{{ $food }}">
+                                                                {{ $food }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
+                                            @endif
+
+                                            {{-- ? ala carte drinks --}}
+                                            @if (count($this->offline_foods[0]['drink']))
+
+                                                @if (count($this->offline_foods[0]['drink']) === 1)
+                                                    <input
+                                                        class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                                        id="food" type="text" wire:model="food.drink"
+                                                        wire:init='food.drink = "{{ $this->offline_foods[0]['drink'][0] }}"'
+                                                        readonly />
+                                                @else
+                                                    <select id="drink" required name="drink"
+                                                        wire:model="food.drink">
+                                                        <option value="">- PLEASE SELECT DRINK -</option>
+                                                        @foreach ($this->offline_foods[0]['drink'] as $drink)
+                                                            <option value="{{ $drink }}">
+                                                                {{ $drink }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
+                                            @endif
+
+                                            {{-- ? ala carte drinks end --}}
                                         @endif
 
                                         <div>
@@ -293,9 +239,31 @@
                     @endif
 
                     <div class="mt-4 flex justify-center">
+
+
+
                         <button class="btn disabled:hover: w-full bg-red-bni disabled:bg-red-bni/80"
                             @unless (!$this->isEmptySessions) disabled @endunless wire:loading.attr="disabled"
-                            type="submit">COMPLETE REGISTRATION</button>
+                            type="submit">
+                            <span class="items-center justify-center" wire:loading.flex wire:target="save">
+                                <svg class="-ml-1 mr-3 h-5 w-5 animate-spin text-white" data-motion-id="svg 2"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                                        stroke="currentColor" stroke-width="4">
+                                    </circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                Processing...
+                            </span>
+
+                            <span wire:loading.remove wire:target="save">
+                                COMPLETE REGISTRATION</span>
+                        </button>
+
+
+
                     </div>
 
                 </form>

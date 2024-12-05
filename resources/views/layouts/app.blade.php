@@ -19,14 +19,10 @@
 <body>
     @yield('page')
 
-    <footer class="bg-navy py-3 px-2 flex items-center justify-center fixed bottom-0 inset-x-0">
-        <h4 class="text-sm lg:text-base text-white inline-flex">POWERED BY </h4>
-        <a href="https://designcub3.com"
-            rel="noopener noreferrer"
-            target="_blank"
-            class="inline-flex"
-            >
-            <img class="w-24 lg:w-32 ml-2" src="{{ asset('img/logo.svg') }}" alt="">
+    <footer class="fixed inset-x-0 bottom-0 flex items-center justify-center bg-navy px-2 py-3">
+        <h4 class="inline-flex text-sm text-white lg:text-base">POWERED BY </h4>
+        <a class="inline-flex" href="https://designcub3.com" rel="noopener noreferrer" target="_blank">
+            <img class="ml-2 w-24 lg:w-32" src="{{ asset('img/logo.svg') }}" alt="">
         </a>
     </footer>
 
