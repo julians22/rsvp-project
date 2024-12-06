@@ -108,7 +108,6 @@
                                             </label>
                                         </div>
 
-                                        loop
 
 
                                         @if ($this->event->detail->food_type === App\Enums\FoodType::BUFFET->value)
