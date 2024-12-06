@@ -159,7 +159,7 @@ class EventResource extends Resource
                                             Repeater::make('offline_foods')
                                                 ->label(__('Foods Items'))
                                                 // ? This is not really an elegant solution, but it works for now.
-                                                ->maxItems(fn(Get $get) => $get('food_type') === FoodType::ALA_CARTE->value ? 1 : 999)
+                                                ->maxItems(fn(Get $get) => ((is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')) === FoodType::ALA_CARTE) ? 1 : 999)
                                                 ->schema(
                                                     fn(Get $get): array => match (is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')) {
                                                         FoodType::BUFFET => [
