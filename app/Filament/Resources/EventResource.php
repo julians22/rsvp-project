@@ -161,14 +161,14 @@ class EventResource extends Resource
                                                 // ? This is not really an elegant solution, but it works for now.
                                                 ->maxItems(fn(Get $get) => $get('food_type') === FoodType::ALA_CARTE->value ? 1 : 999)
                                                 ->schema(
-                                                    fn(Get $get): array => match ($get('food_type')) {
-                                                        FoodType::BUFFET->value => [
+                                                    fn(Get $get): array => match (is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')) {
+                                                        FoodType::BUFFET => [
                                                             TextInput::make('food')
                                                                 ->label(__('Food'))
                                                                 ->required()
                                                                 ->columnSpan(6),
                                                         ],
-                                                        FoodType::ALA_CARTE->value =>    [
+                                                        FoodType::ALA_CARTE =>    [
                                                             Repeater::make('food')
                                                                 ->simple(
                                                                     TextInput::make('food')

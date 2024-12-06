@@ -145,11 +145,15 @@ class RegistranFormComponent extends Component
     public function rules()
     {
 
-        if (!$this->isVisitorTypeMagnitude()) {
+        if ($this->isVisitorTypeMagnitude()) {
+            $rule = [
+                "name" => "required",
+                "status" => "required",
+            ];
+        } else {
             $rule = [
                 "sessions" => "required",
                 "name" => "required",
-                "status" => "required",
                 "business" => "required",
                 "company" => "required",
                 "phone" => "required",
@@ -171,11 +175,6 @@ class RegistranFormComponent extends Component
                 //         return in_array('offline', $this->sessions);
                 //     })
                 // ],
-            ];
-        } else {
-            $rule = [
-                "name" => "required",
-                "status" => "required",
             ];
         }
 
