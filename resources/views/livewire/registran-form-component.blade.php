@@ -52,7 +52,8 @@
                                 <option disabled selected value=''> -- select an option -- </option>
 
                                 @foreach ($this->visitor_type as $type)
-                                    <option value="{{ $type->value }}" @class([])>
+                                    <option value="{{ $type->value }}" wire:key="type-{{ $type->value }}"
+                                        @class([])>
                                         {{ $type->getLabel() }}
                                     </option>
                                 @endforeach
@@ -117,24 +118,26 @@
 
                     </div>
 
-                    {{-- STATUS --}}
-                    <div class="form-group my-4">
-                        <label class="form-label text-black" for="status">STATUS KEHADIRAN ONLINE :</label>
-                        <select id="status" required name="status" wire:model="status">
-                            <option value="">- PLEASE SELECT STATUS -</option>
+                    @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value)
+                        {{-- STATUS --}}
+                        <div class="form-group my-4">
+                            <label class="form-label text-black" for="status">STATUS KEHADIRAN ONLINE :</label>
+                            <select id="status" required name="status" wire:model="status">
+                                <option value="">- PLEASE SELECT STATUS -</option>
 
-                            @foreach ($this->getStatusType() as $status)
-                                <option value="{{ $status->value }}" wire:key='{{ $status->value }}'>
-                                    {{ $status->getLabel() }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <div>
-                            @error('status')
-                                <span class="error-form-message">{{ $message }}</span>
-                            @enderror
+                                @foreach ($this->getStatusType() as $status)
+                                    <option value="{{ $status->value }}" wire:key='{{ $status->value }}'>
+                                        {{ $status->getLabel() }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div>
+                                @error('status')
+                                    <span class="error-form-message">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     @if ($this->isOfflineSelected === true)
 
@@ -388,8 +391,7 @@
                             </div>
 
                             <a class="btn bg-red-bni text-center" target="_blank" rel="noreferrer noopener"
-                                href="{{ \App\Enums\VisitorType::tryFrom($this->type)?->getBgImgPath() ??
-                                    'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing' }}"
+                                href="https://drive.google.com/drive/folders/1tJ4z08SV7Pd3d3n5q06UTmeiXFIV2RuZ"
                                 download>
                                 DOWNLOAD ZOOM MEET BACKGROUND
                             </a>

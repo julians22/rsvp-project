@@ -10,7 +10,7 @@ Thank you for registering to our event. Here are the details of the event you ha
 - Location: Online
 - Admission: Free
 
-<x-mail::button :url="\App\Enums\VisitorType::tryFrom($visitor->type)?->getBgImgPath() ?? 'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing'">
+<x-mail::button url="https://drive.google.com/drive/folders/1tJ4z08SV7Pd3d3n5q06UTmeiXFIV2RuZ">
 Download Zoom Meeting Background
 </x-mail::button>
 

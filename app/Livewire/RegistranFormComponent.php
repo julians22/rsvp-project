@@ -71,6 +71,7 @@ class RegistranFormComponent extends Component
     public function updatedSessions()
     {
         $this->updateVisitorType();
+        $this->status = '';
     }
 
     /**
@@ -120,17 +121,18 @@ class RegistranFormComponent extends Component
             $onlineVisitorTypes = \App\Enums\VisitorType::cases();
         }
 
-
-        $this->type = '';
-
         if ($this->isOfflineSelected() && $this->isOnlineSelected()) {
-            $this->visitor_type =  array_unique(array_merge($onlineVisitorTypes, $offlineVisitorTypes), SORT_REGULAR);
+            $this->visitor_type = array_unique(array_merge($onlineVisitorTypes, $offlineVisitorTypes), SORT_REGULAR);
         } elseif ($this->isOnlineSelected()) {
             $this->visitor_type = $onlineVisitorTypes;
         } elseif ($this->isOfflineSelected()) {
             $this->visitor_type = $offlineVisitorTypes;
         } else {
             $this->visitor_type = [];
+        }
+
+        if (!in_array(VisitorType::tryFrom($this->type), $this->visitor_type)) {
+            $this->type = '';
         }
     }
 
@@ -156,7 +158,7 @@ class RegistranFormComponent extends Component
             $rule = [
                 "name" => "required",
                 "sessions" => "required",
-                "status" => "required",
+                // "status" => "required",
                 "business" => "required",
                 "company" => "required",
                 "phone" => "required",
