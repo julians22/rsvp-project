@@ -35,7 +35,7 @@
             </span>
         </button>
 
-        <div class="absolute z-50 mt-1 max-h-60 w-full overflow-auto border border-gray-300 bg-white py-1 text-base shadow-lg"
+        <div class="absolute z-50 mt-1 max-h-fit w-full overflow-auto border border-gray-300 bg-white py-1 text-base shadow-lg"
             x-show="open" @click.away="open = false" x-cloak>
             <input class="block w-full border-0 border-b border-gray-300 bg-white pb-2 pl-3 text-left focus:ring-0"
                 type="text" x-model="search" placeholder="Search...">
