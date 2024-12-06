@@ -297,7 +297,7 @@ class RegistranFormComponent extends Component
             'sessions' => $this->sessions,
             'type' => $this->type,
             'name' => $this->name,
-            'status' => $this->status,
+            'status' => $this->type === VisitorType::MAGNITUDE->value ? $this->status : null,
             'business' => $this->business,
             'company' => $this->company,
             'phone' => $this->phone,
