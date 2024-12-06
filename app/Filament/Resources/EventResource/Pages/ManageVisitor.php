@@ -72,11 +72,6 @@ class ManageVisitor extends ManageRelatedRecords
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('business'),
-                Tables\Columns\TextColumn::make('company'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('invited_by'),
                 Tables\Columns\IconColumn::make('is_online')
                     ->label('Online Presence')
                     ->icon(fn(string $state): string => match ($state) {
@@ -84,6 +79,7 @@ class ManageVisitor extends ManageRelatedRecords
                         '0' => 'heroicon-o-x-circle',
                         default => 'heroicon-o-x-circle',
                     }),
+                Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\IconColumn::make('is_offline')
                     ->label('Offline Presence')
                     ->icon(fn(string $state): string => match ($state) {
@@ -95,6 +91,14 @@ class ManageVisitor extends ManageRelatedRecords
                     ->listWithLineBreaks()
                     ->bulleted()
                     ->label('Packaged Food'),
+                Tables\Columns\TextColumn::make('invited_by'),
+
+                Tables\Columns\TextColumn::make('business'),
+                Tables\Columns\TextColumn::make('company'),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('phone'),
+
+
                 SpatieMediaLibraryImageColumn::make('Payment Proof')
                     ->collection('payment_proof')
                     ->checkFileExistence(false)

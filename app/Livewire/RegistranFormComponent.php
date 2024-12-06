@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\VisitorStatusType;
 use App\Enums\VisitorType;
 use App\Mail\VisitorMail;
 use App\Models\Event;
@@ -144,16 +145,18 @@ class RegistranFormComponent extends Component
 
     public function rules()
     {
-
+        // TODO: CLEAN UP AND MAKE BASE RULES
         if ($this->isVisitorTypeMagnitude()) {
             $rule = [
                 "name" => "required",
+                "sessions" => "required",
                 "status" => "required",
             ];
         } else {
             $rule = [
-                "sessions" => "required",
                 "name" => "required",
+                "sessions" => "required",
+                "status" => "required",
                 "business" => "required",
                 "company" => "required",
                 "phone" => "required",
@@ -196,6 +199,26 @@ class RegistranFormComponent extends Component
             "invited_by.required" => "* mandatory",
             "food.*" => "* mandatory",
         ];
+    }
+
+    #[Computed]
+    function getStatusType()
+    {
+        $statusTypeList = [];
+
+        if ($this->isOnlineSelected()) {
+            $statusTypeList = [
+                VisitorStatusType::HADIR,
+                VisitorStatusType::HADIR_TIDAK_PRESENTASI
+            ];
+        } else {
+            $statusTypeList = [
+                VisitorStatusType::SAKIT,
+                VisitorStatusType::SUBSTITUTE
+            ];
+        }
+
+        return $statusTypeList;
     }
 
     #[Computed]

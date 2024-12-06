@@ -117,6 +117,25 @@
 
                     </div>
 
+                    {{-- STATUS --}}
+                    <div class="form-group my-4">
+                        <label class="form-label text-black" for="status">STATUS KEHADIRAN ONLINE :</label>
+                        <select id="status" required name="status" wire:model="status">
+                            <option value="">- PLEASE SELECT STATUS -</option>
+
+                            @foreach ($this->getStatusType() as $status)
+                                <option value="{{ $status->value }}" wire:key='{{ $status->value }}'>
+                                    {{ $status->getLabel() }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <div>
+                            @error('status')
+                                <span class="error-form-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     @if ($this->isOfflineSelected === true)
 
                         <div>
