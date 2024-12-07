@@ -49,8 +49,8 @@
                         @click="selectOption(option)"
                         :class="{ 'bg-gray-600 text-white': selectedOption && selectedOption.id === option.id }">
                         <span class="block truncate font-normal" x-text="option.name"></span>
-                        <span class="block truncate text-xs font-normal text-gray-600" x-text="option.email"></span>
-                        <span class="block truncate text-xs font-normal text-gray-600" x-text="option.phone"></span>
+                        {{-- <span class="block truncate text-xs font-normal text-gray-600" x-text="option.email"></span>
+                        <span class="block truncate text-xs font-normal text-gray-600" x-text="option.phone"></span> --}}
                     </li>
                 </template>
             </ul>

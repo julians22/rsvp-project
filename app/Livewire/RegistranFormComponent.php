@@ -61,6 +61,12 @@ class RegistranFormComponent extends Component
 
     public function updatedType()
     {
+
+        if (VisitorType::tryFrom($this->type) !== VisitorType::MAGNITUDE) {
+            $this->phone = null;
+            $this->email = null;
+        }
+
         $this->invited_by_disabled = $this->type !== VisitorType::VISITOR->value;
 
         if ($this->invited_by_disabled) {
@@ -232,7 +238,7 @@ class RegistranFormComponent extends Component
     #[Computed]
     function allMember()
     {
-        return $this->isVisitorTypeMagnitude() ? Member::all() : null;
+        return $this->isVisitorTypeMagnitude() ? Member::orderBy('name')->get() : null;
     }
 
     #[Computed]
