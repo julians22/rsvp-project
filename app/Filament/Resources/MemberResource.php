@@ -26,7 +26,10 @@ class MemberResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name'),
-            ]);
+                TextInput::make('email')
+                    ->email(),
+                TextInput::make('phone'),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -34,7 +37,15 @@ class MemberResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('email')
+                    ->searchable(),
+                TextColumn::make('phone')
+                    ->searchable(),
             ])
+            ->defaultSort('name')
+
             ->filters([
                 //
             ])

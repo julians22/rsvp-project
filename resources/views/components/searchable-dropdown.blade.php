@@ -1,9 +1,11 @@
-@props(['options', 'property'])
+@props(['options', 'memberName', 'memberEmail', 'memberPhone'])
 
 <div x-data="{
     open: false,
     search: '',
-    selectedMember: @entangle($property).live,
+    selectedMemberName: @entangle($memberName).live,
+    selectedMemberEmail: @entangle($memberEmail).live,
+    selectedMemberPhone: @entangle($memberPhone).live,
     selectedId: null,
     // use this format : [['id' => 1, 'name' => 'A'], ['id' => 2, 'name' => 'B'], ['id' => 3, 'name' => 'C']]
     options: @js($options),
@@ -12,11 +14,13 @@
         return this.options.filter(option => option.name.toLowerCase().includes(this.search.toLowerCase()));
     },
     get selectedOption() {
-        if (!this.selectedMember) return null;
+        if (!this.selectedMemberName) return null;
         return this.options.find(option => option.id === this.selectedId);
     },
     selectOption(option) {
-        this.selectedMember = option.name;
+        this.selectedMemberName = option.name;
+        this.selectedMemberEmail = option.email;
+        this.selectedMemberPhone = option.phone;
         this.selectedId = option.id;
         this.open = false;
     }
@@ -45,6 +49,8 @@
                         @click="selectOption(option)"
                         :class="{ 'bg-gray-600 text-white': selectedOption && selectedOption.id === option.id }">
                         <span class="block truncate font-normal" x-text="option.name"></span>
+                        <span class="block truncate text-xs font-normal text-gray-600" x-text="option.email"></span>
+                        <span class="block truncate text-xs font-normal text-gray-600" x-text="option.phone"></span>
                     </li>
                 </template>
             </ul>

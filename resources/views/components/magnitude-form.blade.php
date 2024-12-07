@@ -5,7 +5,7 @@
         {{-- <input class="w-full border border-black p-2" id="name" type="text"
         wire:model.blur="name" /> --}}
 
-        <x-searchable-dropdown :options="$this->allMember" property="name" />
+        <x-searchable-dropdown :options="$this->allMember" member-name="name" member-email="email" member-phone="phone" />
 
         <div>
             @error('name')
