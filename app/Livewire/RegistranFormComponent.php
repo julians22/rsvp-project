@@ -72,6 +72,7 @@ class RegistranFormComponent extends Component
         $this->phone = null;
         $this->email = null;
         $this->invited_by = null;
+        $this->status = null;
 
         $this->invited_by_disabled = $this->type !== VisitorType::VISITOR->value;
 
