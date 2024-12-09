@@ -61,11 +61,17 @@ class RegistranFormComponent extends Component
 
     public function updatedType()
     {
+        // if (VisitorType::tryFrom($this->type) !== VisitorType::MAGNITUDE) {
+        //     $this->phone = null;
+        //     $this->email = null;
+        // }
 
-        if (VisitorType::tryFrom($this->type) !== VisitorType::MAGNITUDE) {
-            $this->phone = null;
-            $this->email = null;
-        }
+        $this->name = null;
+        $this->business = null;
+        $this->company = null;
+        $this->phone = null;
+        $this->email = null;
+        $this->invited_by = null;
 
         $this->invited_by_disabled = $this->type !== VisitorType::VISITOR->value;
 
