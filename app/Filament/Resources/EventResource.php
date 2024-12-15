@@ -291,6 +291,7 @@ class EventResource extends Resource
                     ->copyMessage('URL address copied')
                     ->copyMessageDuration(1500),
             ])
+            ->defaultSort('start_date', 'desc')
             ->filters([
                 //
             ])

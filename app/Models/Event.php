@@ -179,6 +179,14 @@ class Event extends Model implements HasMedia
         return $isDisabled;
     }
 
+    /**
+     * Get incoming event where start_date is greater than now.
+     */
+    public function scopeIncoming($query)
+    {
+        return $query->where('start_date', '>=', now());
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('banner')

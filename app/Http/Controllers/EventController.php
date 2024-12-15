@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+
+    function index() {
+
+        $events = Event::with('detail')->incoming()->get();
+
+        // Modulus events on 3
+        $skeletonsCount = 3 - count($events) % 3;
+
+        return view('events', ['events' => $events, 'skeletonsCount' => $skeletonsCount]);
+
+    }
+
     function show($slug)
     {
         $isDisabled = false;

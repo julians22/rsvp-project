@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@php
+    // Meta Desc (clean_description) limit text upto 160 characters
+    $metaDesc = Str::limit($event->detail->clean_description, 160);
+@endphp
+
+@section('head', $event->name??null)
+@section('description', $metaDesc)
+@section('image', $event->getFirstMediaUrl('banner'))
+
+
 @section('page')
     <header>
 
