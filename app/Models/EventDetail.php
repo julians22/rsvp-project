@@ -34,6 +34,16 @@ class EventDetail extends Model implements HasMedia
         'offline_visitor_type_list' => 'array',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'description',
+        'clean_description',
+    ];
+
     public function event()
     {
         return $this->belongsTo(Event::class);
@@ -88,5 +98,32 @@ class EventDetail extends Model implements HasMedia
         $this->addMediaCollection('video')
             ->useFallbackUrl(asset('videos/BNI Video low.mp4'))
             ->singleFile();
+    }
+
+    /**
+     * Get Event Description.
+     * Only if the override_description_1 is not null
+     * Then return the description_1
+     */
+     protected function getDescriptionAttribute()
+     {
+
+        if ($this->override_description_1) {
+            return $this->description_1;
+        }
+
+        return 'You are invited to join our BNI Altitude & BNI Magnitude event. Register now!';
+     }
+
+     /**
+      * Get clean html tags from the description attribute.
+      */
+    protected function getCleanDescriptionAttribute()
+    {
+        if ($this->override_description_1) {
+            return strip_tags($this->description);
+        }
+
+        return 'You are invited to join our BNI Altitude & BNI Magnitude event. Register now!';
     }
 }

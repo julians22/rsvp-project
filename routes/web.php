@@ -21,6 +21,9 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'event', 'as' => 'event.'], function () {
+
+    Route::get('/', [EventController::class, 'index'])->name('index');
+
     Route::get('{slug}', [EventController::class, 'show'])->name('show');
 
     Route::get('{slug}/register', [EventController::class, 'register'])->name('register');
