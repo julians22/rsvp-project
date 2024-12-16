@@ -2,22 +2,13 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
-use App\Enums\VisitorType;
+use App\Filament\Component\EventTable;
 use App\Filament\Resources\EventResource;
-use App\Models\Visitor;
-use Filament\Actions;
-use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ManageVisitor extends ManageRelatedRecords
 {
@@ -66,58 +57,7 @@ class ManageVisitor extends ManageRelatedRecords
     {
         return $table
             ->recordTitleAttribute('name')
-            ->columns([
-                Tables\Columns\TextColumn::make('type')
-                    ->placeholder('Type')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\IconColumn::make('is_online')
-                    ->label('Online Presence')
-                    ->icon(fn(string $state): string => match ($state) {
-                        '1' => 'heroicon-o-check-circle',
-                        '0' => 'heroicon-o-x-circle',
-                        default => 'heroicon-o-x-circle',
-                    }),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\IconColumn::make('is_offline')
-                    ->label('Offline Presence')
-                    ->icon(fn(string $state): string => match ($state) {
-                        '1' => 'heroicon-o-check-circle',
-                        '0' => 'heroicon-o-x-circle',
-                        default => 'heroicon-o-x-circle',
-                    }),
-                Tables\Columns\TextColumn::make('food')
-                    ->listWithLineBreaks()
-                    ->bulleted()
-                    ->label('Packaged Food'),
-                Tables\Columns\TextColumn::make('invited_by'),
-
-                Tables\Columns\TextColumn::make('business'),
-                Tables\Columns\TextColumn::make('company'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('phone'),
-
-
-                SpatieMediaLibraryImageColumn::make('Payment Proof')
-                    ->collection('payment_proof')
-                    ->checkFileExistence(false)
-                    ->action(
-                        Action::make('show_payment_proof')
-                            ->label('Payment Proof')
-                            // ->action(fn (Visitor $visitor) => $visitor->payment_path_url)
-                            ->modalContent(
-                                fn(Visitor $visitor): View => view(
-                                    'filament.resources.event-resource.pages.image-modal',
-                                    ['image' => $visitor->getFirstMediaUrl('payment_proof')]
-                                )
-                            )
-                            ->modalSubmitAction(false)
-                            ->modalCancelAction(false)
-                            ->modalWidth(MaxWidth::ScreenMedium)
-                    )
-                    ->label('Payment Proof')
-            ])
+            ->columns(EventTable::ManageVisitor())
             ->filters([
                 //
             ])

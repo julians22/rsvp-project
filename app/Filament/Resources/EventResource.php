@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\FoodType;
 use App\Enums\VisitorType;
+use App\Filament\Component\EventTable;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\Pages\ManageVisitor;
 use App\Models\Event;
@@ -265,32 +266,7 @@ class EventResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('start_date')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('registration_date')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('url')
-                    ->label('Registration URL')
-                    ->color(
-                        function ($state) {
-                            return $state === '#' ? 'gray' : 'success';
-                        }
-                    )
-                    ->formatStateUsing(
-                        fn($state) => $state === '#' ? 'No URL' : $state . ' (Click to copy)'
-                    )
-                    ->copyable(
-                        fn(Event $record) => $record->detail !== null ? true : false
-                    )
-                    ->copyMessage('URL address copied')
-                    ->copyMessageDuration(1500),
-            ])
+            ->columns(EventTable::Event())
             ->defaultSort('start_date', 'desc')
             ->filters([
                 //

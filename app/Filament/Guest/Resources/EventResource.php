@@ -3,6 +3,7 @@
 namespace App\Filament\Guest\Resources;
 
 use App\Enums\VisitorType;
+use App\Filament\Component\EventTable;
 use App\Filament\Guest\Resources\EventResource\Pages;
 use App\Filament\Guest\Resources\EventResource\Pages\ManageVisitor;
 use App\Models\Event;
@@ -34,18 +35,7 @@ class EventResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('start_date')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('registration_date')
-                    ->searchable()
-                    ->sortable(),
-
-            ])
+            ->columns(EventTable::Event())
             ->filters([
                 //
             ])

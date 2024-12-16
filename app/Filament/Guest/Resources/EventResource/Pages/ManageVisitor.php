@@ -3,6 +3,7 @@
 namespace App\Filament\Guest\Resources\EventResource\Pages;
 
 use App\Enums\VisitorType;
+use App\Filament\Component\EventTable;
 use App\Filament\Guest\Resources\EventResource;
 use App\Models\Visitor;
 use Filament\Actions;
@@ -66,58 +67,7 @@ class ManageVisitor extends ManageRelatedRecords
     {
         return $table
             ->recordTitleAttribute('name')
-            ->columns([
-                Tables\Columns\TextColumn::make('type')
-                    ->placeholder('Type')
-                    // ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('business')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('company')
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('invited_by'),
-                Tables\Columns\IconColumn::make('is_online')
-                    ->label('Online Presence')
-                    ->icon(fn(string $state): string => match ($state) {
-                        '1' => 'heroicon-o-check-circle',
-                        '0' => 'heroicon-o-x-circle',
-                        default => 'heroicon-o-x-circle',
-                    }),
-                Tables\Columns\IconColumn::make('is_offline')
-                    ->label('Offline Presence')
-                    ->icon(fn(string $state): string => match ($state) {
-                        '1' => 'heroicon-o-check-circle',
-                        '0' => 'heroicon-o-x-circle',
-                        default => 'heroicon-o-x-circle',
-                    }),
-                // Tables\Columns\TextColumn::make('food')
-                //     ->label('Packaged Food'),
-                // SpatieMediaLibraryImageColumn::make('Payment Proof')
-                //     ->collection('payment_proof')
-                //     ->checkFileExistence(false)
-                //     ->action(
-                //         Action::make('show_payment_proof')
-                //             ->label('Payment Proof')
-                //             // ->action(fn (Visitor $visitor) => $visitor->payment_path_url)
-                //             ->modalContent(
-                //                 fn(Visitor $visitor): View => view(
-                //                     'filament.resources.event-resource.pages.image-modal',
-                //                     ['image' => $visitor->getFirstMediaUrl('payment_proof')]
-                //                 )
-                //             )
-                //             ->modalSubmitAction(false)
-                //             ->modalCancelAction(false)
-                //             ->modalWidth(MaxWidth::ScreenMedium)
-                //     )
-                //     ->label('Payment Proof')
-            ])
+            ->columns(EventTable::ManageVisitor())
             ->filters([
                 SelectFilter::make('type')
                     // ->multiple()
