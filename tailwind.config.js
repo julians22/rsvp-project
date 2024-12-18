@@ -8,15 +8,13 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                'navy': '#182e55',
-                'red-bni': '#bd2232'
-            }
+                navy: "#182e55",
+                "red-bni": "#bd2232",
+            },
+            backgroundImage: {
+                landing: "url('../img/landing-bg-pattern.svg')",
+            },
         },
     },
-    plugins: [
-
-        require('@tailwindcss/forms'),
-
-    ],
-}
-
+    plugins: [require("@tailwindcss/forms")],
+};

@@ -1,14 +1,18 @@
+/*  Required Glide.js Core Stylesheet */
+@import "/node_modules/@glidejs/glide/dist/css/glide.core.min.css";
+
+/*  Optional Glide.js Theme Stylesheet */
+@import "/node_modules/@glidejs/glide/dist/css/glide.theme.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-
     /* Font Family */
-    body{
-        font-family: 'Montserrat', sans-serif;
+    body {
+        font-family: "Montserrat", sans-serif;
     }
-
 }
 
 @layer components {
@@ -16,15 +20,15 @@
         @apply text-red-500;
     }
 
-    .btn{
+    .btn {
         @apply text-white text-lg lg:text-2xl font-semibold px-6 py-3 inline-block disabled:hover:scale-100 scale-100 hover:scale-105 transition-all ease-in-out rounded-lg;
     }
 
-    .form-group{
+    .form-group {
         @apply flex flex-col gap-y-1;
     }
 
-    .form-group .form-label{
+    .form-group .form-label {
         @apply font-semibold text-lg;
     }
 }

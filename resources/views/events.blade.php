@@ -2,84 +2,128 @@
 
 @php
     // Meta Desc (clean_description) limit text upto 160 characters
-    $metaDesc = 'Welcome to RSVP by Designcub3. RSVP by Designcub3 is a platform that allows you to create and manage your events.';
+    $metaDesc =
+        'Welcome to RSVP by Designcub3. RSVP by Designcub3 is a platform that allows you to create and manage your events.';
 @endphp
 
 @section('head', 'All Events')
 @section('description', $metaDesc)
 @section('image', asset('img/banner/webbanner.jpg'))
 
+
 @section('page')
-    <section class="min-h-screen py-10 lg:py-14 flex flex-row space-x-5 bg-gray-100">
-        <div class="max-w-none lg:max-w-5xl w-full px-4 lg:px-0 mx-auto">
+    <section class="flex min-h-screen flex-row space-x-5 bg-landing bg-bottom bg-no-repeat py-10 lg:py-14">
+        <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
 
-            <h1 class="text-2xl lg:text-4xl text-red-bni text-center font-bold mb-4 lg:mb-8">Incoming Event</h1>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 lg:gap-y-0 gap-x-0 lg:gap-x-4">
-                @foreach ($events as $event)
-
-                <div
-                    class="bg-white group hover:shadow hover:shadow-red-bni/30 cursor-pointer"
-                    onclick="window.location='{{ route('event.show', $event->slug) }}';"
-                    >
-                    <img src="{{ $event->getFirstMediaUrl('banner') }}"
-                        onerror="this.onerror=null;this.src='{{ asset('img/banner/webbanner.jpg') }}';"
-                        alt="" class="w-full aspect-video object-center mb-2">
-                    <div class="px-3 py-3">
-                        <h3 class="text-red-bni font-bold text-base mb-2">{{ $event->name }}</h3>
-                        <div class="flex flex-col gap-y-2 border-t border-red-bni pt-2">
-                            <div class="flex flex-row items-center text-black space-x-2">
-                                <div>
-                                    <x-heroicon-o-calendar class="w-4 h-4" />
-                                </div>
-                                <div class="col-span-10 text-sm leading-none">
-                                    {{ $event->start_date_full_formatted }}
-                                </div>
-                            </div>
-                            @if ($event->is_online_event)
-                                <div class="flex flex-row items-center text-black space-x-2">
-                                    <div>
-                                        <x-heroicon-o-globe-alt class="w-4 h-4" />
-                                    </div>
-                                    <div class="col-span-10 text-sm leading-none">
-                                        {{ $event->detail->online_time_no_seconds }} (Online)
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($event->is_offline_event)
-                                <div class="flex flex-row items-center text-black space-x-2">
-                                    <div>
-                                        <x-typ-location class="w-4 h-4" />
-                                    </div>
-                                    <div class="col-span-10 text-sm leading-none">
-                                        {{ $event->detail->offline_time_no_seconds }} (Offline)
-                                    </div>
-                                </div>
-                            @endif
-
-                            {{-- Register Button --}}
-                            <a href="{{ route('event.show', $event->slug) }}"
-                                class="bg-red-bni text-white text-sm font-semibold py-1 px-2 rounded-md text-center group hover:bg-red-bni/90 transition duration-500 ease-in-out">
-                                <span>
-                                    Register
-                                </span>
-                                <x-heroicon-o-arrow-right class="w-5 h-5 font-bold inline" />
-                            </a>
-                        </div>
-                    </div>
-
+            <div class="mb-10 flex flex-col items-center justify-between gap-4 sm:mb-20 sm:flex-row">
+                <div class="inline-flex grow-0 basis-1/4 flex-row items-center gap-4">
+                    <div><img src="{{ asset('img/logo-bni.png') }}" alt="bni logo"></div>
+                    <div><img src="{{ asset('img/logos.png') }}" alt="logos of orgs"></div>
                 </div>
-                @endforeach
+                <div class="grow-0 basis-1/4">
+                    <img src="{{ asset('img/impactful.png') }}" alt="text impactful">
+                </div>
+            </div>
+
+            <h1
+                class="mb-4 w-fit text-2xl font-bold text-black after:mt-6 after:block after:h-1 after:w-1/4 after:border-t-0 after:bg-red-bni lg:mb-8 lg:text-4xl">
+                UPCOMING EVENTS
+            </h1>
+
+
+            <div class="glide">
+                <div class="glide__track mx-8 md:mx-16" data-glide-el="track">
+                    <ul class="glide__slides">
+                        @foreach ($events as $event)
+                            <li
+                                class="glide__slide grid cursor-pointer grid-cols-1 grid-rows-[auto_minmax(auto,1fr)_1fr_auto] gap-2 overflow-hidden rounded-b-xl bg-white shadow-xl hover:shadow hover:shadow-red-bni/30 lg:gap-4">
+                                <img class="aspect-video w-full object-center"
+                                    src="{{ $event->getFirstMediaUrl('banner') }}"
+                                    onerror="this.onerror=null;this.src='{{ asset('img/banner/webbanner.jpg') }}';"
+                                    alt="">
+
+                                <div class="flex flex-row-reverse justify-end font-bold">
+                                    <div class="mb-2 inline-block h-full w-full bg-gray-500/10 p-2 text-base text-black">
+                                        <h2 class="line-clamp-3">
+                                            {{ $event->name }}</h2>
+                                    </div>
+                                    <div
+                                        class="grid flex-grow-0 basis-[40%] items-center justify-center bg-red-bni capitalize text-white">
+                                        <h3 class="flex flex-col items-center justify-center text-2xl uppercase">
+                                            <span>{{ date('d', strtotime($event->start_date_full_formatted)) }}</span>
+                                            <span>{{ date('M', strtotime($event->start_date_full_formatted)) }}</span>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-3">
+
+                                    <div class="flex flex-col gap-y-2 pb-6 pt-2">
+
+                                        @if ($event->is_online_event)
+                                            <div class="flex flex-row items-center space-x-2 text-black">
+                                                <x-heroicon-o-globe-alt class="h-4 w-4 text-red-bni" />
+                                                <div class="col-span-10 text-sm leading-none">
+                                                    ONLINE - {{ $event->detail->online_time_no_seconds }}
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if ($event->is_offline_event)
+                                            <div class="flex flex-row items-center space-x-2 text-black">
+                                                <x-typ-location class="h-4 w-4 text-red-bni" />
+                                                <div class="col-span-10 text-sm leading-none">
+                                                    OFFLINE - {{ $event->detail->offline_time_no_seconds }}
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                </div>
+                                {{-- Register Button --}}
+                                <a class="group bg-red-bni py-4 text-center text-sm font-semibold text-white transition duration-500 ease-in-out hover:bg-red-bni/90"
+                                    href="{{ route('event.show', $event->slug) }}">
+                                    {{-- <span> --}}
+                                    Register
+                                    {{-- </span> --}}
+                                    {{-- <x-heroicon-o-arrow-right class="inline h-5 w-5 font-bold" /> --}}
+                                </a>
+
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="glide__arrows" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left -left-4 border-none shadow-none sm:left-0"
+                        data-glide-dir="<">
+                        <x-heroicon-o-arrow-left-circle class="size-8 text-black" />
+                    </button>
+
+                    <button class="glide__arrow glide__arrow--right -right-4 border-none shadow-none sm:right-0"
+                        data-glide-dir=">">
+                        <x-heroicon-o-arrow-right-circle class="size-8 text-black" />
+                    </button>
+                </div>
+            </div>
+
+
+
+            {{-- <div>
                 @for ($i = 0; $i < $skeletonsCount; $i++)
                     <div class="relative bg-white">
-                        <div class="skeleton w-full aspect-video object-center mb-2"></div>
-                        <div class="skeleton w-3/4 h-4 mb-2"></div>
+                        <div class="skeleton mb-2 aspect-video w-full object-center"></div>
+                        <div class="skeleton mb-2 h-4 w-3/4"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <h3 class="text-red-bni text-base font-bold text-center">Empty Space</h3>
+                            <h3 class="text-center text-base font-bold text-red-bni">Empty Space</h3>
                         </div>
                     </div>
                 @endfor
-            </div>
+            </div> --}}
         </div>
     </section>
 @endsection
+
+@push('after-scipts')
+    @vite('resources/js/landing.js')
+@endpush
