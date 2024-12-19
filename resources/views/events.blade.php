@@ -12,21 +12,22 @@
 
 
 @section('page')
-    <section class="flex min-h-screen flex-row space-x-5 bg-landing bg-bottom bg-no-repeat py-10 lg:py-14">
+    <section class="flex min-h-screen flex-row space-x-5 bg-landing bg-bottom bg-no-repeat py-14">
         <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
 
-            <div class="mb-10 flex flex-col items-center justify-between gap-4 sm:mb-20 sm:flex-row">
-                <div class="inline-flex grow-0 basis-1/4 flex-row items-center gap-4">
+            <div class="mx-8 mb-10 flex items-center justify-between gap-4 max-sm:items-end sm:mb-20 md:mx-16">
+                <div class="inline-flex shrink-0 grow-0 basis-2/5 flex-row items-center gap-4 sm:basis-40">
                     <div><img src="{{ asset('img/logo-bni.png') }}" alt="bni logo"></div>
-                    <div><img src="{{ asset('img/logos.png') }}" alt="logos of orgs"></div>
                 </div>
-                <div class="grow-0 basis-1/4">
-                    <img src="{{ asset('img/impactful.png') }}" alt="text impactful">
+                <div class="inline-flex w-full items-center max-sm:basis-3/5 max-sm:flex-col md:justify-between">
+                    <div class="max-w-48 sm:max-w-72"><img src="{{ asset('img/LogoChapter.png') }}" alt="Logo Chapter"></div>
+                    <div class="max-w-48 sm:max-w-72"><img src="{{ asset('img/impactful.png') }}" alt="text impactful">
+                    </div>
                 </div>
             </div>
 
             <h1
-                class="mb-4 w-fit text-2xl font-bold text-black after:mt-6 after:block after:h-1 after:w-1/4 after:border-t-0 after:bg-red-bni lg:mb-8 lg:text-4xl">
+                class="mb-12 w-full text-3xl font-bold text-black after:mt-6 after:block after:h-1 after:w-1/4 after:border-t-0 after:bg-red-bni max-md:text-center max-md:after:mx-auto md:mx-16 md:after:w-1/6 lg:text-4xl">
                 UPCOMING EVENTS
             </h1>
 
@@ -36,7 +37,7 @@
                     <ul class="glide__slides">
                         @foreach ($events as $event)
                             <li
-                                class="glide__slide grid grid-cols-1 grid-rows-[auto_minmax(auto,1fr)_1fr_auto] gap-2 overflow-hidden rounded-b-xl bg-white shadow-xl hover:shadow hover:shadow-red-bni/30 lg:gap-4">
+                                class="glide__slide grid grid-cols-1 grid-rows-[auto_minmax(auto,80px)_50px_auto] gap-2 overflow-hidden rounded-b-xl bg-white shadow-xl hover:shadow hover:shadow-red-bni/30 lg:gap-4">
                                 <img class="aspect-video w-full object-center"
                                     src="{{ $event->getFirstMediaUrl('banner') }}"
                                     onerror="this.onerror=null;this.src='{{ asset('img/banner/webbanner.jpg') }}';"
@@ -49,16 +50,16 @@
                                     </div>
                                     <div
                                         class="grid flex-grow-0 basis-[40%] items-center justify-center bg-red-bni capitalize text-white">
-                                        <h3 class="flex flex-col items-center justify-center text-2xl uppercase">
+                                        <h3 class="flex flex-col items-center justify-center px-4 text-2xl uppercase">
                                             <span>{{ date('d', strtotime($event->start_date_full_formatted)) }}</span>
                                             <span>{{ date('M', strtotime($event->start_date_full_formatted)) }}</span>
                                         </h3>
                                     </div>
                                 </div>
 
-                                <div class="px-3 py-3">
+                                <div class="px-3 pb-3">
 
-                                    <div class="flex flex-col gap-y-2 pb-6 pt-2">
+                                    <div class="flex min-h-full flex-col justify-center">
 
                                         @if ($event->is_online_event)
                                             <div class="flex flex-row items-center space-x-2 text-black">
@@ -81,7 +82,7 @@
                                     </div>
                                 </div>
                                 {{-- Register Button --}}
-                                <a class="group bg-red-bni py-4 text-center text-sm font-semibold text-white transition duration-500 ease-in-out hover:bg-red-bni/90"
+                                <a class="group bg-red-bni py-4 pb-6 text-center text-xl font-semibold uppercase text-white transition duration-500 ease-in-out hover:bg-red-bni/90"
                                     href="{{ route('event.show', $event->slug) }}">
                                     {{-- <span> --}}
                                     Register
