@@ -15,7 +15,7 @@ const carousel = new Glide(".glide", {
         768: {
             perView: 1,
             gap: 6,
-            peek: 12,
+            // peek: 12,
         },
     },
 });
