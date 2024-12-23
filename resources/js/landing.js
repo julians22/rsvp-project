@@ -6,7 +6,7 @@ const carousel = new Glide(".glide", {
     bound: true,
     // autoplay: 4000,
     gap: 24,
-    peek: 48,
+    // peek: 48,
     perView: 3,
     breakpoints: {
         1024: {
