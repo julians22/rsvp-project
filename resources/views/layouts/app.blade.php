@@ -36,7 +36,7 @@
 
 </head>
 
-<body>
+<body class="bg-white antialiased">
     @yield('page')
 
     <footer class="fixed inset-x-0 bottom-0 flex items-center justify-center bg-navy px-2 py-3">
