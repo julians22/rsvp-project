@@ -50,9 +50,11 @@
                                     </div>
                                     <div
                                         class="grid flex-grow-0 basis-[40%] items-center justify-center bg-red-bni capitalize text-white">
-                                        <h3 class="flex flex-col items-center justify-center px-4 text-2xl uppercase">
-                                            <span>{{ date('d', strtotime($event->start_date_full_formatted)) }}</span>
-                                            <span>{{ date('M', strtotime($event->start_date_full_formatted)) }}</span>
+                                        <h3 class="flex flex-col items-center justify-center px-4 uppercase">
+                                            <span
+                                                class="text-2xl">{{ date('d', strtotime($event->start_date_full_formatted)) }}</span>
+                                            <span
+                                                class="text-xl">{{ date('M', strtotime($event->start_date_full_formatted)) }}</span>
                                         </h3>
                                     </div>
                                 </div>
