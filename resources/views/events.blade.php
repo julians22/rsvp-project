@@ -12,7 +12,7 @@
 
 
 @section('page')
-    <section class="flex min-h-screen flex-row space-x-5 bg-landing bg-bottom bg-no-repeat py-14">
+    <section class="flex min-h-dvh flex-row space-x-5 bg-landing bg-bottom bg-no-repeat py-14">
         <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
 
             <div class="mx-8 mb-10 flex items-center justify-between gap-4 max-sm:items-end sm:mb-20 md:mx-16">

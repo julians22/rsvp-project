@@ -5,7 +5,7 @@
     $metaDesc = Str::limit($event->detail->clean_description, 160);
 @endphp
 
-@section('head', $event->name??null)
+@section('head', $event->name ?? null)
 @section('description', $metaDesc)
 @section('image', $event->getFirstMediaUrl('banner'))
 
@@ -66,7 +66,7 @@
                     </video>
 
                     <h4 class="mb-1 px-4 text-2xl font-bold leading-loose text-gray-800 lg:px-0">What is <img
-                            class="max-w-14 inline" src="{{ asset('img/logo_bni.svg') }}" alt="LOGO BNI">?</h4>
+                            class="inline max-w-14" src="{{ asset('img/logo_bni.svg') }}" alt="LOGO BNI">?</h4>
 
                     <div class="px-4 text-lg font-semibold leading-loose text-gray-700 lg:px-0">
                         @if ($event->detail->override_description_2)
