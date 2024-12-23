@@ -37,7 +37,7 @@
                     <ul class="glide__slides">
                         @foreach ($events as $event)
                             <li
-                                class="glide__slide grid grid-cols-1 grid-rows-[auto_minmax(auto,80px)_50px_auto] gap-2 overflow-hidden rounded-b-xl bg-white shadow-xl hover:shadow hover:shadow-red-bni/30 lg:gap-4">
+                                class="glide__slide grid grid-cols-1 grid-rows-[auto_minmax(auto,80px)_80px_auto] overflow-hidden rounded-b-xl bg-white shadow-xl hover:shadow hover:shadow-red-bni/30">
                                 <img class="aspect-video w-full object-center"
                                     src="{{ $event->getFirstMediaUrl('banner') }}"
                                     onerror="this.onerror=null;this.src='{{ asset('img/banner/webbanner.jpg') }}';"
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
 
-                                <div class="px-3 pb-3">
+                                <div class="px-3 pb-3 pt-1">
 
                                     <div class="flex min-h-full flex-col justify-center">
 
