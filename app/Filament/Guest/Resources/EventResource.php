@@ -36,6 +36,7 @@ class EventResource extends Resource
     {
         return $table
             ->columns(EventTable::Event())
+            ->defaultSort('start_date', 'desc')
             ->filters([
                 //
             ])
