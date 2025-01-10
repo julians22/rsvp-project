@@ -14,8 +14,14 @@ Thank you for registering to our event. Here are the details of the event you ha
 Download Zoom Meeting Background
 </x-mail::button>
 
-<x-mail::button :url="$visitor->event->detail->online_link">
-Zoom Link: {{ $visitor->event->detail->online_link }}
+<div>
+Zoom Link:<br>
+<span style="word-break: break-all"> {{ $visitor->event->detail->online_link }}</span>
+</div>
+
+<x-mail::button  :url="$visitor->event->detail->online_link">
+{{-- https://bnionline.zoom.us/j/93733175392?pwd=Pwbs4oc3Vk15MANDShzhE5JDuiWSaq.1 --}}
+Visit Zoom Link
 </x-mail::button>
 @endif
 
