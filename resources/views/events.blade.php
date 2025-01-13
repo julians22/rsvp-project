@@ -38,10 +38,11 @@
                         @foreach ($events as $event)
                             <li
                                 class="glide__slide grid grid-cols-1 grid-rows-[auto_minmax(auto,80px)_80px_auto] overflow-hidden rounded-b-xl bg-white shadow-[8px_6px_7px_-5px_rgba(0,_0,_0,_0.5)]">
-                                <img class="aspect-video w-full object-center"
-                                    src="{{ $event->getFirstMediaUrl('banner') }}"
-                                    onerror="this.onerror=null;this.src='{{ asset('img/banner/webbanner.jpg') }}';"
-                                    alt="">
+                                <div class="aspect-[2.56/1] overflow-hidden">
+                                    <img class="w-full object-center" src="{{ $event->getFirstMediaUrl('thumbnail') }}"
+                                        onerror="this.onerror=null;this.src='{{ $event->getFirstMediaUrl('banner') ?? asset('img/banner/webbanner.jpg') }}';"
+                                        alt="">
+                                </div>
 
                                 <div class="flex flex-row-reverse justify-end font-bold">
                                     <div class="mb-2 inline-block h-full w-full bg-gray-500/10 p-2 text-base text-black">
