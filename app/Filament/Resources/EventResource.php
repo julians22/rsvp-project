@@ -42,6 +42,14 @@ class EventResource extends Resource
             ->schema([
                 SpatieMediaLibraryFileUpload::make('banner')
                     ->collection('banner')
+                    ->imageEditor()
+                    ->imageCropAspectRatio('2.56:1')
+                    ->columnSpanFull(),
+
+                SpatieMediaLibraryFileUpload::make('thumbnail')
+                    ->collection('thumbnail')
+                    ->imageEditor()
+                    ->imageCropAspectRatio('2.56:1')
                     ->columnSpanFull(),
 
                 TextInput::make('name')

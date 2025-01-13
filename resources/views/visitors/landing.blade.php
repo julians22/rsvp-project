@@ -20,7 +20,9 @@
 
         {{-- @dd($event->is_offline_event) --}}
 
-        <img class="w-full" src="{{ $event->getFirstMediaUrl('banner') }}" alt="">
+        <div class="relative aspect-[2.56/1] overflow-hidden">
+            <img class="w-full" src="{{ $event->getFirstMediaUrl('banner') }}" alt="">
+        </div>
 
         <div class="container mx-auto w-full space-y-4 pb-16 pt-6 lg:lg:w-[1200px] lg:space-y-6 lg:pt-14">
 
