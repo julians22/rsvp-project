@@ -11,7 +11,7 @@ class EventController extends Controller
     function index()
     {
 
-        $events = Event::with('detail')->incoming()->get();
+        $events = Event::with('detail')->incoming()->orderBy('start_date')->get();
 
         // Modulus events on 3
         $skeletonsCount = 3 - count($events) % 3;
