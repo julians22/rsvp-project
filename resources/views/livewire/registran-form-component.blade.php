@@ -118,7 +118,7 @@
 
                     </div>
 
-                    @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value)
+                    @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value && !$this->isOfflineSelected())
                         {{-- STATUS --}}
                         <div class="form-group my-4">
                             <label class="form-label text-black" for="status">STATUS KEHADIRAN
