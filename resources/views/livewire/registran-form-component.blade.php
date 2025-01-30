@@ -124,6 +124,7 @@
                             <label class="form-label text-black" for="status">STATUS KEHADIRAN
                                 {{ $this->isOnlineSelected() ? 'ONLINE' : 'OFFLINE' }} :</label>
                             <select id="status" required name="status" wire:model="status">
+
                                 <option value="">- PLEASE SELECT STATUS -</option>
 
                                 @foreach ($this->getStatusType() as $status)
@@ -132,6 +133,7 @@
                                     </option>
                                 @endforeach
                             </select>
+
                             <div>
                                 @error('status')
                                     <span class="error-form-message">{{ $message }}</span>

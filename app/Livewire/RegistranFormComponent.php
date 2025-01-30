@@ -165,7 +165,7 @@ class RegistranFormComponent extends Component
             $rule = [
                 "name" => "required",
                 "sessions" => "required",
-                "status" => "required",
+                // "status" => "required",
             ];
         } else {
             $rule = [
