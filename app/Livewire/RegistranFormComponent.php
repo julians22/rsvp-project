@@ -165,7 +165,7 @@ class RegistranFormComponent extends Component
             $rule = [
                 "name" => "required",
                 // "sessions" => "required",
-                "status" => $this->event->is_offline_event_only ? '' : "required",
+                // "status" => $this->event->is_offline_event_only ? '' : "required",
                 "email" => Rule::unique('visitors')->where(function ($query) {
                     return $query->where('email', $this->email)
                         ->where('event_id', $this->event->id);
