@@ -166,6 +166,10 @@ class RegistranFormComponent extends Component
                 "name" => "required",
                 // "sessions" => "required",
                 "status" => "required",
+                "email" => Rule::unique('visitors')->where(function ($query) {
+                    return $query->where('email', $this->email)
+                        ->where('event_id', $this->event->id);
+                }),
             ];
         } else {
             $rule = [
@@ -363,6 +367,7 @@ class RegistranFormComponent extends Component
         }
 
         $visitor = Visitor::create($data);
+
         if ($this->isOfflineSelected() && count($this->offline_foods) && $this->event->detail->show_invoice_upload) {
             $visitor->addMedia($this->payment->getRealPath())
                 ->preservingOriginal()

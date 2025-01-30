@@ -120,27 +120,44 @@
 
                     @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value)
                         {{-- STATUS --}}
-                        <div class="form-group my-4">
-                            <label class="form-label text-black" for="status">STATUS KEHADIRAN
-                                ONLINE :</label>
-                            <select id="status" required name="status" wire:model="status">
+                        {{-- @dump($this->event->is_offline_event_only) --}}
+                        @if (!$this->event->is_offline_event_only)
 
-                                <option value="">- PLEASE SELECT STATUS -</option>
+                            <div class="form-group my-4">
 
-                                @foreach ($this->getStatusType() as $status)
-                                    <option value="{{ $status->value }}" wire:key='{{ $status->value }}'>
-                                        {{ $status->getLabel() }}
-                                    </option>
-                                @endforeach
+                                @php
+                                    $label = '';
 
-                            </select>
+                                    if ($this->isOfflineSelected() && !$this->isOnlineSelected()) {
+                                        $label = 'OFFLINE';
+                                    } elseif ($this->isOfflineSelected() && $this->isOnlineSelected()) {
+                                        $label = 'ONLINE';
+                                    } elseif (!$this->isOfflineSelected() && !$this->isOnlineSelected()) {
+                                        $label = '';
+                                    } else {
+                                        $label = 'ONLINE';
+                                    }
+                                @endphp
 
-                            <div>
-                                @error('status')
-                                    <span class="error-form-message">{{ $message }}</span>
-                                @enderror
+                                <label class="form-label text-black" for="status">STATUS KEHADIRAN
+                                    {{ $label }}:</label>
+                                <select id="status" required name="status" wire:model="status">
+                                    <option value="">- PLEASE SELECT STATUS -</option>
+
+                                    @foreach ($this->getStatusType() as $status)
+                                        <option value="{{ $status->value }}" wire:key='{{ $status->value }}'>
+                                            {{ $status->getLabel() }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div>
+                                    @error('status')
+                                        <span class="error-form-message">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
                     @endif
 
                     @if ($this->isOfflineSelected === true)
@@ -312,8 +329,7 @@
 
 
                         <button class="btn disabled:hover: w-full bg-red-bni disabled:bg-red-bni/80"
-                            @unless (!$this->isEmptySessions) disabled @endunless wire:loading.attr="disabled"
-                            type="submit">
+                            wire:loading.attr="disabled" type="submit">
                             <span class="items-center justify-center" wire:loading.flex wire:target="save">
                                 <svg class="-ml-1 mr-3 h-5 w-5 animate-spin text-white" data-motion-id="svg 2"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -346,18 +362,29 @@
                     <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.jpg') }}"
                         alt="">
 
-                    <div class="mb-6">
-                        <h2 class="mb-2 text-[40px] font-bold leading-none lg:text-[78px]">
-                            THANK YOU
-                        </h2>
-                        <h2 class="text-[40px] font-medium leading-none lg:text-[42px]">
-                            FOR YOUR REGISTRATION
-                        </h2>
-                    </div>
+                    @if (!$this->isOnlineSelected && !$this->isOfflineSelected)
+                        <div class="mb-6">
+                            <h2 class="mb-2 text-[40px] font-bold leading-none lg:text-[78px]">
+                                THANK YOU
+                            </h2>
+                            <h2 class="text-[40px] font-medium leading-none lg:text-[42px]">
+                                FOR YOUR RESPONSE
+                            </h2>
+                        </div>
+                    @else
+                        <div class="mb-6">
+                            <h2 class="mb-2 text-[40px] font-bold leading-none lg:text-[78px]">
+                                THANK YOU
+                            </h2>
+                            <h2 class="text-[40px] font-medium leading-none lg:text-[42px]">
+                                FOR YOUR REGISTRATION
+                            </h2>
+                        </div>
 
-                    <h2 class="text-[24px] text-xl font-bold">
-                        SEE YOU ON {{ $this->event->start_date_full_formatted }}!
-                    </h2>
+                        <h2 class="text-[24px] text-xl font-bold">
+                            SEE YOU ON {{ $this->event->start_date_full_formatted }}!
+                        </h2>
+                    @endif
                 </div>
 
                 <div class="grid grid-cols-1">
