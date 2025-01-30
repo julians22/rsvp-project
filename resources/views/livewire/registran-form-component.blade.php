@@ -15,7 +15,7 @@
 
                     <div>
 
-                        <img class="max-w-48 mb-6 lg:max-w-[300px]" src="{{ asset('img/logo_bni.jpg') }}" alt="">
+                        <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.jpg') }}" alt="">
 
                         <div>
                             <div>
@@ -121,7 +121,8 @@
                     @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value)
                         {{-- STATUS --}}
                         <div class="form-group my-4">
-                            <label class="form-label text-black" for="status">STATUS KEHADIRAN ONLINE :</label>
+                            <label class="form-label text-black" for="status">STATUS KEHADIRAN
+                                {{ $this->isOnlineSelected() ? 'ONLINE' : 'OFFLINE' }} :</label>
                             <select id="status" required name="status" wire:model="status">
                                 <option value="">- PLEASE SELECT STATUS -</option>
 
@@ -339,7 +340,7 @@
 
                 <div>
 
-                    <img class="max-w-48 mb-6 lg:max-w-[300px]" src="{{ asset('img/logo_bni.jpg') }}"
+                    <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.jpg') }}"
                         alt="">
 
                     <div class="mb-6">
