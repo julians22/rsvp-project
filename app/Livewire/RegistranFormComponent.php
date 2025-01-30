@@ -164,13 +164,13 @@ class RegistranFormComponent extends Component
         if ($this->isVisitorTypeMagnitude()) {
             $rule = [
                 "name" => "required",
-                "sessions" => "required",
+                // "sessions" => "required",
                 "status" => "required",
             ];
         } else {
             $rule = [
                 "name" => "required",
-                "sessions" => "required",
+                // "sessions" => "required",
                 // "status" => "required",
                 "business" => "required",
                 "company" => "required",
