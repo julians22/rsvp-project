@@ -118,11 +118,11 @@
 
                     </div>
 
-                    @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value && !$this->isOfflineSelected())
+                    @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value)
                         {{-- STATUS --}}
                         <div class="form-group my-4">
                             <label class="form-label text-black" for="status">STATUS KEHADIRAN
-                                {{ $this->isOnlineSelected() ? 'ONLINE' : 'OFFLINE' }} :</label>
+                                ONLINE :</label>
                             <select id="status" required name="status" wire:model="status">
 
                                 <option value="">- PLEASE SELECT STATUS -</option>
@@ -132,6 +132,7 @@
                                         {{ $status->getLabel() }}
                                     </option>
                                 @endforeach
+
                             </select>
 
                             <div>
