@@ -62,7 +62,15 @@ class EventTable
             TextColumn::make('meta')
                 // ->listWithLineBreaks()
                 // ->bulleted()
-                ->getStateUsing(fn($record) => implode(', ', array_map(fn($key, $value) => ucfirst(str_replace('_', ' ', $key)) . ": $value", array_diff_key($record->meta, array_flip(['offline_food', 'payment_path'])), $record->meta)))
+                ->getStateUsing(function ($record) {
+                    $meta = [];
+                    foreach ($record->meta as $key => $value) {
+                        if (!in_array($key, ['offline_food', 'payment_path'])) {
+                            $meta[] = ucfirst(str_replace('_', ' ', $key)) . ": $value";
+                        }
+                    }
+                    return implode("\n", $meta);
+                })
                 ->label('extra info'),
             IconColumn::make('is_offline')
                 ->label('Offline Presence')
