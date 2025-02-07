@@ -8,6 +8,12 @@
         <x-searchable-dropdown :options="$this->allMember" member-name="name" member-email="email" member-phone="phone" />
 
         <div>
+            @error('name')
+                <span class="error-form-message">{{ $message }}</span>
+            @enderror
+            @error('phone')
+                <span class="error-form-message">{{ $message }}</span>
+            @enderror
             @error('email')
                 <span class="error-form-message">{{ $message }}</span>
             @enderror
