@@ -127,18 +127,14 @@
                                 @php
                                     $label = '';
 
-                                    if ($this->isOfflineSelected() && !$this->isOnlineSelected()) {
-                                        $label = 'OFFLINE';
-                                    } elseif ($this->isOfflineSelected() && $this->isOnlineSelected()) {
-                                        $label = 'ONLINE';
-                                    } elseif (!$this->isOfflineSelected() && !$this->isOnlineSelected()) {
-                                        $label = '';
+                                    if (!$this->isOnlineSelected()) {
+                                        $label = 'KETIDAKHADIRAN';
                                     } else {
-                                        $label = 'ONLINE';
+                                        $label = 'KEHADIRAN';
                                     }
                                 @endphp
 
-                                <label class="form-label text-black" for="status">STATUS KEHADIRAN
+                                <label class="form-label text-black" for="status">STATUS {{ $label }}
                                     ONLINE:</label>
                                 <select id="status" required name="status" wire:model.live="status">
                                     <option value="">- PLEASE SELECT STATUS -</option>
