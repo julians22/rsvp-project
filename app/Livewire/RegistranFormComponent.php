@@ -39,7 +39,7 @@ class RegistranFormComponent extends Component
 
     public $name = '';
 
-    public $status = '';
+    public $status = null;
 
     public $business = null;
 
@@ -58,6 +58,8 @@ class RegistranFormComponent extends Component
     public $visitor_type = [];
 
     public $invited_by_disabled = false;
+
+    public $substituted_by = null;
 
     public function updatedType()
     {
@@ -84,7 +86,16 @@ class RegistranFormComponent extends Component
     public function updatedSessions()
     {
         // $this->updateVisitorType();
-        $this->status = '';
+        $this->reset('status');
+        $this->reset('substituted_by');
+        // $this->status = '';
+    }
+
+    public function updatingStatus($value)
+    {
+        if ($value !== VisitorStatusType::SUBSTITUTE->value) {
+            $this->reset('substituted_by');
+        }
     }
 
     /**
@@ -364,6 +375,10 @@ class RegistranFormComponent extends Component
 
         if ($this->isOnlineSelected()) {
             $data['is_online'] = true;
+        }
+
+        if ($this->isVisitorTypeMagnitude() && $this->status === VisitorStatusType::SUBSTITUTE->value) {
+            $data['meta'] = array_merge($data['meta'] ?? [], ['substituted_by' => $this->substituted_by]);
         }
 
         $visitor = Visitor::create($data);

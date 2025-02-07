@@ -124,7 +124,6 @@
                         @if (!$this->event->is_offline_event_only)
 
                             <div class="form-group my-4">
-
                                 @php
                                     $label = '';
 
@@ -140,13 +139,13 @@
                                 @endphp
 
                                 <label class="form-label text-black" for="status">STATUS KEHADIRAN
-                                    {{ $label }}:</label>
-                                <select id="status" required name="status" wire:model="status">
+                                    ONLINE:</label>
+                                <select id="status" required name="status" wire:model.live="status">
                                     <option value="">- PLEASE SELECT STATUS -</option>
-
-                                    @foreach ($this->getStatusType() as $status)
-                                        <option value="{{ $status->value }}" wire:key='{{ $status->value }}'>
-                                            {{ $status->getLabel() }}
+                                    @foreach ($this->getStatusType() as $status_item)
+                                        <option value="{{ $status_item->value }}"
+                                            wire:key='{{ $status_item->value }}'>
+                                            {{ $status_item->getLabel() }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -156,6 +155,21 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            @if ($status === App\Enums\VisitorStatusType::SUBSTITUTE->value)
+                                {{-- SUBSTITUTED BY --}}
+                                <div class="form-group">
+                                    <label class="form-label text-black" for="substituted_by">Substituted by: </label>
+                                    <input class="w-full border border-black p-2" id="substituted_by" type="text"
+                                        wire:model.blur="substituted_by" />
+                                    <div>
+                                        @error('substituted_by')
+                                            <span class="error-form-message">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+
                         @endif
 
                     @endif

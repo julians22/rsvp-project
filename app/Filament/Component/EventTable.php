@@ -59,6 +59,11 @@ class EventTable
                     default => 'heroicon-o-x-circle',
                 }),
             TextColumn::make('status'),
+            TextColumn::make('meta')
+                // ->listWithLineBreaks()
+                // ->bulleted()
+                ->getStateUsing(fn($record) => implode(', ', array_map(fn($key, $value) => ucfirst(str_replace('_', ' ', $key)) . ": $value", array_keys($record->meta), $record->meta)))
+                ->label('extra info'),
             IconColumn::make('is_offline')
                 ->label('Offline Presence')
                 ->icon(fn(string $state): string => match ($state) {
