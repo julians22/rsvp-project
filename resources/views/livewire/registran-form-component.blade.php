@@ -156,8 +156,8 @@
                                 {{-- SUBSTITUTED BY --}}
                                 <div class="form-group">
                                     <label class="form-label text-black" for="substituted_by">Substituted by: </label>
-                                    <input class="w-full border border-black p-2" id="substituted_by" type="text"
-                                        wire:model.blur="substituted_by" />
+                                    <input class="w-full border border-black p-2" id="substituted_by" required
+                                        type="text" wire:model.blur="substituted_by" />
                                     <div>
                                         @error('substituted_by')
                                             <span class="error-form-message">{{ $message }}</span>
