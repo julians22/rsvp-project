@@ -64,9 +64,11 @@ class EventTable
                 // ->bulleted()
                 ->getStateUsing(function ($record) {
                     $meta = [];
-                    foreach ($record->meta as $key => $value) {
-                        if (!in_array($key, ['offline_food', 'payment_path'])) {
-                            $meta[] = ucfirst(str_replace('_', ' ', $key)) . ": $value";
+                    if ($record) {
+                        foreach ($record->meta as $key => $value) {
+                            if (!in_array($key, ['offline_food', 'payment_path'])) {
+                                $meta[] = ucfirst(str_replace('_', ' ', $key)) . ": $value";
+                            }
                         }
                     }
                     return implode("\n", $meta);
