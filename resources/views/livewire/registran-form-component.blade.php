@@ -202,7 +202,7 @@
                                             </label>
                                             <label class="text-lg font-bold leading-none text-black" for="food">
                                                 @if ($this->event->slug == 'bni-grand-launch-celebration')
-                                                    Entrance Free, Dining & Drinks
+                                                    Entrance Fee, Dining & Drinks
                                                 @else
                                                     PAY FOR YOUR LUNCH
                                                 @endif

@@ -109,7 +109,7 @@
                                     <div>
                                         <h5 class="text-xl font-bold text-gray-800">ZOOM ONLINE</h5>
                                         <h5 class="text-xl font-bold lg:text-2xl">
-                                            {{ $event->detail->online_time_no_seconds }}
+                                            {{ $event->detail->online_time }}
                                         </h5>
                                     </div>
                                     <div class="text-center">
@@ -135,7 +135,7 @@
                                     <div>
                                         <h5 class="text-xl font-bold text-gray-800">OFFLINE MEETING</h5>
                                         <h5 class="text-xl font-bold lg:text-2xl">
-                                            {{ $event->detail->offline_time_no_seconds }}
+                                            {{ $event->detail->offline_time }}
                                         </h5>
                                         {!! $event->detail->offline_address !!}
                                     </div>
@@ -148,7 +148,7 @@
                                         @else
                                             <h5 class="text-xl font-bold leading-[25px]">
                                                 @if ($event->slug == 'bni-grand-launch-celebration')
-                                                    Entrance Free, Dining & Drinks
+                                                    Entrance Fee, Dining & Drinks
                                                 @else
                                                     PAY FOR YOUR LUNCH
                                                 @endif
