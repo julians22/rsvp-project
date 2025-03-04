@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\NullableEnum;
+use App\Casts\TimeCast;
 use App\Enums\VisitorType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,8 @@ class EventDetail extends Model implements HasMedia
         'offline_foods' => 'array',
         'online_visitor_type_list' => 'array',
         'offline_visitor_type_list' => 'array',
+        'online_time' => TimeCast::class,
+        'offline_time' => TimeCast::class
     ];
 
     /**
@@ -105,19 +108,19 @@ class EventDetail extends Model implements HasMedia
      * Only if the override_description_1 is not null
      * Then return the description_1
      */
-     protected function getDescriptionAttribute()
-     {
+    protected function getDescriptionAttribute()
+    {
 
         if ($this->override_description_1) {
             return $this->description_1;
         }
 
         return 'You are invited to join our BNI Altitude & BNI Magnitude event. Register now!';
-     }
+    }
 
-     /**
-      * Get clean html tags from the description attribute.
-      */
+    /**
+     * Get clean html tags from the description attribute.
+     */
     protected function getCleanDescriptionAttribute()
     {
         if ($this->override_description_1) {

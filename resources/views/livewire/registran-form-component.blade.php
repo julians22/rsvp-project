@@ -90,7 +90,7 @@
                                     ]) type="checkbox" value="online"
                                         @disabled(!$this->event->is_online_event) wire:model.live="sessions">
                                     <span class="ml-2 text-lg font-semibold">Online
-                                        {{ $this->online_hour }}</span>
+                                        {{ $this->event->detail->online_time }}</span>
                                 </label>
                             </div>
 
@@ -104,7 +104,8 @@
                                         'cursor-not-allowed ' => !$this->event->is_offline_event,
                                     ]) type="checkbox" value="offline"
                                         wire:model.live="sessions" @disabled(!$this->event->is_offline_event)>
-                                    <span class="ml-2 text-lg font-semibold">Offine {{ $this->offline_hour }}</span>
+                                    <span class="ml-2 text-lg font-semibold">Offine
+                                        {{ $this->event->detail->offline_time }}</span>
                                 </label>
                             </div>
                         </div>
