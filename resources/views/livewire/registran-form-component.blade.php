@@ -201,11 +201,14 @@
                                                     alt="">
                                             </label>
                                             <label class="text-lg font-bold leading-none text-black" for="food">
-                                                PAY FOR YOUR LUNCH
+                                                @if ($this->event->slug == 'bni-grand-launch-celebration')
+                                                    Entrance Free, Dining & Drinks
+                                                @else
+                                                    PAY FOR YOUR LUNCH
+                                                @endif
                                             </label>
+
                                         </div>
-
-
 
                                         @if ($this->event->detail->food_type === App\Enums\FoodType::BUFFET->value)
 
@@ -425,7 +428,11 @@
                                 <div class="mt-6">
                                     <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                                     <ul class="list-inside list-disc">
-                                        <li class="text-lg font-medium">Wear Business Attire</li>
+                                        @if ($this->event->slug == 'bni-grand-launch-celebration')
+                                            <li class="text-lg font-medium"> Dresscode: Semi Formal - Red & Black</li>
+                                        @else
+                                            <li class="text-lg font-medium">Wear Business Attire</li>
+                                        @endif
                                         <li class="text-lg font-medium">Use Quality Internet Connection, Headset &
                                             Webcam</li>
                                         <li class="text-lg font-medium">Prepare Your Business Introduction</li>
@@ -482,10 +489,14 @@
                                 <div class="mt-6">
                                     <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                                     <ul class="list-inside list-disc">
-                                        <li class="text-lg font-medium">Wear Business Attire</li>
-                                        <li class="text-lg font-medium">Bring lots of Namecards</li>
-                                        <li class="text-lg font-medium">Prepare Your Business Introduction</li>
-                                        <li class="text-lg font-medium">Please be on-time</li>
+
+                                        @if ($this->event->slug == 'bni-grand-launch-celebration')
+                                        @else
+                                            <li class="text-lg font-medium">Wear Business Attire</li>
+                                            <li class="text-lg font-medium">Bring lots of Namecards</li>
+                                            <li class="text-lg font-medium">Prepare Your Business Introduction</li>
+                                            <li class="text-lg font-medium">Please be on-time</li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>

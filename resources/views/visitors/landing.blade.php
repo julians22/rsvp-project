@@ -147,7 +147,11 @@
                                             </h5>
                                         @else
                                             <h5 class="text-xl font-bold leading-[25px]">
-                                                PAY FOR YOUR LUNCH
+                                                @if ($event->slug == 'bni-grand-launch-celebration')
+                                                    Entrance Free, Dining & Drinks
+                                                @else
+                                                    PAY FOR YOUR LUNCH
+                                                @endif
                                             </h5>
                                             <p class="text-lg font-bold">
                                                 {{ $event->detail->offline_food_price_currency }} IDR/pax
@@ -162,7 +166,11 @@
                         <div class="border border-black px-4 py-4 lg:px-8 lg:py-6">
                             <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                             <ul class="list-inside list-disc">
-                                <li class="text-lg font-medium">Wear Business Attire</li>
+                                @if ($event->slug == 'bni-grand-launch-celebration')
+                                    <li class="text-lg font-medium"> Dresscode: Semi Formal - Red & Black</li>
+                                @else
+                                    <li class="text-lg font-medium">Wear Business Attire</li>
+                                @endif
                                 @if ($event->is_offline_event)
                                     <li class="text-lg font-medium">Bring Professional Namecards</li>
                                 @endif
