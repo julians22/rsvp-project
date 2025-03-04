@@ -489,14 +489,14 @@
                                 <div class="mt-6">
                                     <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                                     <ul class="list-inside list-disc">
-
                                         @if ($this->event->slug == 'bni-grand-launch-celebration')
+                                            <li class="text-lg font-medium"> Dresscode: Semi Formal - Red & Black</li>
                                         @else
                                             <li class="text-lg font-medium">Wear Business Attire</li>
-                                            <li class="text-lg font-medium">Bring lots of Namecards</li>
-                                            <li class="text-lg font-medium">Prepare Your Business Introduction</li>
-                                            <li class="text-lg font-medium">Please be on-time</li>
                                         @endif
+                                        <li class="text-lg font-medium">Bring lots of Namecards</li>
+                                        <li class="text-lg font-medium">Prepare Your Business Introduction</li>
+                                        <li class="text-lg font-medium">Please be on-time</li>
                                     </ul>
                                 </div>
                             </div>
