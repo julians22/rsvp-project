@@ -90,7 +90,7 @@
                                     ]) type="checkbox" value="online"
                                         @disabled(!$this->event->is_online_event) wire:model.live="sessions">
                                     <span class="ml-2 text-lg font-semibold">Online
-                                        {{ $this->online_hour }} Pagi</span>
+                                        {{ $this->online_hour }}</span>
                                 </label>
                             </div>
 
@@ -104,8 +104,7 @@
                                         'cursor-not-allowed ' => !$this->event->is_offline_event,
                                     ]) type="checkbox" value="offline"
                                         wire:model.live="sessions" @disabled(!$this->event->is_offline_event)>
-                                    <span class="ml-2 text-lg font-semibold">Offine {{ $this->offline_hour }}
-                                        Siang</span>
+                                    <span class="ml-2 text-lg font-semibold">Offine {{ $this->offline_hour }}</span>
                                 </label>
                             </div>
                         </div>
@@ -288,8 +287,12 @@
                                         {{-- KETERANGAN --}}
                                         @if ($this->event->detail->show_invoice_upload)
 
+                                            {{-- <p class="font-semibold">Please transfer payment to <br><strong
+                                                    class="text-lg">Fransisca - BCA 0657181513</strong></p> --}}
+
                                             <p class="font-semibold">Please transfer payment to <br><strong
-                                                    class="text-lg">Fransisca - BCA 0657181513</strong></p>
+                                                    class="text-lg">BANK JAGO 1005 2218 1069 a/n Fransisca</strong></p>
+
                                             <div class="rounded-lg bg-gray-200 p-2">
                                                 <p class="mb-2">Sertakan Berita dengan format penulisan:
                                                     <strong>“Chapter/Visitor" + “Nama”</strong>
