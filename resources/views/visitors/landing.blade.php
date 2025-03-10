@@ -187,7 +187,11 @@
                 @if ($event->isEnded())
                     <p class="text-lg font-semibold text-red-500">Registration has ended</p>
                 @else
-                    <a class="btn bg-red-bni" href="{{ route('event.register', ['slug' => $slug]) }}">REGISTER NOW</a>
+                    @if ($event->slug == 'bni-grand-launch-celebration')
+                        <p class="text-lg font-semibold text-red-500">Registration has ended</p>
+                    @else
+                        <a class="btn bg-red-bni" href="{{ route('event.register', ['slug' => $slug]) }}">REGISTER NOW</a>
+                    @endif
                 @endif
 
             </div>
