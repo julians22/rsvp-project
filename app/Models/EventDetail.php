@@ -33,8 +33,8 @@ class EventDetail extends Model implements HasMedia
         'offline_foods' => 'array',
         'online_visitor_type_list' => 'array',
         'offline_visitor_type_list' => 'array',
-        'online_time' => TimeCast::class,
-        'offline_time' => TimeCast::class
+        // 'online_time' => TimeCast::class,
+        // 'offline_time' => TimeCast::class
     ];
 
     /**
@@ -62,7 +62,7 @@ class EventDetail extends Model implements HasMedia
         $onlinetime = $this->online_time;
 
         // Make the time in no seconds format & add PM/AM
-        $time = date('h:i A', strtotime($onlinetime));
+        $time = date('H:i', strtotime($onlinetime));
         return $time;
     }
 
@@ -74,7 +74,7 @@ class EventDetail extends Model implements HasMedia
     public function getOfflineTimeNoSecondsAttribute()
     {
         $offlinetime = $this->offline_time;
-        $time = date('h:i A', strtotime($offlinetime));
+        $time = date('H:i', strtotime($offlinetime));
         return $time;
     }
 

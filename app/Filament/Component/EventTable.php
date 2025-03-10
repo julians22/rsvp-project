@@ -2,6 +2,7 @@
 
 namespace App\Filament\Component;
 
+use App\Enums\VisitorType;
 use App\Models\Event;
 use App\Models\Visitor;
 use Illuminate\Contracts\View\View;
@@ -46,11 +47,25 @@ class EventTable
     static public function ManageVisitor()
     {
         return [
+            // TextColumn::make('index')
+            //     ->label('No. ')
+            //     ->rowIndex(),
             TextColumn::make('type')
                 ->placeholder('Type')
                 ->sortable()
+                ->searchable()
+                ->formatStateUsing(
+                    fn($state): string => in_array($state, array_column(VisitorType::cases(), 'value'))
+                        ? VisitorType::from($state)->getLabel()
+                        : 'Unknown'
+                ),
+            TextColumn::make('created_at')
+                ->label('Register Date')
+                ->sortable()
+                ->formatStateUsing(fn($state): string => (new \DateTime($state))->format('d F Y')),
+            TextColumn::make('name')
+                ->sortable()
                 ->searchable(),
-            TextColumn::make('name'),
             IconColumn::make('is_online')
                 ->label('Online Presence')
                 ->icon(fn(string $state): string => match ($state) {

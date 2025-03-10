@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
+use App\Enums\VisitorType;
 use App\Filament\Component\EventTable;
 use App\Filament\Resources\EventResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class ManageVisitor extends ManageRelatedRecords
@@ -59,8 +61,11 @@ class ManageVisitor extends ManageRelatedRecords
             ->recordTitleAttribute('name')
             ->columns(EventTable::ManageVisitor())
             ->filters([
-                //
+                SelectFilter::make('Type')
+                    ->multiple()
+                    ->options(VisitorType::class)
             ])
+            ->defaultSort('created_at', 'desc')
             ->headerActions([
                 //
             ])

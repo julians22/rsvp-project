@@ -109,7 +109,7 @@
                                     <div>
                                         <h5 class="text-xl font-bold text-gray-800">ZOOM ONLINE</h5>
                                         <h5 class="text-xl font-bold lg:text-2xl">
-                                            {{ $event->detail->online_time }}
+                                            {{ $event->detail->online_time_no_seconds }}
                                         </h5>
                                     </div>
                                     <div class="text-center">
