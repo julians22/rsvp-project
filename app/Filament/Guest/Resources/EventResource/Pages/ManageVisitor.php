@@ -73,6 +73,7 @@ class ManageVisitor extends ManageRelatedRecords
                     ->multiple()
                     ->options(VisitorType::class)
             ])
+            ->defaultSort('created_at', 'desc')
             ->deferFilters()
             ->headerActions([
                 //
