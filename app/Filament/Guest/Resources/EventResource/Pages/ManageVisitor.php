@@ -70,7 +70,7 @@ class ManageVisitor extends ManageRelatedRecords
             ->columns(EventTable::ManageVisitor())
             ->filters([
                 SelectFilter::make('type')
-                    // ->multiple()
+                    ->multiple()
                     ->options(VisitorType::class)
             ])
             ->deferFilters()
