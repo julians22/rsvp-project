@@ -4,13 +4,20 @@ namespace App\Filament\Resources\EventResource\Pages;
 
 use App\Enums\VisitorType;
 use App\Filament\Component\EventTable;
+use App\Filament\Exports\EventVisitorExporter;
 use App\Filament\Resources\EventResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use App\Filament\Exports\ProductExporter;
+use App\Filament\Exports\VisitorExporter;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\Exports\Models\Export;
+use Filament\Tables\Actions\ExportBulkAction;
 
 class ManageVisitor extends ManageRelatedRecords
 {
@@ -67,7 +74,12 @@ class ManageVisitor extends ManageRelatedRecords
             ])
             ->defaultSort('created_at', 'desc')
             ->headerActions([
-                //
+                ExportAction::make()
+                    ->exporter(VisitorExporter::class)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                    ])
+                    ->fileName(fn(Export $export): string => substr("{$this->record->slug}", 0, 25) . " visitor - {$export->getKey()}")
             ])
             ->actions([
                 // Tables\Actions\ViewAction::make(),
