@@ -105,7 +105,7 @@
                                     ]) type="checkbox" value="offline"
                                         wire:model.live="sessions" @disabled(!$this->event->is_offline_event)>
                                     <span class="ml-2 text-lg font-semibold">Offine
-                                        {{ $this->event->detail->online_time_no_seconds }}</span>
+                                        {{ $this->event->detail->offline_time_no_seconds }}</span>
                                 </label>
                             </div>
                         </div>
