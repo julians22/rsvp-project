@@ -37,7 +37,7 @@
                     <div class="my-2 rounded bg-gray-300 px-4 py-4">
                         <h4 class="text-base"><strong>NOTES:</strong></h4>
                         <p class="text-base font-bold text-black">
-                            REGISTRATION WILL BE CLOSED H-1 AT 22.00 WIB
+                            REGISTRATION WILL BE CLOSED H-1 AT 15.00 WIB
                         </p>
                     </div>
 

@@ -32,11 +32,17 @@ class EventController extends Controller
             abort(404);
         }
 
+
         if ($event->detail == null || $event->detail->online_link == null) {
             abort(404);
         }
 
+
         if ($event->isEnded()) {
+            $isDisabled = true;
+        }
+
+        if (!$event->detail->enable_registration) {
             $isDisabled = true;
         }
 
@@ -65,6 +71,10 @@ class EventController extends Controller
         }
 
         if ($event->isEnded()) {
+            return redirect()->route('event.show', $slug);
+        }
+
+        if (!$event->detail->enable_registration) {
             return redirect()->route('event.show', $slug);
         }
 

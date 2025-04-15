@@ -62,6 +62,7 @@ class EventResource extends Resource
                     ])
                     ->required(),
 
+
                 Toggle::make('checkable'),
 
                 Section::make(__('Event Date'))
@@ -91,6 +92,8 @@ class EventResource extends Resource
                     )
                     ->schema(
                         [
+                            Toggle::make('enable_registration')
+                                ->default(true),
                             Grid::make(12)
                                 ->schema([
                                     Section::make('Online Event Detail')

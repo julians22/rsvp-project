@@ -184,7 +184,7 @@
             <div class="space-y-4 pt-6 text-center">
                 <h2 class="text-center text-xl font-bold lg:text-2xl">WE LOOK FORWARD TO CONNECT WITH YOU!</h2>
 
-                @if ($event->isEnded())
+                @if ($isDisabled)
                     <p class="text-lg font-semibold text-red-500">Registration has ended</p>
                 @else
                     @if ($event->slug == 'bni-grand-launch-celebration')

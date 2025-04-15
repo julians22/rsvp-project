@@ -5,12 +5,12 @@ namespace App\Filament\Component;
 use App\Enums\VisitorType;
 use App\Models\Event;
 use App\Models\Visitor;
-use Illuminate\Contracts\View\View;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\View\View;
 
 class EventTable
 {
@@ -59,13 +59,18 @@ class EventTable
                         ? VisitorType::from($state)->getLabel()
                         : 'Unknown'
                 ),
+            TextColumn::make('name')
+                ->sortable()
+                ->searchable(),
             TextColumn::make('created_at')
                 ->label('Register Date')
                 ->sortable()
                 ->formatStateUsing(fn($state): string => (new \DateTime($state))->format('d F Y')),
-            TextColumn::make('name')
-                ->sortable()
-                ->searchable(),
+            TextColumn::make('register_time')
+                ->label('Register Time')
+                // ->sortable()
+                ->state(fn(Visitor $visitor): string => (new \DateTime($visitor->created_at))->format('H:i')),
+
             IconColumn::make('is_online')
                 ->label('Online Presence')
                 ->icon(fn(string $state): string => match ($state) {
