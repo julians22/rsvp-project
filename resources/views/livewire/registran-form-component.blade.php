@@ -195,20 +195,22 @@
                                 <div class="flex flex-col gap-y-4 pt-2">
                                     {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
                                     <div class="my-2 flex flex-col gap-y-1">
-                                        <div class="flex w-36 items-center space-x-4">
-                                            <label for="">
-                                                <img class="max-w-10" src="{{ asset('img/icons/spoon.png') }}"
-                                                    alt="">
-                                            </label>
-                                            <label class="text-lg font-bold leading-none text-black" for="food">
-                                                @if ($this->event->slug == 'bni-grand-launch-celebration')
-                                                    Entrance Fee, Dining & Drinks
-                                                @else
-                                                    PAY FOR YOUR LUNCH
-                                                @endif
-                                            </label>
 
-                                        </div>
+                                        {{-- TODO: clean this after event finish --}}
+                                        @if ($this->event->slug != 'fun-bay-networking')
+                                            <div class="flex w-36 items-center space-x-4">
+                                                <label for="">
+                                                    <img class="max-w-10" src="{{ asset('img/icons/spoon.png') }}"
+                                                        alt="">
+                                                </label>
+                                                <label class="text-lg font-bold leading-none text-black" for="food">
+
+                                                    PAY FOR YOUR LUNCH
+
+                                                </label>
+
+                                            </div>
+                                        @endif
 
                                         @if ($this->event->detail->food_type === App\Enums\FoodType::BUFFET->value)
 
@@ -299,14 +301,26 @@
 
                                             <div class="rounded-lg bg-gray-200 p-2">
                                                 <p class="mb-2">Sertakan Berita dengan format penulisan:
-                                                    <strong>“Chapter/Visitor" + “Nama”</strong>
+                                                    {{-- TODO: CLEAN THIS AFTER EVENT END --}}
+                                                    <strong>“Chapter/Visitor" + “Nama" @if ($this->event->slug == 'fun-bay-networking')
+                                                            + APR22
+                                                        @endif </strong>
                                                 </p>
                                                 <p>Contoh:</p>
-                                                <ul class="list-inside list-disc pl-1 lg:pl-2">
-                                                    <li class="font-semibold">Magnitude Deddy</li>
-                                                    <li class="font-semibold">Altitude Edo</li>
-                                                    <li class="font-semibold">Visitor Daniel</li>
-                                                </ul>
+
+                                                @if ($this->event->slug == 'fun-bay-networking')
+                                                    <ul class="list-inside list-disc pl-1 lg:pl-2">
+                                                        <li class="font-semibold">Magnitude Deddy + APR22</li>
+                                                        <li class="font-semibold">Altitude Edo + APR22</li>
+                                                        <li class="font-semibold">Visitor Daniel + APR22</li>
+                                                    </ul>
+                                                @else
+                                                    <ul class="list-inside list-disc pl-1 lg:pl-2">
+                                                        <li class="font-semibold">Magnitude Deddy</li>
+                                                        <li class="font-semibold">Altitude Edo</li>
+                                                        <li class="font-semibold">Visitor Daniel</li>
+                                                    </ul>
+                                                @endif
                                             </div>
 
                                             {{-- UPLOAD BUKTI PEMBAYARAN --}}
@@ -428,11 +442,9 @@
                                 <div class="mt-6">
                                     <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                                     <ul class="list-inside list-disc">
-                                        @if ($this->event->slug == 'bni-grand-launch-celebration')
-                                            <li class="text-lg font-medium"> Dresscode: Semi Formal - Red & Black</li>
-                                        @else
-                                            <li class="text-lg font-medium">Wear Business Attire</li>
-                                        @endif
+
+                                        <li class="text-lg font-medium">Wear Business Attire</li>
+
                                         <li class="text-lg font-medium">Use Quality Internet Connection, Headset &
                                             Webcam</li>
                                         <li class="text-lg font-medium">Prepare Your Business Introduction</li>
@@ -489,11 +501,9 @@
                                 <div class="mt-6">
                                     <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                                     <ul class="list-inside list-disc">
-                                        @if ($this->event->slug == 'bni-grand-launch-celebration')
-                                            <li class="text-lg font-medium"> Dresscode: Semi Formal - Red & Black</li>
-                                        @else
-                                            <li class="text-lg font-medium">Wear Business Attire</li>
-                                        @endif
+
+                                        <li class="text-lg font-medium">Wear Business Attire</li>
+
                                         <li class="text-lg font-medium">Bring lots of Namecards</li>
                                         <li class="text-lg font-medium">Prepare Your Business Introduction</li>
                                         <li class="text-lg font-medium">Please be on-time</li>

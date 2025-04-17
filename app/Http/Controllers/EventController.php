@@ -58,10 +58,6 @@ class EventController extends Controller
     {
         $event = Event::with('detail')->where('slug', $slug)->first();
 
-        if ($event->slug == 'bni-grand-launch-celebration') {
-            return redirect()->route('event.show', $slug);
-        }
-
         if ($event == null) {
             abort(404);
         }

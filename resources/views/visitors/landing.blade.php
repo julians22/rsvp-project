@@ -147,11 +147,7 @@
                                             </h5>
                                         @else
                                             <h5 class="text-xl font-bold leading-[25px]">
-                                                @if ($event->slug == 'bni-grand-launch-celebration')
-                                                    Entrance Fee, Dining & Drinks
-                                                @else
-                                                    PAY FOR YOUR LUNCH
-                                                @endif
+                                                PAY FOR YOUR LUNCH
                                             </h5>
                                             <p class="text-lg font-bold">
                                                 {{ $event->detail->offline_food_price_currency }} IDR/pax
@@ -166,11 +162,9 @@
                         <div class="border border-black px-4 py-4 lg:px-8 lg:py-6">
                             <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                             <ul class="list-inside list-disc">
-                                @if ($event->slug == 'bni-grand-launch-celebration')
-                                    <li class="text-lg font-medium"> Dresscode: Semi Formal - Red & Black</li>
-                                @else
-                                    <li class="text-lg font-medium">Wear Business Attire</li>
-                                @endif
+
+                                <li class="text-lg font-medium">Wear Business Attire</li>
+
                                 @if ($event->is_offline_event)
                                     <li class="text-lg font-medium">Bring Professional Namecards</li>
                                 @endif
@@ -187,11 +181,7 @@
                 @if ($isDisabled)
                     <p class="text-lg font-semibold text-red-500">Registration has ended</p>
                 @else
-                    @if ($event->slug == 'bni-grand-launch-celebration')
-                        <p class="text-lg font-semibold text-red-500">Registration has ended</p>
-                    @else
-                        <a class="btn bg-red-bni" href="{{ route('event.register', ['slug' => $slug]) }}">REGISTER NOW</a>
-                    @endif
+                    <a class="btn bg-red-bni" href="{{ route('event.register', ['slug' => $slug]) }}">REGISTER NOW</a>
                 @endif
 
             </div>
