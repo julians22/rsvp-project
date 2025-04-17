@@ -343,11 +343,11 @@ class RegistranFormComponent extends Component
 
 
             if (count($this->offline_foods)) {
-                $this->validate([
-                    'food' => 'required',
-                ], [
-                    'food.required' => '* mandatory',
-                ], ['food' => 'FOOD']);
+               // $this->validate([
+                  //  'food' => 'required',
+              //  ], [
+              //      'food.required' => '* mandatory',
+             //   ], ['food' => 'FOOD']);
 
                 if ($this->event->detail->show_invoice_upload) {
                     $this->validate(
