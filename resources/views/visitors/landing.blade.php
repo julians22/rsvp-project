@@ -162,9 +162,9 @@
                         <div class="border border-black px-4 py-4 lg:px-8 lg:py-6">
                             <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                             <ul class="list-inside list-disc">
-
-                                <li class="text-lg font-medium">Wear Business Attire</li>
-
+                                @if ($this->event->slug != 'fun-bay-networking')
+                                    <li class="text-lg font-medium">Wear Business Attire</li>
+                                @endif
                                 @if ($event->is_offline_event)
                                     <li class="text-lg font-medium">Bring Professional Namecards</li>
                                 @endif
