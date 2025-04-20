@@ -442,7 +442,7 @@
                                 <div class="mt-6">
                                     <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
                                     <ul class="list-inside list-disc">
-                                        @if ($this - event->slug != 'fun-bay-networking')
+                                        @if ($this->event->slug != 'fun-bay-networking')
                                             <li class="text-lg font-medium">Wear Business Attire</li>
                                         @endif
                                         <li class="text-lg font-medium">Use Quality Internet Connection, Headset &
