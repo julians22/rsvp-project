@@ -9,14 +9,16 @@
     </div>
 
     <div class="flex flex-row-reverse justify-end font-bold">
-        <div class="mb-2 inline-block h-full w-full bg-gray-500/10 p-2 text-base text-black">
-            <h2 class="line-clamp-3 max-md:text-lg max-md:leading-snug">
+        <div class="inline-block h-full w-full bg-gray-500/10 p-2 text-base text-black">
+            <h2 class="line-clamp-3 !leading-tight max-md:text-lg">
                 {{ $event->name }}</h2>
         </div>
         <div class="grid flex-grow-0 basis-[40%] items-center justify-center bg-red-bni capitalize text-white">
-            <div class="flex flex-col items-center justify-center px-4 uppercase">
-                <span class="text-xl md:text-2xl">{{ date('d', strtotime($event->start_date_full_formatted)) }}</span>
-                <span class="text-lg md:text-xl">{{ date('M', strtotime($event->start_date_full_formatted)) }}</span>
+            <div class="px-4 text-center uppercase leading-snug">
+                <span
+                    class="block text-xl md:text-2xl">{{ date('d', strtotime($event->start_date_full_formatted)) }}</span>
+                <span
+                    class="-mt-[0.35rem] block text-lg md:text-xl">{{ date('M', strtotime($event->start_date_full_formatted)) }}</span>
             </div>
         </div>
     </div>

@@ -44,7 +44,7 @@
                         <h4 class="text-base"><strong>NOTES:</strong></h4>
                         <p class="text-base font-bold text-black">
                             @if ($this->event->slug == 'bni-networking-meeting-20-may-2025')
-                                REGISTRATION WILL BE CLOSED H-4, 16 MAY 2025
+                                <span class="font-bold text-red-bni">REGISTRATION WILL BE CLOSED H-4, 16 MAY 2025</span>
                             @else
                                 REGISTRATION WILL BE CLOSED H-1 AT 15.00 WIB
                             @endif
