@@ -20,8 +20,14 @@
                         <div>
                             <div>
                                 <p class="flex items-center space-x-1 text-2xl font-medium leading-none lg:text-[42px]">
-                                    <img class="w-10 lg:w-16" src="{{ asset('img/logo_bni.svg') }}" alt=""><span>
-                                        NETWORKING MEETING</span>
+                                    <img class="w-10 lg:w-16" src="{{ asset('img/logo_bni.svg') }}" alt="">
+                                    <span>
+                                        @if ($this->event->slug == 'bni-networking-meeting-20-may-2025')
+                                            ONSITE WEEKLY MEETING
+                                        @else
+                                            NETWORKING MEETING
+                                        @endif
+                                    </span>
                                 </p>
                                 <h1 class="mb-2 text-[40px] font-bold leading-none lg:text-[78px]">REGISTRATION</h1>
                                 <span class="rounded-lg bg-black p-1 text-xl font-bold uppercase text-white">
@@ -37,7 +43,11 @@
                     <div class="my-2 rounded bg-gray-300 px-4 py-4">
                         <h4 class="text-base"><strong>NOTES:</strong></h4>
                         <p class="text-base font-bold text-black">
-                            REGISTRATION WILL BE CLOSED H-1 AT 15.00 WIB
+                            @if ($this->event->slug == 'bni-networking-meeting-20-may-2025')
+                                REGISTRATION WILL BE CLOSED H-4, 16 MAY 2025
+                            @else
+                                REGISTRATION WILL BE CLOSED H-1 AT 15.00 WIB
+                            @endif
                         </p>
                     </div>
 

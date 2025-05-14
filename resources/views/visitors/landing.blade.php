@@ -29,7 +29,13 @@
             <div class="container w-full px-4 lg:w-[1200px] lg:px-0">
                 <span class="lg:leading-[100px]"><img class="max-w-20 lg:max-w-48" src="{{ asset('img/logo_bni.svg') }}"
                         alt="LOGO BNI"></span>
-                <h2 class="text-4xl font-black lg:text-[80px] lg:leading-[100px]">NETWORKING <br>MEETING</h2>
+                <h2 class="text-4xl font-black lg:text-[80px] lg:leading-[100px]">
+                    @if ($event->slug == 'bni-networking-meeting-20-may-2025')
+                        ONSITE WEEKLY <br>MEETING
+                    @else
+                        NETWORKING <br>MEETING
+                    @endif
+                </h2>
             </div>
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-20">
 
