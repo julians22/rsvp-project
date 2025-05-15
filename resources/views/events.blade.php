@@ -50,7 +50,7 @@
 
                 <div>
                     <p>{{ $eventsCount }}</p>
-                    <p>events helds</p>
+                    <p>events held</p>
                 </div>
             </div>
 
