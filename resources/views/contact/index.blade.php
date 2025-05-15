@@ -46,13 +46,13 @@
 
                 <form class="flex flex-col space-y-4" action="{{ route('contact.send') }}" method="POST">
                     @csrf
-                    <x-input-text name="fullname" label="Full Name" placeholder="John Doe" required />
+                    <x-input-text name="fullname" label="Full Name" required />
                     <x-input-text name="businessClassification" label="Business Classification"
-                        placeholder="Software Development" required />
-                    <x-input-text name="companyName" label="Company Name" placeholder="Designcub3" required />
-                    <x-input-text name="email" label="Email" placeholder="john@example.com" type="email" required />
-                    <x-input-text name="phone" label="Phone" placeholder="+62 812 3456 7890" required />
-                    <x-input-textarea name="message" label="Message" placeholder="Type your message here..." required />
+                        required />
+                    <x-input-text name="companyName" label="Company Name" required />
+                    <x-input-text name="email" label="Email" type="email" required />
+                    <x-input-text name="phone" label="Phone" required />
+                    <x-input-textarea name="message" label="Message" required />
                     <button class="w-min self-end rounded-md bg-red-bni px-4 py-2 font-bold text-white"
                         type="submit">Send</button>
                 </form>
