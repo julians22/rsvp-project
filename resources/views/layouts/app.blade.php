@@ -44,9 +44,7 @@
                 <li>
                     <a href="{{ route('event.index') }}">Events</a>
                 </li>
-                <li>
-                    <a href="#">Members</a>
-                </li>
+              
                 <li>
                     <a href="{{ route('contact.index') }}">Contact</a>
                 </li>
