@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\VisitorController;
+use App\Mail\VisitorMail;
 use App\Models\Visitor;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +32,20 @@ Route::group(['prefix' => 'event', 'as' => 'event.'], function () {
     Route::get('{slug}/register', [EventController::class, 'register'])->name('register');
 });
 
-// Route::get('test-main', function () {
+Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 
-//     // $visitor = Visitor::inRandomOrder()->limit(1)->get()->first();
-//     $visitor = Visitor::find(117);
-//     return new App\Mail\VisitorMail($visitor);
-// });
+Route::post('contact', [ContactController::class, 'send'])->name('contact.send');
+
+Route::get('test-email-register', function () {
+
+    $visitor = Visitor::inRandomOrder()->limit(1)->get()->first();
+    // $visitor = Visitor::find(117);
+    Mail::to('test@mail.com')->send(new VisitorMail($visitor));
+});
+
+Route::get('test-email-contact', function () {
+
+    $visitor = Visitor::inRandomOrder()->limit(1)->get()->first();
+    // $visitor = Visitor::find(117);
+    return new App\Mail\VisitorMail($visitor);
+});

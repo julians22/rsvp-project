@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Member;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -10,8 +12,11 @@ class EventController extends Controller
 
     function index()
     {
-
-        $events = Event::with('detail')->incoming()->orderBy('start_date')->get();
+        $events = Event::with('detail')->incoming()->orderBy('start_date')->paginate(12);
+        $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')->paginate(12);
+        $eventsCount = Event::with('detail')->count();
+        $memberCount = Member::count();
+        $visitorCount = floor(Visitor::distinct('name')->count() / 100) * 100;
 
         // Modulus events on 3
         $skeletonsCount = 3 - count($events) % 3;
@@ -20,7 +25,14 @@ class EventController extends Controller
             $skeletonsCount = 0;
         }
 
-        return view('events', ['events' => $events, 'skeletonsCount' => $skeletonsCount]);
+        return view('events', [
+            'events' => $events,
+            'past_events' => $past_events,
+            'eventsCount' => $eventsCount,
+            'memberCount' => $memberCount,
+            'visitorCount' => $visitorCount,
+            'skeletonsCount' => $skeletonsCount
+        ]);
     }
 
     function show($slug)

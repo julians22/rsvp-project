@@ -13,6 +13,7 @@ module.exports = {
             },
             backgroundImage: {
                 landing: "url('../img/landing-bg-pattern.svg')",
+                stats: "url('../img/stats-bg.svg')",
             },
         },
     },

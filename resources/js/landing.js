@@ -1,6 +1,6 @@
 import Glide from "@glidejs/glide";
 
-const carousel = new Glide(".glide", {
+const config = {
     type: "slider",
     rewind: false,
     bound: true,
@@ -18,6 +18,10 @@ const carousel = new Glide(".glide", {
             peek: { before: 0, after: 12 },
         },
     },
-});
+};
 
-carousel.mount();
+const carouselNow = new Glide("#glide-now", config);
+const carouselPast = new Glide("#glide-past", config);
+
+carouselNow.mount();
+carouselPast.mount();

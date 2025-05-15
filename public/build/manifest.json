@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-e12b1ae3.css",
+    "file": "assets/app-dbf86325.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -8,13 +8,17 @@
     "file": "assets/landing-bg-pattern-2e4ba5ba.svg",
     "src": "resources/img/landing-bg-pattern.svg"
   },
+  "resources/img/stats-bg.svg": {
+    "file": "assets/stats-bg-d8a1b13e.svg",
+    "src": "resources/img/stats-bg.svg"
+  },
   "resources/js/app.js": {
     "file": "assets/app-d321c51a.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/landing.js": {
-    "file": "assets/landing-c08f6f1f.js",
+    "file": "assets/landing-e8efb072.js",
     "isEntry": true,
     "src": "resources/js/landing.js"
   }

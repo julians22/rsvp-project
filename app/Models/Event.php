@@ -187,6 +187,11 @@ class Event extends Model implements HasMedia
         return $query->where('start_date', '>=', now());
     }
 
+    public function scopePast($query)
+    {
+        return $query->where('start_date', '<', now());
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('banner')

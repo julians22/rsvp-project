@@ -26,10 +26,9 @@
                 </div>
             </div>
 
-            <h1
-                class="mb-12 w-full text-3xl font-bold text-black after:mt-6 after:block after:h-1 after:w-1/4 after:border-t-0 after:bg-red-bni max-md:text-center max-md:after:mx-auto md:mx-16 md:after:w-1/6 lg:text-4xl">
+            <x-event-list-title>
                 UPCOMING EVENTS
-            </h1>
+            </x-event-list-title>
 
             {{-- desktop slider --}}
             <x-event-list.desktop :events="$events" />
@@ -37,19 +36,37 @@
             {{-- mobile grid --}}
             <x-event-list.mobile :events="$events" />
 
+            <div
+                class="flex flex-wrap items-center justify-center gap-8 rounded-lg bg-red-bni bg-stats bg-cover bg-bottom bg-no-repeat px-8 py-4 text-center text-5xl font-bold text-white bg-blend-multiply shadow-[8px_6px_7px_-5px_rgba(0,_0,_0,_0.5)] max-md:my-10 md:mx-16 md:mb-10 md:justify-between md:gap-4 md:px-20 md:py-10 [&>div>*+*]:text-lg">
+                <div>
+                    <p>{{ $eventsCount }}</p>
+                    <p>members</p>
+                </div>
+
+                <div>
+                    <p>+{{ $visitorCount }}</p>
+                    <p>total registrants</p>
+                </div>
+
+                <div>
+                    <p>{{ $eventsCount }}</p>
+                    <p>events helds</p>
+                </div>
+            </div>
+
+            <x-event-list-title>
+                Past events
+            </x-event-list-title>
+
+            {{-- past events --}}
+            {{-- desktop slider --}}
+            <x-past-event-list.desktop :events="$past_events" />
+
+            {{-- mobile grid --}}
+            <x-past-event-list.mobile :events="$past_events" />
 
 
-            {{-- <div>
-                @for ($i = 0; $i < $skeletonsCount; $i++)
-                    <div class="relative bg-white">
-                        <div class="skeleton mb-2 aspect-video w-full object-center"></div>
-                        <div class="skeleton mb-2 h-4 w-3/4"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <h3 class="text-center text-base font-bold text-red-bni">Empty Space</h3>
-                        </div>
-                    </div>
-                @endfor
-            </div> --}}
+
         </div>
     </section>
 @endsection

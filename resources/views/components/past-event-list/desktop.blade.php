@@ -1,9 +1,9 @@
 @props(['events'])
-<div class="glide max-md:hidden" id="glide-now">
+<div class="glide max-md:hidden" id="glide-past">
     <div class="glide__track mx-8 md:mx-16" data-glide-el="track">
         <ul class="glide__slides pb-8">
             @foreach ($events as $event)
-                <x-event-card :event="$event" />
+                <x-event-card :event="$event" :date="false" />
             @endforeach
         </ul>
     </div>

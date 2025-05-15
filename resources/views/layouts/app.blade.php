@@ -37,6 +37,23 @@
 </head>
 
 <body class="relative bg-white antialiased">
+    <div class="bg-red-bni">
+        <nav class="mx-auto w-full max-w-none py-4 lg:max-w-5xl lg:px-0">
+            <ul
+                class="mx-8 flex flex-wrap items-center justify-end gap-4 font-semibold uppercase text-white max-sm:items-end md:mx-16 md:gap-16">
+                <li>
+                    <a href="{{ route('event.index') }}">Events</a>
+                </li>
+                <li>
+                    <a href="#">Members</a>
+                </li>
+                <li>
+                    <a href="{{ route('contact.index') }}">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
     @yield('page')
 
     <footer class="sticky bottom-0 flex items-center justify-center bg-navy px-2 py-7">
