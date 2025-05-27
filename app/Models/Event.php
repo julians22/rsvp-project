@@ -180,6 +180,27 @@ class Event extends Model implements HasMedia
     }
 
     /**
+     * The event has started.
+     */
+    public function hasStarted()
+    {
+        $hasStarted = false;
+
+        $now = now();
+        // Set the start date
+        $startDate = \Carbon\Carbon::parse($this->registration_date);
+
+        // Check if the event is already started / Now Greater than the start date
+        if ($now->gte($startDate)) {
+            $hasStarted = true;
+        }
+
+        return $hasStarted;
+    }
+
+
+
+    /**
      * Get incoming event where start_date is greater than now.
      */
     public function scopeIncoming($query)

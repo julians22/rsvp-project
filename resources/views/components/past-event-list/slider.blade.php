@@ -1,5 +1,5 @@
 @props(['events'])
-<div class="glide max-md:hidden" id="glide-past">
+<div class="glide" id="glide-past">
     <div class="glide__track mx-8 md:mx-16" data-glide-el="track">
         <ul class="glide__slides pb-8">
             @foreach ($events as $event)

@@ -78,9 +78,14 @@ class EventController extends Controller
             abort(404);
         }
 
+        if (!$event->hasStarted()) {
+            return redirect()->route('event.show', $slug);
+        }
+
         if ($event->isEnded()) {
             return redirect()->route('event.show', $slug);
         }
+
 
         if (!$event->detail->enable_registration) {
             return redirect()->route('event.show', $slug);

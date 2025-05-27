@@ -52,13 +52,19 @@
             </div>
         </div>
         {{-- Register Button --}}
-        <a class="group bg-red-bni py-4 pb-6 text-center text-xl font-semibold uppercase text-white transition duration-500 ease-in-out hover:bg-red-bni/90"
-            href="{{ route('event.show', $event->slug) }}">
-            {{-- <span> --}}
-            Register
-            {{-- </span> --}}
-            {{-- <x-heroicon-o-arrow-right class="inline h-5 w-5 font-bold" /> --}}
-        </a>
+        @if ($event->hasStarted())
+            <a class="group bg-red-bni py-4 pb-6 text-center text-xl font-semibold uppercase text-white transition duration-500 ease-in-out hover:bg-red-bni/90"
+                href="{{ route('event.show', $event->slug) }}">
+                {{-- <span> --}}
+                Register
+                {{-- </span> --}}
+                {{-- <x-heroicon-o-arrow-right class="inline h-5 w-5 font-bold" /> --}}
+            </a>
+        @else
+            <p
+                class="group bg-red-bni/80 py-4 pb-6 text-center text-xl font-semibold uppercase text-white transition duration-500 ease-in-out">
+                Coming Soon</p>
+        @endif
     @endif
 
 </li>

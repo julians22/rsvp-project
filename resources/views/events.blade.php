@@ -37,7 +37,7 @@
             <x-event-list.mobile :events="$events" />
 
             <div
-                class="flex flex-wrap items-center justify-center gap-8 rounded-lg bg-red-bni bg-stats bg-cover bg-bottom bg-no-repeat px-8 py-4 text-center text-5xl font-bold text-white bg-blend-multiply shadow-[8px_6px_7px_-5px_rgba(0,_0,_0,_0.5)] max-md:my-10 md:mx-16 md:mb-10 md:justify-between md:gap-4 md:px-20 md:py-10 [&>div>*+*]:text-lg uppercase">
+                class="flex flex-wrap items-center justify-center gap-8 rounded-lg bg-red-bni bg-stats bg-cover bg-bottom bg-no-repeat px-8 py-4 text-center text-5xl font-bold uppercase text-white bg-blend-multiply shadow-[8px_6px_7px_-5px_rgba(0,_0,_0,_0.5)] max-md:my-10 md:mx-16 md:mb-10 md:justify-between md:gap-4 md:px-20 md:py-10 [&>div>*+*]:text-lg">
                 <div>
                     <p>{{ $memberCount }}</p>
                     <p>members</p>
@@ -60,12 +60,7 @@
 
             {{-- past events --}}
             {{-- desktop slider --}}
-            <x-past-event-list.desktop :events="$past_events" />
-
-            {{-- mobile grid --}}
-            <x-past-event-list.mobile :events="$past_events" />
-
-
+            <x-past-event-list.slider :events="$past_events" />
 
         </div>
     </section>

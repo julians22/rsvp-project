@@ -21,7 +21,7 @@ const config = {
 };
 
 const carouselNow = new Glide("#glide-now", config);
-const carouselPast = new Glide("#glide-past", config);
+const carouselPast = new Glide("#glide-past", { ...config, autoplay: 4000 });
 
 carouselNow.mount();
 carouselPast.mount();
