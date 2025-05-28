@@ -27,32 +27,33 @@
     </div>
 
     @if ($date)
-        <div class="px-3 pb-3 pt-1">
-
-            <div class="flex min-h-full flex-col justify-center">
-
-                @if ($event->is_online_event)
-                    <div class="flex flex-row items-center space-x-2 text-black">
-                        <x-heroicon-o-globe-alt class="h-4 w-4 text-red-bni" />
-                        <div class="col-span-10 text-sm leading-none">
-                            ONLINE - {{ $event->detail->online_time_no_seconds }}
-                        </div>
-                    </div>
-                @endif
-
-                @if ($event->is_offline_event)
-                    <div class="flex flex-row items-center space-x-2 text-black">
-                        <x-typ-location class="h-4 w-4 text-red-bni" />
-                        <div class="col-span-10 text-sm leading-none">
-                            OFFLINE - {{ $event->detail->offline_time_no_seconds }}
-                        </div>
-                    </div>
-                @endif
-
-            </div>
-        </div>
-        {{-- Register Button --}}
         @if ($event->hasStarted())
+
+            <div class="px-3 pb-3 pt-1">
+
+                <div class="flex min-h-full flex-col justify-center">
+
+                    @if ($event->is_online_event)
+                        <div class="flex flex-row items-center space-x-2 text-black">
+                            <x-heroicon-o-globe-alt class="h-4 w-4 text-red-bni" />
+                            <div class="col-span-10 text-sm leading-none">
+                                ONLINE - {{ $event->detail->online_time_no_seconds }}
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($event->is_offline_event)
+                        <div class="flex flex-row items-center space-x-2 text-black">
+                            <x-typ-location class="h-4 w-4 text-red-bni" />
+                            <div class="col-span-10 text-sm leading-none">
+                                OFFLINE - {{ $event->detail->offline_time_no_seconds }}
+                            </div>
+                        </div>
+                    @endif
+
+                </div>
+            </div>
+            {{-- Register Button --}}
             <a class="group bg-red-bni py-4 pb-6 text-center text-xl font-semibold uppercase text-white transition duration-500 ease-in-out hover:bg-red-bni/90"
                 href="{{ route('event.show', $event->slug) }}">
                 {{-- <span> --}}
@@ -61,9 +62,11 @@
                 {{-- <x-heroicon-o-arrow-right class="inline h-5 w-5 font-bold" /> --}}
             </a>
         @else
-            <p
-                class="group bg-red-bni/80 py-4 pb-6 text-center text-xl font-semibold uppercase text-white transition duration-500 ease-in-out">
-                Coming Soon</p>
+            <div
+                class="row-span-3 row-start-3 flex h-[9.2rem] flex-col items-center justify-center px-3 py-4 pb-6 text-2xl uppercase tracking-wider">
+                <span>coming</span>
+                <span>soon</span>
+            </div>
         @endif
     @endif
 

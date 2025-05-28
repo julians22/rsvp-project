@@ -333,7 +333,7 @@ class RegistranFormComponent extends Component
             'invited_by' => $this->invited_by ?? null,
             'food' =>
             count($this->offline_foods) ?
-                is_array($this->food) ? json_encode($this->food) : $this->food : null,
+                (is_array($this->food) ? json_encode($this->food) : $this->food) : null,
             'event_id' => $this->event->id,
         ];
 
