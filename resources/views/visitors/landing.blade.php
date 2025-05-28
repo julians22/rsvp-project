@@ -29,7 +29,7 @@
             <div class="container w-full px-4 lg:w-[1200px] lg:px-0">
                 <span class="lg:leading-[100px]"><img class="max-w-20 lg:max-w-48" src="{{ asset('img/logo_bni.svg') }}"
                         alt="LOGO BNI"></span>
-                <h2 class="text-4xl font-black lg:text-[80px] lg:leading-[100px]">
+                <h2 class="pt-4 text-4xl font-black lg:text-[80px] lg:leading-[100px]">
                     @if ($event->slug == 'bni-networking-meeting-20-may-2025')
                         ONSITE WEEKLY <br>MEETING
                     @else
@@ -73,7 +73,7 @@
                         Your browser does not support the video tag or the file format of this video.
                     </video>
 
-                    <h4 class="mb-1 px-4 text-2xl font-bold leading-loose text-gray-800 lg:px-0">What is <img
+                    <h4 class="mb-1 px-4 pt-4 text-2xl font-bold leading-loose text-gray-800 lg:px-0">What is <img
                             class="inline max-w-14" src="{{ asset('img/logo_bni.svg') }}" alt="LOGO BNI">?</h4>
 
                     <div class="px-4 text-lg font-semibold leading-loose text-gray-700 lg:px-0">
@@ -98,7 +98,8 @@
 
                     <img class="max-w-48 lg:max-w-[400px]" src="{{ asset('img/logo_bni.jpg') }}" alt="">
 
-                    <h1 class="text-lg font-bold lg:text-2xl">Join us for this opportunity to connect, collaborate, and
+                    <h1 class="!mt-0 text-lg font-bold lg:text-2xl">Join us for this opportunity to connect, collaborate,
+                        and
                         expand your network!</h1>
 
                     <div class="">
