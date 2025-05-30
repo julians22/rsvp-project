@@ -186,9 +186,13 @@
                 <h2 class="text-center text-xl font-bold lg:text-2xl">WE LOOK FORWARD TO CONNECT WITH YOU!</h2>
 
                 @if ($isDisabled)
-                    <p class="text-lg font-semibold text-red-500">Registration has ended</p>
+                    <div class="text-lg font-semibold text-red-500">Registration has ended</div>
                 @else
-                    <a class="btn bg-red-bni" href="{{ route('event.register', ['slug' => $slug]) }}">REGISTER NOW</a>
+                    @if ($event->coming_soon)
+                        <div class="text-lg font-semibold uppercase text-red-500">coming soon</div>
+                    @else
+                        <a class="btn bg-red-bni" href="{{ route('event.register', ['slug' => $slug]) }}">REGISTER NOW</a>
+                    @endif
                 @endif
 
             </div>
