@@ -27,7 +27,7 @@
     </div>
 
     @if ($date)
-        @if ($event->hasStarted())
+        @if (!$event->coming_soon)
 
             <div class="px-3 pb-3 pt-1">
 

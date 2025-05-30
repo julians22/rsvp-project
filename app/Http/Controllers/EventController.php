@@ -78,7 +78,7 @@ class EventController extends Controller
             abort(404);
         }
 
-        if (!$event->hasStarted()) {
+        if ($event->coming_soon) {
             return redirect()->route('event.show', $slug);
         }
 

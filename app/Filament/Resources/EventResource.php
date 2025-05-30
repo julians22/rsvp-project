@@ -84,6 +84,8 @@ class EventResource extends Resource
                             ->columnSpan(6)
                             ->required(),
                     ]),
+                Toggle::make('coming_soon')
+                    ->default(false),
 
                 Group::make()
                     ->columnSpanFull()
