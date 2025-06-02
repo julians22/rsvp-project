@@ -36,6 +36,8 @@
             {{-- mobile grid --}}
             <x-event-list.mobile :events="$events" />
 
+
+            {{-- stats --}}
             <div
                 class="flex flex-wrap items-center justify-center gap-8 rounded-lg bg-red-bni bg-stats bg-cover bg-bottom bg-no-repeat px-8 py-4 text-center text-5xl font-bold uppercase text-white bg-blend-multiply shadow-[8px_6px_7px_-5px_rgba(0,_0,_0,_0.5)] max-md:my-10 md:mx-16 md:mb-10 md:justify-between md:gap-4 md:px-20 md:py-10 [&>div>*+*]:text-lg">
                 <div>
@@ -54,6 +56,10 @@
                 </div>
             </div>
 
+            <!-- Place <div> tag where you want the feed to appear -->
+            <div id="curator-feed-default-feed-layout"><a class="crt-logo crt-tag" href="https://curator.io"
+                    target="_blank">Powered by Curator.io</a></div>
+
             <x-event-list-title>
                 Past events
             </x-event-list-title>
@@ -68,4 +74,19 @@
 
 @push('after-scipts')
     @vite('resources/js/landing.js')
+
+    <!-- The Javascript can be moved to the end of the html page before the </body> tag -->
+    <script type="text/javascript">
+        /* curator-feed-default-feed-layout */
+        (function() {
+            var i, e, d = document,
+                s = "script";
+            i = d.createElement("script");
+            i.async = 1;
+            i.charset = "UTF-8";
+            i.src = "https://cdn.curator.io/published/11955bd7-94c0-4ee3-81fc-ab2366ac7161.js";
+            e = d.getElementsByTagName(s)[0];
+            e.parentNode.insertBefore(i, e);
+        })();
+    </script>
 @endpush
