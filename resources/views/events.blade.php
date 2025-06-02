@@ -57,8 +57,10 @@
             </div>
 
             <!-- Place <div> tag where you want the feed to appear -->
-            <div id="curator-feed-default-feed-layout"><a class="crt-logo crt-tag" href="https://curator.io"
-                    target="_blank">Powered by Curator.io</a></div>
+            <div class="mx-8 md:mx-16">
+                <div id="curator-feed-default-feed-layout"><a class="crt-logo crt-tag" href="https://curator.io"
+                        target="_blank">Powered by Curator.io</a></div>
+            </div>
 
             <x-event-list-title>
                 Past events
