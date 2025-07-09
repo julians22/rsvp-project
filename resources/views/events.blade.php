@@ -10,21 +10,17 @@
 @section('description', $metaDesc)
 @section('image', asset('img/banner/webbanner.jpg'))
 
-
 @section('page')
-    <section class="flex min-h-dvh flex-row space-x-5 bg-landing bg-bottom bg-no-repeat py-14">
-        <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
 
-            <div class="mx-8 mb-10 flex items-center justify-between gap-4 max-sm:items-end sm:mb-20 md:mx-16">
-                <div class="inline-flex shrink-0 grow-0 basis-2/5 flex-row items-center gap-4 sm:basis-40">
-                    <div><img src="{{ asset('img/logo-bni.png') }}" alt="bni logo"></div>
-                </div>
-                <div class="inline-flex w-full items-center max-sm:basis-3/5 max-sm:flex-col md:justify-between">
-                    <div class="max-w-48 sm:max-w-72"><img src="{{ asset('img/LogoChapter.png') }}" alt="Logo Chapter"></div>
-                    <div class="max-w-48 sm:max-w-72"><img src="{{ asset('img/impactful.png') }}" alt="text impactful">
-                    </div>
-                </div>
-            </div>
+    <div class="relative aspect-video w-full">
+        <video class="h-full w-full object-cover" src="{{ asset('videos/header.mp4') }}" autoplay loop muted></video>
+
+        <img class="mx-auto -mt-[clamp(2rem,20vw,8rem)] w-full max-w-[min(100%,640px)]"
+            src="{{ asset('img/LogoChapter.png') }}" alt="Logo Chapter">
+    </div>
+
+    <section class="flex min-h-dvh flex-row space-x-5 bg-landing bg-bottom bg-no-repeat pb-14">
+        <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
 
             <x-event-list-title>
                 UPCOMING EVENTS
@@ -36,25 +32,116 @@
             {{-- mobile grid --}}
             <x-event-list.mobile :events="$events" />
 
+            <x-container class="mb-12 mt-10">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-[0.5fr_1fr]">
+                    <div class="flex flex-col flex-wrap justify-between gap-4">
+                        <div class="w-full max-w-32">
+                            <img src="{{ asset('img/logo_bni.svg') }}" alt="">
+                        </div>
+                        <p class="text-[min(10vw,1.5rem)] font-bold text-red-bni">
+                            The World's Largest
+                            Reiferral Networking
+                            Organization
+                        </p>
+                    </div>
+                    <div class="flex flex-col gap-4 text-[min(10vw,0.85rem)]">
+                        <p>
+                            Become a part of a local network with global reach. BNI Members around the
+                            world meet in-person or online to pass billions of dollars worth of referrals to
+                            each other every year.
+                        </p>
+                        <p>
+                            Established in 1985, BNI operates with a mission to help professionals build
+                            meaningful relationships, generate business opportunities, and achieve success
+                            through structured, positive, and supportive networking.
+                        </p>
+                        <p>
+                            With a presence in over 70 countries and a network of more than 300,000
+                            members, BNI focuses on the philosophy of Givers Gain®, fostering a culture
+                            where helping others succeed leads to mutual growth.
+                        </p>
+                    </div>
+                </div>
+            </x-container>
 
-            {{-- stats --}}
             <div
-                class="flex flex-wrap items-center justify-center gap-8 rounded-lg bg-red-bni bg-stats bg-cover bg-bottom bg-no-repeat px-8 py-4 text-center text-5xl font-bold uppercase text-white bg-blend-multiply shadow-[8px_6px_7px_-5px_rgba(0,_0,_0,_0.5)] max-md:my-10 md:mx-16 md:mb-10 md:justify-between md:gap-4 md:px-20 md:py-10 [&>div>*+*]:text-lg">
-                <div>
-                    <p>{{ $memberCount }}</p>
-                    <p>members</p>
-                </div>
+                class="my-8 grid grid-flow-row grid-cols-2 uppercase max-lg:-mx-4 md:grid-cols-4 lg:-mx-[calc((100vw-64rem)/2)]">
 
-                <div>
-                    <p>+{{ $visitorCount }}</p>
-                    <p>total registrants</p>
-                </div>
-
-                <div>
-                    <p>{{ $eventsCount }}</p>
-                    <p>events held</p>
-                </div>
+                @foreach ([
+            'grow_your_business.png' => 'Grow your business',
+            'building_relationship.png' => 'Building relationship',
+            'sharpen_your_skills.png' => 'Sharpen your skills',
+            'referral_networking.png' => 'Referral networking',
+        ] as $key => $text)
+                    <div class="group relative grid aspect-square grid-cols-1 grid-rows-1">
+                        <div
+                            class="overflow-clip after:opacity-0 after:transition-opacity after:duration-500 group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/25 after:group-hover:opacity-100 group-hover:after:content-['']">
+                            <img class="size-full object-cover transition-transform duration-500 group-hover:scale-125"
+                                src="{{ asset('img/' . $key) }}" alt="{{ $text }} illustration">
+                        </div>
+                        <p
+                            class="absolute flex size-full items-center justify-center whitespace-pre-line text-center text-xl font-semibold text-white drop-shadow-md transition-all duration-[350ms] group-hover:text-2xl">
+                            <span class="sr-only">{{ $text }}</span>
+                            {!! str_replace(' ', '<br />', $text) !!}
+                        </p>
+                    </div>
+                @endforeach
             </div>
+
+            {{-- stats new --}}
+            <x-container class="mt-10">
+                <div
+                    class="flex flex-col gap-12 rounded-lg bg-red-bni bg-stats bg-cover bg-bottom bg-no-repeat px-8 py-4 text-white bg-blend-multiply shadow-[8px_6px_7px_-5px_rgba(0,_0,_0,_0.5)] max-md:my-10 md:mb-10 md:px-16 md:py-10">
+                    <div class="grid gap-8 lg:grid-cols-[0.5fr,1fr]">
+                        <p class="flex text-[min(10vw,6rem)] font-black uppercase leading-[5rem] text-bni-gold lg:flex-col">
+                            <span>mag</span>
+                            <span>ni</span>
+                            <span>tu</span>
+                            <span>de</span>
+                        </p>
+
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center justify-between gap-4 brightness-0 invert">
+                                <div class="basis-24"><img src="{{ asset('img/logo-bni.png') }}" alt=""></div>
+                                <div class="basis-48"><img src="{{ asset('img/impactful.png') }}" alt=""></div>
+                            </div>
+
+                            <p>
+                                We are a thriving and dynamic community of professionals and
+                                business owners, united by a shared commitment to excellence,
+                                collaboration, and trust. Through the power of strategic connections
+                                and mutual support, we work together to deliver impactful solutions
+                                and help each other grow.
+                            </p>
+
+                            <p>
+                                At BNI Magnitude, networking isn't just about exchanging contacts —
+                                it's about building meaningful relationships, sharing opportunities,
+                                and creating real value for everyone involved. And the best part?
+                                Networking with BNI Magnitude is not only impactful — it's also FUN.
+                                We grow together, celebrate success together, and enjoy the journey
+                                of business and personal growth every step of the way.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex flex-wrap items-center justify-center gap-8 px-4 text-center text-5xl font-bold uppercase md:justify-between md:gap-4 md:px-8 [&>div>*+*]:text-lg">
+                        <div>
+                            <p>{{ $memberCount }}</p>
+                            <p>members</p>
+                        </div>
+                        <div>
+                            <p>+{{ $visitorCount }}</p>
+                            <p>total registrants</p>
+                        </div>
+                        <div>
+                            <p>{{ $eventsCount }}</p>
+                            <p>events held</p>
+                        </div>
+                    </div>
+                </div>
+            </x-container>
 
             <!-- Place <div> tag where you want the feed to appear -->
             <div class="mx-8 md:mx-16">

@@ -9,6 +9,8 @@ module.exports = {
         extend: {
             colors: {
                 navy: "#182e55",
+                "bni-gold": "#EFC8A8",
+                "bni-gold-dark": "#c3996b",
                 "red-bni": "#bd2232",
             },
             backgroundImage: {

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Member extends Model
+class Member extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * The attributes that aren't mass assignable.
@@ -15,4 +17,15 @@ class Member extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('profile_photo')
+            ->useFallbackUrl('/img/profile-default.png')
+            ->useFallbackPath(public_path('/img/profile-default.png'));
+
+        $this->addMediaCollection('company_logo');
+
+    }
 }

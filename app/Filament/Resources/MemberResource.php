@@ -3,17 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MemberResource\Pages;
-use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
-use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MemberResource extends Resource
 {
@@ -25,10 +23,21 @@ class MemberResource extends Resource
     {
         return $form
             ->schema([
+                SpatieMediaLibraryFileUpload::make('profile_photo')
+                    ->collection('profile_photo')
+                    ->columnSpanFull(),
                 TextInput::make('name'),
                 TextInput::make('email')
                     ->email(),
                 TextInput::make('phone'),
+                TextInput::make('industry'),
+                TextInput::make('company'),
+                SpatieMediaLibraryFileUpload::make('company_logo')
+                    ->collection('company_logo')
+                    ->columnSpanFull(),
+                TextInput::make('social'),
+                TextInput::make('website'),
+
             ])->columns(1);
     }
 
@@ -36,6 +45,8 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('profile_photo')
+                    ->collection('member'),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),

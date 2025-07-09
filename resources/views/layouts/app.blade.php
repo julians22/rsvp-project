@@ -46,6 +46,10 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('members.index') }}">Members</a>
+                </li>
+
+                <li>
                     <a href="{{ route('contact.index') }}">Contact</a>
                 </li>
             </ul>
