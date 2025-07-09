@@ -11,7 +11,7 @@
 @section('image', asset('img/banner/webbanner.jpg'))
 
 @section('page')
-    <section class="flex min-h-dvh flex-row space-x-5 bg-landing bg-bottom bg-no-repeat pb-14">
+    <section class="my-8 flex min-h-dvh flex-row space-x-5 bg-landing bg-bottom bg-no-repeat pb-14">
         <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
             <x-event-list-title>
                 Marketing & event
