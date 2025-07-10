@@ -41,7 +41,7 @@
 
         <nav class="mx-auto flex w-full max-w-none items-center justify-between px-8 py-4 lg:max-w-5xl xl:px-0">
             <div class="w-full max-w-24 brightness-0 invert">
-                <img src="{{ asset('img/logo_bni.svg') }}" alt="">
+                <img src="{{ asset('img/logo-bni.png') }}" alt="">
             </div>
             <ul
                 class="flex flex-wrap items-center justify-end gap-4 font-semibold uppercase text-white max-sm:items-end md:mx-16 md:gap-16">
