@@ -37,10 +37,14 @@
 </head>
 
 <body class="relative bg-white antialiased">
-    <div class="bg-red-bni">
-        <nav class="mx-auto w-full max-w-none py-4 lg:max-w-5xl lg:px-0">
+    <div class="sticky top-0 z-10 bg-red-bni">
+
+        <nav class="mx-auto flex w-full max-w-none items-center justify-between px-8 py-4 lg:max-w-5xl xl:px-0">
+            <div class="w-full max-w-24 brightness-0 invert">
+                <img src="{{ asset('img/logo_bni.svg') }}" alt="">
+            </div>
             <ul
-                class="mx-8 flex flex-wrap items-center justify-end gap-4 font-semibold uppercase text-white max-sm:items-end md:mx-16 md:gap-16">
+                class="flex flex-wrap items-center justify-end gap-4 font-semibold uppercase text-white max-sm:items-end md:mx-16 md:gap-16">
                 <li>
                     <a href="{{ route('event.index') }}">Events</a>
                 </li>
