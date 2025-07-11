@@ -14,7 +14,7 @@ class EventController extends Controller
         $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')->paginate(12);
         $eventsCount = Event::with('detail')->count();
         $memberCount = Member::count();
-        $visitorCount = floor(Visitor::distinct('name')->count() / 100) * 100;
+        $visitorCount = floor((int) Visitor::distinct('name')->count() / 100) * 100;
 
         // Modulus events on 3
         $skeletonsCount = max(0, 3 - ($events->count() % 3));
