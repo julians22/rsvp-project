@@ -1,7 +1,6 @@
 <div>
     <div class="flex justify-center">
         @if (!$isSubmitted)
-
             <div class="flex w-full max-w-full flex-col space-y-4 px-4 py-4 lg:max-w-screen-md lg:px-2">
                 <form wire:submit="save">
                     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
@@ -61,10 +60,10 @@
                             <select id="type" name="type" wire:model.change="type" @class(['w-full border border-black p-2'])>
                                 <option disabled selected value=''> -- select an option -- </option>
 
-                                @foreach ($this->visitor_type as $type)
-                                    <option value="{{ $type->value }}" wire:key="type-{{ $type->value }}"
+                                @foreach ($this->visitor_type as $type_item)
+                                    <option value="{{ $type_item->value }}" wire:key="type-{{ $type_item->value }}"
                                         @class([])>
-                                        {{ $type->getLabel() }}
+                                        {{ $type_item->getLabel() }}
                                     </option>
                                 @endforeach
                             </select>
@@ -200,31 +199,13 @@
                                 </div>
 
                             </div>
-
                             @if (count($this->offline_foods))
                                 <div class="flex flex-col gap-y-4 pt-2">
                                     {{-- PAKET MAKANAN + MINUMAN IDR 150.000 --}}
                                     <div class="my-2 flex flex-col gap-y-1">
 
-                                        {{-- TODO: clean this after event finish --}}
-                                        @if ($this->event->slug != 'fun-bay-networking')
-                                            <div class="flex w-36 items-center space-x-4">
-                                                <label for="">
-                                                    <img class="max-w-10" src="{{ asset('img/icons/spoon.png') }}"
-                                                        alt="">
-                                                </label>
-                                                <label class="text-lg font-bold leading-none text-black" for="food">
-
-                                                    PAY FOR YOUR LUNCH
-
-                                                </label>
-
-                                            </div>
-                                        @endif
-
-                                        @if ($this->event->detail->food_type === App\Enums\FoodType::BUFFET->value)
-
-                                            {{-- ? Buffet food type --}}
+                                        {{-- ? Buffet food type --}}
+                                        @if ($this->event->detail->food_type === App\Enums\FoodType::BUFFET)
                                             {{-- ! TODO: Refactor to component and clean up --}}
                                             @if (count($this->offline_foods) === 1)
                                                 <input
@@ -243,11 +224,8 @@
                                                     </div>
                                                 @endforeach
                                             @endif
-                                        @else
+                                        @elseif ($this->event->detail->food_type === App\Enums\FoodType::ALA_CARTE)
                                             {{-- ? Ala Carte food type --}}
-
-                                            {{-- ? ala carte foods --}}
-
                                             @if (count($this->offline_foods[0]['food']))
 
                                                 @if (count($this->offline_foods[0]['food']) === 1)
@@ -275,7 +253,7 @@
                                                 @if (count($this->offline_foods[0]['drink']) === 1)
                                                     <input
                                                         class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
-                                                        id="food" type="text" wire:model="food.drink"
+                                                        id="drink" type="text" wire:model="food.drink"
                                                         wire:init='food.drink = "{{ $this->offline_foods[0]['drink'][0] }}"'
                                                         readonly />
                                                 @else
@@ -292,6 +270,26 @@
                                             @endif
 
                                             {{-- ? ala carte drinks end --}}
+                                        @elseif ($this->event->detail->food_type === App\Enums\FoodType::FIXED)
+                                            {{ $type }}
+                                            @if ($fixed_food = $this->searchFixedMenu($type, $this->offline_foods, 'visitor_type'))
+                                                {{-- @dd($fixed_food, $this->food) --}}
+
+                                                <input
+                                                    class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                                    id="food" type="text" value="{{ $fixed_food['food'] }}"'
+                                                    readonly />
+                                                <input
+                                                    class="w-full border border-black p-2 font-extrabold disabled:bg-gray-500"
+                                                    id="drink" type="text" value="{{ $fixed_food['drink'] }}"
+                                                    readonly />
+                                            @else
+                                                <div class="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+                                                    role="alert">
+                                                    <strong class="font-bold">Please select visitor type first</strong>
+                                                </div>
+                                            @endif
+                                        @else
                                         @endif
 
                                         <div>
@@ -302,7 +300,6 @@
 
                                         {{-- KETERANGAN --}}
                                         @if ($this->event->detail->show_invoice_upload)
-
                                             {{-- <p class="font-semibold">Please transfer payment to <br><strong
                                                     class="text-lg">Fransisca - BCA 0657181513</strong></p> --}}
 
@@ -356,9 +353,6 @@
                                             </div>
                                         @endif
                                     </div>
-
-
-
                                 </div>
                             @endif
                         </div>
@@ -529,8 +523,5 @@
             </div>
 
         @endif
-
     </div>
-
-
 </div>

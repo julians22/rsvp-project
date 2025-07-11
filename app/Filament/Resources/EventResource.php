@@ -27,7 +27,6 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class EventResource extends Resource
@@ -62,7 +61,6 @@ class EventResource extends Resource
                     ])
                     ->required(),
 
-
                 Toggle::make('checkable'),
 
                 Section::make(__('Event Date'))
@@ -75,7 +73,7 @@ class EventResource extends Resource
                             ->columnSpan(6)
                             ->live()
                             ->afterStateUpdated(
-                                fn(Set $set, ?string $state) => self::startDateSelected($set, $state)
+                                fn (Set $set, ?string $state) => self::startDateSelected($set, $state)
                             )
                             ->required(),
                         DatePicker::make('registration_date')
@@ -146,13 +144,13 @@ class EventResource extends Resource
 
                                             TextInput::make('offline_food_price_text')
                                                 ->label(__('Offline Food Price Text'))
-                                                ->hidden(fn(Get $get): bool =>  !$get('override_offline_food_price_text'))
-                                                ->required(fn(Get $get): bool => $get('override_offline_food_price_text')),
+                                                ->hidden(fn (Get $get): bool => ! $get('override_offline_food_price_text'))
+                                                ->required(fn (Get $get): bool => $get('override_offline_food_price_text')),
 
                                             TextInput::make('offline_food_price')
                                                 ->label(__('Offline Food Price'))
-                                                ->hidden(fn(Get $get): bool =>  $get('override_offline_food_price_text'))
-                                                ->required(fn(Get $get): bool => !$get('override_offline_food_price_text'))
+                                                ->hidden(fn (Get $get): bool => $get('override_offline_food_price_text'))
+                                                ->required(fn (Get $get): bool => ! $get('override_offline_food_price_text'))
                                                 ->numeric()
                                                 ->prefix('Rp')
                                                 ->columnSpanFull(),
@@ -160,22 +158,23 @@ class EventResource extends Resource
                                                 ->options(FoodType::class)
                                                 ->default(FoodType::BUFFET)
                                                 ->live()
-                                                ->afterStateUpdated(fn(Set $set) => $set('offline_foods', null))
+                                                ->afterStateUpdated(fn (Set $set) => $set('offline_foods', null))
                                                 ->selectablePlaceholder(false),
 
                                             Repeater::make('offline_foods')
                                                 ->label(__('Foods Items'))
                                                 // ? This is not really an elegant solution, but it works for now.
-                                                ->maxItems(fn(Get $get) => ((is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')) === FoodType::ALA_CARTE) ? 1 : 999)
+                                                ->maxItems(fn (Get $get) => in_array((is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')), [FoodType::ALA_CARTE], true) ? 1 : 999)
                                                 ->schema(
-                                                    fn(Get $get): array => match (is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')) {
+                                                    fn (Get $get): array => match (is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')) {
                                                         FoodType::BUFFET => [
                                                             TextInput::make('food')
                                                                 ->label(__('Food'))
                                                                 ->required()
                                                                 ->columnSpan(6),
                                                         ],
-                                                        FoodType::ALA_CARTE =>    [
+
+                                                        FoodType::ALA_CARTE => [
                                                             Repeater::make('food')
                                                                 ->simple(
                                                                     TextInput::make('food')
@@ -184,10 +183,23 @@ class EventResource extends Resource
                                                                 ),
                                                             Repeater::make('drink')
                                                                 ->simple(
-                                                                    TextInput::make('food')
+                                                                    TextInput::make('drink')
                                                                         ->label(__('Drinks'))
                                                                         ->required()
-                                                                )
+                                                                ),
+                                                        ],
+
+                                                        FoodType::FIXED => [
+                                                            Select::make('visitor_type')
+                                                                ->options(
+                                                                    VisitorType::class
+                                                                )->required(),
+                                                            TextInput::make('food')
+                                                                ->label(__('Food'))
+                                                                ->required(),
+                                                            TextInput::make('drink')
+                                                                ->label(__('Drinks'))
+                                                                ->required(),
                                                         ],
                                                         default => [],
                                                     }
@@ -210,18 +222,18 @@ class EventResource extends Resource
                                         ->options(
                                             VisitorType::class
                                         )
-                                        ->hidden(fn(Get $get): bool =>  !$get('override_online_visitor_type'))
-                                        ->required(fn(Get $get): bool => $get('override_online_visitor_type'))
+                                        ->hidden(fn (Get $get): bool => ! $get('override_online_visitor_type'))
+                                        ->required(fn (Get $get): bool => $get('override_online_visitor_type'))
                                         ->hintActions(
                                             [
-                                                fn(Select $component) => Action::make('select all')
+                                                fn (Select $component) => Action::make('select all')
                                                     ->action(
-                                                        fn() => $component->state(array_column(VisitorType::cases(), 'value'))
+                                                        fn () => $component->state(array_column(VisitorType::cases(), 'value'))
                                                     ),
-                                                fn(Select $component) => Action::make('deselect all')
+                                                fn (Select $component) => Action::make('deselect all')
                                                     ->action(
-                                                        fn() => $component->state([])
-                                                    )
+                                                        fn () => $component->state([])
+                                                    ),
                                             ]
                                         ),
 
@@ -232,47 +244,47 @@ class EventResource extends Resource
                                         ->options(
                                             VisitorType::class
                                         )
-                                        ->hidden(fn(Get $get): bool =>  !$get('override_offline_visitor_type'))
-                                        ->required(fn(Get $get): bool => $get('override_offline_visitor_type'))
+                                        ->hidden(fn (Get $get): bool => ! $get('override_offline_visitor_type'))
+                                        ->required(fn (Get $get): bool => $get('override_offline_visitor_type'))
                                         ->hintActions(
                                             [
-                                                fn(Select $component) => Action::make('select all')
+                                                fn (Select $component) => Action::make('select all')
                                                     ->action(
-                                                        fn() => $component->state(array_column(VisitorType::cases(), 'value'))
+                                                        fn () => $component->state(array_column(VisitorType::cases(), 'value'))
                                                     ),
 
-                                                fn(Select $component) => Action::make('deselect all')
+                                                fn (Select $component) => Action::make('deselect all')
                                                     ->action(
-                                                        fn() => $component->state([])
-                                                    )
+                                                        fn () => $component->state([])
+                                                    ),
                                             ]
                                         ),
 
                                     Toggle::make('override_description_1')
                                         ->live(),
                                     RichEditor::make('description_1')
-                                        ->hidden(fn(Get $get): bool =>  !$get('override_description_1'))
-                                        ->required(fn(Get $get): bool => $get('override_description_1'))
+                                        ->hidden(fn (Get $get): bool => ! $get('override_description_1'))
+                                        ->required(fn (Get $get): bool => $get('override_description_1'))
                                         ->columnSpanFull(),
 
                                     Toggle::make('override_description_2')
                                         ->live(),
                                     RichEditor::make('description_2')
-                                        ->hidden(fn(Get $get): bool =>  !$get('override_description_2'))
-                                        ->required(fn(Get $get): bool => $get('override_description_2'))
+                                        ->hidden(fn (Get $get): bool => ! $get('override_description_2'))
+                                        ->required(fn (Get $get): bool => $get('override_description_2'))
                                         ->columnSpanFull(),
 
                                     Toggle::make('override_video')
                                         ->live(),
                                     SpatieMediaLibraryFileUpload::make('video')
-                                        ->hidden(fn(Get $get): bool =>  !$get('override_video'))
-                                        ->required(fn(Get $get): bool => $get('override_video'))
+                                        ->hidden(fn (Get $get): bool => ! $get('override_video'))
+                                        ->required(fn (Get $get): bool => $get('override_video'))
                                         ->collection('video')
                                         ->acceptedFileTypes(['video/*']),
-                                ])
+                                ]),
                         ],
 
-                    )
+                    ),
             ]);
     }
 
@@ -288,8 +300,8 @@ class EventResource extends Resource
                 Tables\Actions\Action::make('visitors')
                     ->label('Manage Visitors')
                     ->icon('heroicon-o-user-group')
-                    ->url(fn(Event $record) => ManageVisitor::getUrl(['record' => $record->id])),
-                Tables\Actions\EditAction::make()
+                    ->url(fn (Event $record) => ManageVisitor::getUrl(['record' => $record->id])),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -311,10 +323,9 @@ class EventResource extends Resource
             'index' => Pages\ListEvents::route('/'),
             'create' => Pages\CreateEvent::route('/create'),
             'edit' => Pages\EditEvent::route('/{record}/edit'),
-            'visitors' => Pages\ManageVisitor::route('/{record}/visitors')
+            'visitors' => Pages\ManageVisitor::route('/{record}/visitors'),
         ];
     }
-
 
     protected static function startDateSelected(Set $set, $date)
     {

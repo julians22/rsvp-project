@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use App\Casts\NullableEnum;
 use App\Casts\TimeCast;
-use App\Enums\VisitorType;
+use App\Enums\FoodType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use VisitorTypeCast;
 
 class EventDetail extends Model implements HasMedia
 {
     use HasFactory,
         InteractsWithMedia;
-
 
     /**
      * The attributes that aren't mass assignable.
@@ -33,6 +30,7 @@ class EventDetail extends Model implements HasMedia
         'offline_foods' => 'array',
         'online_visitor_type_list' => 'array',
         'offline_visitor_type_list' => 'array',
+        'food_type' => FoodType::class,
         // 'online_time' => TimeCast::class,
         // 'offline_time' => TimeCast::class
     ];
@@ -63,6 +61,7 @@ class EventDetail extends Model implements HasMedia
 
         // Make the time in no seconds format & add PM/AM
         $time = date('H:i', strtotime($onlinetime));
+
         return $time;
     }
 
@@ -75,6 +74,7 @@ class EventDetail extends Model implements HasMedia
     {
         $offlinetime = $this->offline_time;
         $time = date('H:i', strtotime($offlinetime));
+
         return $time;
     }
 
@@ -87,10 +87,10 @@ class EventDetail extends Model implements HasMedia
 
         if ($price >= 1000000) {
             $price = $price / 1000000;
-            $price = number_format($price, 0) . 'M';
+            $price = number_format($price, 0).'M';
         } else {
             $price = $price / 1000;
-            $price = number_format($price, 0) . 'K';
+            $price = number_format($price, 0).'K';
         }
 
         return $price;

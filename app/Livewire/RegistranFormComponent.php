@@ -13,11 +13,11 @@ use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Spatie\LivewireFilepond\WithFilePond;
 use Spatie\Image;
+use Spatie\LivewireFilepond\WithFilePond;
 
 /* ****************************************************** */
-/*         LASCIATE OGNE SPERANZA, VOI CH'INTRATE         */
+/*         LASCIATE OGNE SPERANZA, VOI CH'INTRATE */
 /* ****************************************************** */
 
 /* ******** We Really Should Refactor All Of This ******* */
@@ -126,7 +126,7 @@ class RegistranFormComponent extends Component
             $offlineVisitorTypes = [
                 \App\Enums\VisitorType::VISITOR,
                 \App\Enums\VisitorType::MAGNITUDE,
-                \App\Enums\VisitorType::ALTITUDE
+                \App\Enums\VisitorType::ALTITUDE,
             ];
         }
 
@@ -155,14 +155,14 @@ class RegistranFormComponent extends Component
             $this->visitor_type = [];
         }
 
-        if (!in_array(VisitorType::tryFrom($this->type), $this->visitor_type)) {
+        if (! in_array(VisitorType::tryFrom($this->type), $this->visitor_type)) {
             $this->type = '';
         }
     }
 
     public function handleFoodChange($food)
     {
-        if (!in_array($food, $this->food)) {
+        if (! in_array($food, $this->food)) {
             $this->food = array_merge($this->food, [$food]);
         } else {
             $this->food = array_diff($this->food, [$food]);
@@ -174,27 +174,27 @@ class RegistranFormComponent extends Component
         // TODO: CLEAN UP AND MAKE BASE RULES
         if ($this->isVisitorTypeMagnitude()) {
             $rule = [
-                "name" => "required",
+                'name' => 'required',
                 // "sessions" => "required",
                 // "status" => $this->event->is_offline_event_only ? '' : "required",
-                "email" => Rule::unique('visitors')->where(function ($query) {
+                'email' => Rule::unique('visitors')->where(function ($query) {
                     return $query->where('email', $this->email)
                         ->where('event_id', $this->event->id);
                 }),
             ];
         } else {
             $rule = [
-                "name" => "required",
+                'name' => 'required',
                 // "sessions" => "required",
                 // "status" => "required",
-                "business" => "required",
-                "company" => "required",
-                "phone" => "required",
-                "email" => Rule::unique('visitors')->where(function ($query) {
+                'business' => 'required',
+                'company' => 'required',
+                'phone' => 'required',
+                'email' => Rule::unique('visitors')->where(function ($query) {
                     return $query->where('email', $this->email)
                         ->where('event_id', $this->event->id);
                 }),
-                "invited_by" => "sometimes",
+                'invited_by' => 'sometimes',
                 'type' => ['required', Rule::enum(VisitorType::class)],
                 // "food" =>  [
                 //     Rule::requiredIf(function () {
@@ -211,40 +211,44 @@ class RegistranFormComponent extends Component
             ];
         }
 
+        if ($this->event->detail->food_type === \App\Enums\FoodType::FIXED) {
+            $rule['food'] = ['required', 'array'];
+        }
+
         return $rule;
     }
 
     public function messages()
     {
         return [
-            "type.required" => "* mandatory",
-            "type.enum" => "* mandatory",
-            "sessions.required" => "* mandatory",
-            "sessions.*" => "* mandatory",
-            "name.required" => "* mandatory",
-            "business.required" => "* mandatory",
-            "company.required" => "* mandatory",
-            "phone.required" => "* mandatory",
-            "email.required" => "* mandatory",
-            "invited_by.required" => "* mandatory",
-            "food.*" => "* mandatory",
+            'type.required' => '* mandatory',
+            'type.enum' => '* mandatory',
+            'sessions.required' => '* mandatory',
+            'sessions.*' => '* mandatory',
+            'name.required' => '* mandatory',
+            'business.required' => '* mandatory',
+            'company.required' => '* mandatory',
+            'phone.required' => '* mandatory',
+            'email.required' => '* mandatory',
+            'invited_by.required' => '* mandatory',
+            'food.*' => '* mandatory',
         ];
     }
 
     #[Computed]
-    function getStatusType()
+    public function getStatusType()
     {
         $statusTypeList = [];
 
         if ($this->isOnlineSelected()) {
             $statusTypeList = [
                 VisitorStatusType::HADIR,
-                VisitorStatusType::HADIR_TIDAK_PRESENTASI
+                VisitorStatusType::HADIR_TIDAK_PRESENTASI,
             ];
         } else {
             $statusTypeList = [
                 VisitorStatusType::SAKIT,
-                VisitorStatusType::SUBSTITUTE
+                VisitorStatusType::SUBSTITUTE,
             ];
         }
 
@@ -252,37 +256,37 @@ class RegistranFormComponent extends Component
     }
 
     #[Computed]
-    function isVisitorTypeMagnitude()
+    public function isVisitorTypeMagnitude()
     {
         return $this->type === \App\Enums\VisitorType::MAGNITUDE->value;
     }
 
     #[Computed]
-    function allMember()
+    public function allMember()
     {
         return $this->isVisitorTypeMagnitude() ? Member::orderBy('name')->get() : null;
     }
 
     #[Computed]
-    function isOfflineSelected()
+    public function isOfflineSelected()
     {
         return in_array('offline', $this->sessions ?? []);
     }
 
     #[Computed]
-    function isOnlineSelected()
+    public function isOnlineSelected()
     {
         return in_array('online', $this->sessions ?? []);
     }
 
     #[Computed]
-    function isEmptySessions(): bool
+    public function isEmptySessions(): bool
     {
-        return !$this->isOfflineSelected() && !$this->isOnlineSelected();
+        return ! $this->isOfflineSelected() && ! $this->isOnlineSelected();
     }
 
     #[Computed]
-    function event()
+    public function event()
     {
         return Event::slug($this->slug)
             ->with('detail')
@@ -290,19 +294,19 @@ class RegistranFormComponent extends Component
     }
 
     #[Computed]
-    function online_hour()
+    public function online_hour()
     {
         return $this->event->detail->online_time ? $this->removeSeconds($this->event->detail->online_time) : '';
     }
 
     #[Computed]
-    function offline_hour()
+    public function offline_hour()
     {
         return $this->event->detail->offline_time ? $this->removeSeconds($this->event->detail->offline_time) : '';
     }
 
     #[Computed]
-    function offline_foods()
+    public function offline_foods()
     {
         return $this->event->detail->offline_foods ?? [];
     }
@@ -331,16 +335,12 @@ class RegistranFormComponent extends Component
             'phone' => $this->phone,
             'email' => $this->email,
             'invited_by' => $this->invited_by ?? null,
-            'food' =>
-            count($this->offline_foods) ?
+            'food' => count($this->offline_foods) ?
                 (is_array($this->food) ? json_encode($this->food) : $this->food) : null,
             'event_id' => $this->event->id,
         ];
 
-
-
         if ($this->isOfflineSelected()) {
-
 
             if (count($this->offline_foods)) {
                 // $this->validate([
@@ -408,7 +408,24 @@ class RegistranFormComponent extends Component
         $lastOrderId = $lastOrderId ? $lastOrderId->order_id : '00000';
         $lastOrderId = (int) $lastOrderId;
         $lastOrderId++;
+
         return str_pad($lastOrderId, 5, '0', STR_PAD_LEFT);
+    }
+
+    public function searchFixedMenu($target, $array, $prop_key)
+    {
+        foreach ($array as $item) {
+            if ($item[$prop_key] === $target) {
+                $this->food['food'] = $item['food'];
+                $this->food['drink'] = $item['drink'];
+
+                return $item;
+            } else {
+                $this->reset('food');
+            }
+        }
+
+        return null;
     }
 
     public function mount($slug, $event)
