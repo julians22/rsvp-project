@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Member;
 use App\Models\Visitor;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-
-    function index()
+    public function index()
     {
         $events = Event::with('detail')->incoming()->orderBy('start_date')->paginate(12);
         $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')->paginate(12);
@@ -19,7 +17,7 @@ class EventController extends Controller
         $visitorCount = floor(Visitor::distinct('name')->count() / 100) * 100;
 
         // Modulus events on 3
-        $skeletonsCount = 3 - count($events) % 3;
+        $skeletonsCount = max(0, 3 - ($events->count() % 3));
 
         if ($skeletonsCount == 3) {
             $skeletonsCount = 0;
@@ -31,11 +29,11 @@ class EventController extends Controller
             'eventsCount' => $eventsCount,
             'memberCount' => $memberCount,
             'visitorCount' => $visitorCount,
-            'skeletonsCount' => $skeletonsCount
+            'skeletonsCount' => $skeletonsCount,
         ]);
     }
 
-    function show($slug)
+    public function show($slug)
     {
         $isDisabled = false;
         $event = Event::with('detail')->where('slug', $slug)->first();
@@ -44,17 +42,15 @@ class EventController extends Controller
             abort(404);
         }
 
-
         if ($event->detail == null || $event->detail->online_link == null) {
             abort(404);
         }
-
 
         if ($event->isEnded()) {
             $isDisabled = true;
         }
 
-        if (!$event->detail->enable_registration) {
+        if (! $event->detail->enable_registration) {
             $isDisabled = true;
         }
 
@@ -62,11 +58,11 @@ class EventController extends Controller
             'slug' => $slug,
             'event' => $event,
             'isDisabled' => $isDisabled,
-            'is_offline_event' => str_contains($slug, 'offline')
+            'is_offline_event' => str_contains($slug, 'offline'),
         ]);
     }
 
-    function register($slug)
+    public function register($slug)
     {
         $event = Event::with('detail')->where('slug', $slug)->first();
 
@@ -86,8 +82,7 @@ class EventController extends Controller
             return redirect()->route('event.show', $slug);
         }
 
-
-        if (!$event->detail->enable_registration) {
+        if (! $event->detail->enable_registration) {
             return redirect()->route('event.show', $slug);
         }
 
