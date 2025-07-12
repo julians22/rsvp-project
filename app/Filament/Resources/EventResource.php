@@ -165,6 +165,7 @@ class EventResource extends Resource
                                                 ->label(__('Foods Items'))
                                                 // ? This is not really an elegant solution, but it works for now.
                                                 ->maxItems(fn (Get $get) => in_array((is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')), [FoodType::ALA_CARTE], true) ? 1 : 999)
+                                                ->collapsible()
                                                 ->schema(
                                                     fn (Get $get): array => match (is_string($get('food_type')) ? FoodType::tryFrom($get('food_type')) : $get('food_type')) {
                                                         FoodType::BUFFET => [
@@ -195,11 +196,13 @@ class EventResource extends Resource
                                                                     VisitorType::class
                                                                 )->required(),
                                                             TextInput::make('food')
-                                                                ->label(__('Food'))
-                                                                ->required(),
+                                                                ->label(__('Food')),
                                                             TextInput::make('drink')
-                                                                ->label(__('Drinks'))
-                                                                ->required(),
+                                                                ->label(__('Drinks')),
+                                                            TextInput::make('price')
+                                                                ->label(__('Price')),
+                                                            TextInput::make('custom')
+                                                                ->label(__('Custom field')),
                                                         ],
                                                         default => [],
                                                     }

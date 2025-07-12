@@ -211,9 +211,9 @@ class RegistranFormComponent extends Component
             ];
         }
 
-        if ($this->event->detail->food_type === \App\Enums\FoodType::FIXED) {
-            $rule['food'] = ['required', 'array'];
-        }
+        // if ($this->event->detail->food_type === \App\Enums\FoodType::FIXED) {
+        //     $rule['food'] = ['required', 'array'];
+        // }
 
         return $rule;
     }
@@ -416,8 +416,21 @@ class RegistranFormComponent extends Component
     {
         foreach ($array as $item) {
             if ($item[$prop_key] === $target) {
-                $this->food['food'] = $item['food'];
-                $this->food['drink'] = $item['drink'];
+                if (! empty($item['food'])) {
+                    $this->food['food'] = $item['food'];
+                }
+
+                if (! empty($item['drink'])) {
+                    $this->food['drink'] = $item['drink'];
+                }
+
+                if (! empty($item['price'])) {
+                    $this->food['price'] = $item['price'];
+                }
+
+                if (! empty($item['custom'])) {
+                    $this->food['custom'] = $item['custom'];
+                }
 
                 return $item;
             } else {
