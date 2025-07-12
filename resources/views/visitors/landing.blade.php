@@ -149,9 +149,9 @@
                                     <div class="bg-gray-200 px-4 py-2 text-center">
 
                                         @if ($event->detail->override_offline_food_price_text)
-                                            <h5 class="text-xl font-bold leading-[25px]">
-                                                {{ $event->detail->offline_food_price_text }}
-                                            </h5>
+                                            <div class="text-xl font-bold leading-[25px]">
+                                                {!! $event->detail->offline_food_price_text !!}
+                                            </div>
                                         @else
                                             <h5 class="text-xl font-bold leading-[25px]">
                                                 PAY FOR YOUR LUNCH

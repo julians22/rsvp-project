@@ -142,7 +142,7 @@ class EventResource extends Resource
                                             Toggle::make('override_offline_food_price_text')
                                                 ->live(),
 
-                                            TextInput::make('offline_food_price_text')
+                                            RichEditor::make('offline_food_price_text')
                                                 ->label(__('Offline Food Price Text'))
                                                 ->hidden(fn (Get $get): bool => ! $get('override_offline_food_price_text'))
                                                 ->required(fn (Get $get): bool => $get('override_offline_food_price_text')),
