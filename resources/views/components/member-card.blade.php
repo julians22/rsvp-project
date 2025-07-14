@@ -6,13 +6,14 @@
             {{ $member->industry }}
         </h3>
 
-        <div class="aspect-squares -mb-[45%] text-center transition-transform duration-300 group-hover:scale-110">
-            <img class="mx-auto" src="{{ $member->getFirstMediaUrl('profile_photo') }}"
+        <div
+            class="aspect-squares relative z-0 z-0 -mb-[45%] text-center transition-transform duration-300 group-hover:scale-110">
+            <img class="mx-auto" draggable="false" src="{{ $member->getFirstMediaUrl('profile_photo') }}"
                 alt="{{ $member->name }} profile photo">
         </div>
     </div>
 
-    <div class="mt-14 flex flex-col gap-4 p-4 px-6">
+    <div class="relative z-10 mt-14 flex flex-col gap-4 p-4 px-6">
         <p class="text-xl font-bold text-bni-gold-dark">
             {{ $member->name }}
         </p>
