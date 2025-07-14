@@ -31,7 +31,8 @@
                     <div class="basis-6 bg-red-bni p-1">
                         <x-lucide-instagram class="size-full text-white" />
                     </div>
-                    <p class="break-all">{{ $member->social_label ?? $member->social }}</p>
+                    <a class="break-all" target="_blank"
+                        href="{{ filter_var($member->social, FILTER_VALIDATE_URL) ? $member->social : 'https://' . $member->social }}">{{ $member->social_label ?? $member->social }}</a>
                 </li>
             @endif
 
