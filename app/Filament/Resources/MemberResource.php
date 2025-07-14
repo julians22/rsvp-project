@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MemberResource\Pages;
 use App\Models\Member;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -35,8 +36,21 @@ class MemberResource extends Resource
                 SpatieMediaLibraryFileUpload::make('company_logo')
                     ->collection('company_logo')
                     ->columnSpanFull(),
-                TextInput::make('social'),
-                TextInput::make('website'),
+                Section::make('Featured Social Media')
+                    ->description('Add social media links')
+                    ->schema([
+                        TextInput::make('social')
+                            ->label('Social Media link'),
+                        TextInput::make('social_label'),
+                    ]),
+
+                Section::make('Member website')
+                    ->description('Add website links')
+                    ->schema([
+                        TextInput::make('website')
+                            ->label('Website link'),
+                        TextInput::make('website_label'),
+                    ]),
 
             ])->columns(1);
     }
@@ -46,7 +60,7 @@ class MemberResource extends Resource
         return $table
             ->columns([
                 SpatieMediaLibraryImageColumn::make('profile_photo')
-                    ->collection('member'),
+                    ->collection('profile_photo'),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),

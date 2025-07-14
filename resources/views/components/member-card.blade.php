@@ -20,13 +20,6 @@
         <ul class="flex flex-col gap-2 text-xs">
             <li class="flex items-center gap-2">
                 <div class="basis-6 bg-red-bni p-1">
-                    <x-lucide-phone class="size-full text-white" />
-                </div>
-                <a href="tel:{{ $member->phone }}">{{ $member->phone }}</a>
-            </li>
-
-            <li class="flex items-center gap-2">
-                <div class="basis-6 bg-red-bni p-1">
                     <x-lucide-mail class="size-full text-white" />
                 </div>
                 <a class="break-all" href="mailto:{{ $member->email }}">{{ $member->email }}</a>
@@ -37,7 +30,7 @@
                     <div class="basis-6 bg-red-bni p-1">
                         <x-lucide-instagram class="size-full text-white" />
                     </div>
-                    <p>{{ $member->social }}</p>
+                    <p class="break-all">{{ $member->social_label ?? $member->social }}</p>
                 </li>
             @endif
 
@@ -46,7 +39,8 @@
                     <div class="basis-6 bg-red-bni p-1">
                         <x-lucide-globe class="size-full text-white" />
                     </div>
-                    <a target="_blank" href="//{{ $member->website }}">{{ $member->website }}</a>
+                    <a class="break-all" target="_blank"
+                        href="{{ filter_var($member->website, FILTER_VALIDATE_URL) ? $member->website : 'https://' . $member->website }}">{{ $member->website_label ?? $member->website }}</a>
                 </li>
             @endif
         </ul>
