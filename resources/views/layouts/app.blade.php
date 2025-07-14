@@ -37,7 +37,7 @@
 </head>
 
 <body class="relative bg-white antialiased">
-    <div class="sticky top-0 z-10 bg-red-bni">
+    <div class="sticky top-0 z-20 bg-red-bni">
 
         <nav class="mx-auto flex w-full max-w-none items-center justify-between px-8 py-4 lg:max-w-5xl xl:px-0">
             <div class="w-full max-w-24 brightness-0 invert">
