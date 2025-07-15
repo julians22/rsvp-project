@@ -243,7 +243,7 @@ class RegistranFormComponent extends Component
         if ($this->isOnlineSelected()) {
             $statusTypeList = [
                 VisitorStatusType::HADIR,
-                VisitorStatusType::HADIR_TIDAK_PRESENTASI,
+                // VisitorStatusType::HADIR_TIDAK_PRESENTASI,
             ];
         } else {
             $statusTypeList = [
