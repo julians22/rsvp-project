@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MemberResource\Pages;
 use App\Models\Member;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -32,6 +33,11 @@ class MemberResource extends Resource
                     ->email(),
                 TextInput::make('phone'),
                 TextInput::make('industry'),
+                Select::make('categories')
+                    ->multiple()
+                    ->relationship('categories', 'name')
+                    ->preload()
+                    ->searchable(),
                 TextInput::make('company'),
                 SpatieMediaLibraryFileUpload::make('company_logo')
                     ->collection('company_logo')

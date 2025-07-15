@@ -13,9 +13,39 @@
 @section('page')
     <section class="my-8 flex min-h-dvh flex-row space-x-5 bg-landing bg-bottom bg-no-repeat pb-14">
         <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
-            <x-event-list-title>
-                Marketing & event
-            </x-event-list-title>
+            <x-container class="mb-4 flex justify-between justify-items-center gap-8 p-4 max-lg:flex-col lg:items-center">
+
+                <x-event-list-title class="!m-auto !w-full !basis-3/4">
+                    Marketing & event
+                </x-event-list-title>
+
+                <div class="flex basis-full flex-col gap-2">
+                    <a @class([
+                        'text-xs font-bold hover:underline',
+                        'text-red-bni' => request()->fullUrlIs(route('members.index')),
+                    ]) href="{{ route('members.index') }}">
+                        All Categories
+                    </a>
+
+                    <ul class="grid grid-cols-2 gap-2">
+
+                        @foreach ($categories as $category)
+                            <li>
+                                <a @class([
+                                    'text-xs font-bold hover:underline',
+                                    'text-red-bni' => request()->fullUrlIs(
+                                        route('members.index', [
+                                            'category' => $category->slug,
+                                        ])),
+                                ])
+                                    href="{{ route('members.index', ['category' => $category->slug]) }}">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </x-container>
 
             <x-container>
                 <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3">

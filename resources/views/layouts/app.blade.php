@@ -65,7 +65,7 @@
     <footer class="sticky bottom-0 z-50 flex items-center justify-center bg-navy px-2 py-7">
         <h4 class="inline-flex text-sm text-white lg:text-base">POWERED BY </h4>
         <a class="inline-flex" href="https://designcub3.com" rel="noopener noreferrer" target="_blank">
-            <img class="ml-2 w-24 lg:w-32" src="{{ asset('img/logo.svg') }}" alt="">
+            <img class="ml-2 w-24 lg:w-32" src="{{ asset('img/footer-logo.gif') }}" alt="">
         </a>
     </footer>
 

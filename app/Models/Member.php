@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -27,5 +28,13 @@ class Member extends Model implements HasMedia
 
         $this->addMediaCollection('company_logo');
 
+    }
+
+    /**
+     * The categories that belong to the Member
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(MemberCategory::class, 'member_member_category');
     }
 }
