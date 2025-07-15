@@ -16,7 +16,7 @@
             <x-container class="mb-4 flex justify-between justify-items-center gap-8 p-4 max-lg:flex-col lg:items-center">
 
                 <x-event-list-title class="!m-auto !w-full !basis-3/4">
-                    Marketing & event
+                    Member By Business Categories
                 </x-event-list-title>
 
                 <div class="flex basis-full flex-col gap-2">
