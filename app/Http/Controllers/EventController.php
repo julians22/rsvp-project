@@ -10,8 +10,22 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::with('detail')->incoming()->orderBy('start_date')->paginate(12);
+        $events = Event::with('detail')
+            ->incoming()
+            ->orderBy('start_date')
+            ->paginate(12)
+            // ->sortBy(fn ($event) => $event->detail->is_online_event_only
+            //     ? $event->detail->online_time_no_seconds
+            //     : null
+            // )
+            // ->sortBy(fn ($event) => $event->detail->is_offline_event_only
+            //     ? $event->detail->offline_time_no_seconds
+            //     : null
+            // );
+            ;
+
         $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')->paginate(12);
+
         $eventsCount = Event::with('detail')->count();
         $memberCount = Member::count();
         $visitorCount = floor((int) Visitor::distinct('name')->count() / 100) * 100;

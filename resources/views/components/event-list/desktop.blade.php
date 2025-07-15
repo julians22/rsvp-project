@@ -2,7 +2,7 @@
 <div class="glide max-md:hidden" id="glide-now">
     <div class="glide__track mx-8 md:mx-16" data-glide-el="track">
         <ul class="glide__slides pb-8">
-            @foreach ($events->sortBy(fn($event) => min($event->detail->offline_time_no_seconds, $event->detail->online_time_no_seconds)) as $event)
+            @foreach ($events as $event)
                 <x-event-card :event="$event" />
             @endforeach
         </ul>
