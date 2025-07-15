@@ -13,15 +13,15 @@ class EventController extends Controller
         $events = Event::with('detail')
             ->incoming()
             ->orderBy('start_date')
-            ->paginate(12);
-        // ->sortBy(fn ($event) => $event->detail->is_online_event_only
-        //     ? $event->detail->online_time_no_seconds
-        //     : null
-        // )
-        // ->sortBy(fn ($event) => $event->detail->is_offline_event_only
-        //     ? $event->detail->offline_time_no_seconds
-        //     : null
-        // );
+            ->paginate(12)
+            ->sortBy(function ($event) {
+                $online_time = $event->is_online_event ? $event->detail->online_time : null;
+                $offline_time = $event->is_offline_event ? $event->detail->offline_time : null;
+                $r = array_diff([$online_time, $offline_time], [null]);
+
+                return min($r);
+
+            });
 
         $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')->paginate(12);
 
