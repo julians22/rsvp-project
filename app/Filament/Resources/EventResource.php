@@ -62,6 +62,7 @@ class EventResource extends Resource
                     ->required(),
 
                 Toggle::make('checkable'),
+                Toggle::make('hide'),
 
                 Section::make(__('Event Date'))
                     ->description('Please fill in the event date.')

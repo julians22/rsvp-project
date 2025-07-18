@@ -13,6 +13,7 @@ class EventController extends Controller
         $events = Event::with('detail')
             ->incoming()
             ->orderBy('start_date')
+            ->where('hide', false)
             ->paginate(12)
             ->sortBy(function ($event) {
                 $online_time = $event->is_online_event ? $event->detail->online_time : null;
@@ -23,9 +24,13 @@ class EventController extends Controller
 
             });
 
-        $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')->paginate(12);
+        $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')
+            ->where('hide', false)
+            ->paginate(12);
 
-        $eventsCount = Event::with('detail')->count();
+        $eventsCount = Event::with('detail')
+            ->where('hide', false)
+            ->count();
         $memberCount = Member::count();
         $visitorCount = floor((int) Visitor::distinct('name')->count() / 100) * 100;
 

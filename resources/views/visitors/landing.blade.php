@@ -140,10 +140,12 @@
                             <div class="border border-black px-4 pb-4 pt-4 lg:px-8 lg:pb-6 lg:pt-8">
                                 <div class="flex flex-col space-y-4">
                                     <div>
-                                        <h5 class="text-xl font-bold text-gray-800">OFFLINE MEETING</h5>
-                                        <h5 class="text-xl font-bold lg:text-2xl">
-                                            {{ $event->detail->offline_time_no_seconds }}
-                                        </h5>
+                                        @if ($event->slug != 'bni-magnitude-construction-day')
+                                            <h5 class="text-xl font-bold text-gray-800">OFFLINE MEETING</h5>
+                                            <h5 class="text-xl font-bold lg:text-2xl">
+                                                {{ $event->detail->offline_time_no_seconds }}
+                                            </h5>
+                                        @endif
                                         {!! $event->detail->offline_address !!}
                                     </div>
                                     <div class="bg-gray-200 px-4 py-2 text-center">
