@@ -32,7 +32,7 @@
             <div class="px-3 pb-3 pt-1">
 
                 <div class="flex min-h-full flex-col justify-center">
-
+                     @if ($event->slug != 'bni-magnitude-construction-day')
                     @if ($event->is_online_event)
                         <div class="flex flex-row items-center space-x-2 text-black">
                             <x-heroicon-o-globe-alt class="h-4 w-4 text-red-bni" />
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     @endif
-
+@endif
                 </div>
             </div>
             {{-- Register Button --}}
