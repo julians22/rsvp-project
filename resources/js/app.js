@@ -1,7 +1,9 @@
-import Alpine from 'alpinejs'
+import Alpine from "alpinejs";
 
-window.Alpine = Alpine
+Alpine.plugin(resize);
 
-Alpine.start()
+window.Alpine = Alpine;
 
-import './bootstrap';
+Alpine.start();
+
+import "./bootstrap";

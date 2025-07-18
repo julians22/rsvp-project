@@ -16,6 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@alpinejs/resize": "^3.14.9",
         "@glidejs/glide": "^3.7.1",
         "alpinejs": "^3.14.3"
     }
