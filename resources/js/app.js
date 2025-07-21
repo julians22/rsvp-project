@@ -1,9 +1,9 @@
-import Alpine from "alpinejs";
+// import { resize } from "@alpinejs/resize";
+// import Alpine from "alpinejs";
+// import "./bootstrap";
 
-Alpine.plugin(resize);
+// Alpine.plugin(resize);
 
-window.Alpine = Alpine;
+// window.Alpine = Alpine;
 
-Alpine.start();
-
-import "./bootstrap";
+// Alpine.start();
