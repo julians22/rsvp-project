@@ -1,25 +1,27 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-9cf19865.css",
-    "isEntry": true,
-    "src": "resources/css/app.css"
+    "file": "assets/app-Cl4LEgyG.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
   },
   "resources/img/landing-bg-pattern.svg": {
-    "file": "assets/landing-bg-pattern-2e4ba5ba.svg",
+    "file": "assets/landing-bg-pattern-D4jUfvHa.svg",
     "src": "resources/img/landing-bg-pattern.svg"
   },
   "resources/img/stats-bg.svg": {
-    "file": "assets/stats-bg-d8a1b13e.svg",
+    "file": "assets/stats-bg-BqF1AH-j.svg",
     "src": "resources/img/stats-bg.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-4ed993c7.js",
-    "isEntry": true,
-    "src": "resources/js/app.js"
+    "file": "assets/app-CVECF1Tp.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
   },
   "resources/js/landing.js": {
-    "file": "assets/landing-0da653ad.js",
-    "isEntry": true,
-    "src": "resources/js/landing.js"
+    "file": "assets/landing-C-Ue7rnr.js",
+    "name": "landing",
+    "src": "resources/js/landing.js",
+    "isEntry": true
   }
 }
