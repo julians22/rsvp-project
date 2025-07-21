@@ -7,7 +7,7 @@
         </h3>
 
         <div
-            class="aspect-squares relative z-0 z-0 -mb-[45%] text-center transition-transform duration-300 group-hover:scale-110">
+            class="aspect-squares relative z-0 -mb-[45%] text-center transition-transform duration-300 group-hover:scale-110">
             <img class="mx-auto" draggable="false" src="{{ $member->getFirstMediaUrl('profile_photo') }}"
                 alt="{{ $member->name }} profile photo">
         </div>
