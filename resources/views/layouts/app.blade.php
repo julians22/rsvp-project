@@ -303,7 +303,7 @@
     @yield('page')
 
     <div
-        class="fixed bottom-12 right-8 z-50 size-16 drop-shadow-lg transition-all duration-700 ease-in-out hover:bottom-16 hover:drop-shadow-2xl">
+        class="fixed bottom-[clamp(2rem,20vw,3.5rem)] right-[clamp(0.5rem,5vw,2rem)] z-50 size-[clamp(2rem,12vw,4rem)] drop-shadow-lg transition-all duration-700 ease-in-out hover:bottom-[clamp(3rem,30vw,4.5rem)] hover:drop-shadow-2xl">
         <a target="_blank" href="https://api.whatsapp.com/send?phone=628161306769">
             <img src="{{ asset('img/wa.png') }}" alt="whatsapp contact">
         </a>
