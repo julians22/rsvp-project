@@ -302,7 +302,14 @@
 
     @yield('page')
 
-    <footer class="sticky bottom-0 z-50 flex items-center justify-center bg-navy px-2 py-4">
+    <div
+        class="fixed bottom-12 right-8 z-50 size-16 drop-shadow-lg transition-all duration-700 ease-in-out hover:bottom-16 hover:drop-shadow-2xl">
+        <a target="_blank" href="https://api.whatsapp.com/send?phone=628161306769">
+            <img src="{{ asset('img/wa.png') }}" alt="whatsapp contact">
+        </a>
+    </div>
+
+    <footer class="sticky bottom-0 z-40 flex items-center justify-center bg-navy px-2 py-4">
         <h4 class="inline-flex text-sm text-white lg:text-base">POWERED BY </h4>
         <a class="inline-flex" href="https://designcub3.com" rel="noopener noreferrer" target="_blank">
             <img class="ml-2 w-24 lg:w-32" src="{{ asset('img/footer-logo.gif') }}" alt="">
