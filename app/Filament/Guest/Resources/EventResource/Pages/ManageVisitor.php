@@ -4,21 +4,19 @@ namespace App\Filament\Guest\Resources\EventResource\Pages;
 
 use App\Enums\VisitorType;
 use App\Filament\Component\EventTable;
+use App\Filament\Exports\VisitorExporter;
 use App\Filament\Guest\Resources\EventResource;
 use App\Models\Visitor;
-use Filament\Actions;
-use Filament\Tables\Actions\Action;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\Exports\Models\Export;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ManageVisitor extends ManageRelatedRecords
 {
@@ -71,12 +69,17 @@ class ManageVisitor extends ManageRelatedRecords
             ->filters([
                 SelectFilter::make('type')
                     ->multiple()
-                    ->options(VisitorType::class)
+                    ->options(VisitorType::class),
             ])
             ->defaultSort('created_at', 'desc')
             ->deferFilters()
             ->headerActions([
-                //
+                ExportAction::make()
+                    ->exporter(VisitorExporter::class)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                    ])
+                    ->fileName(fn (Export $export): string => substr("{$this->record->slug}", 0, 25)." visitor - {$export->getKey()}"),
             ])
             ->actions([
                 // Tables\Actions\ViewAction::make(),
