@@ -7,6 +7,7 @@ use App\Models\Visitor;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
 
 class VisitorExporter extends Exporter
@@ -34,7 +35,8 @@ class VisitorExporter extends Exporter
             ExportColumn::make('email'),
             ExportColumn::make('invited_by'),
             ExportColumn::make('food'),
-            ExportColumn::make('payment'),
+            ExportColumn::make('payment')
+                ->enabledByDefault(fn (): bool => Filament::getCurrentPanel()->getId() === 'admin'),
             ExportColumn::make('Session')
                 ->state(function (Visitor $record): string {
                     return match (true) {
