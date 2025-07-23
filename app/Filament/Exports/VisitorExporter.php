@@ -2,11 +2,12 @@
 
 namespace App\Filament\Exports;
 
-use App\Models\Visitor;
 use App\Enums\VisitorType;
-use Filament\Actions\Exports\Exporter;
+use App\Models\Visitor;
 use Filament\Actions\Exports\ExportColumn;
+use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
+use Filament\Forms\Components\Select;
 
 class VisitorExporter extends Exporter
 {
@@ -19,11 +20,11 @@ class VisitorExporter extends Exporter
                 ->label('ID'),
             ExportColumn::make('created_at')
                 ->label('Register Date')
-                ->formatStateUsing(fn($state): string => (new \DateTime($state))->format('d F Y')),
+                ->formatStateUsing(fn ($state): string => (new \DateTime($state))->format('d F Y')),
             ExportColumn::make('name'),
             ExportColumn::make('type')
                 ->formatStateUsing(
-                    fn($state): string => in_array($state, array_column(VisitorType::cases(), 'value'))
+                    fn ($state): string => in_array($state, array_column(VisitorType::cases(), 'value'))
                         ? VisitorType::from($state)->getLabel()
                         : 'Unknown'
                 ),
@@ -48,11 +49,12 @@ class VisitorExporter extends Exporter
                     $meta = [];
                     if ($record->meta) {
                         foreach ($record->meta as $key => $value) {
-                            if (!in_array($key, ['offline_food', 'payment_path'])) {
-                                $meta[] = ucfirst(str_replace('_', ' ', $key)) . ": $value";
+                            if (! in_array($key, ['offline_food', 'payment_path'])) {
+                                $meta[] = ucfirst(str_replace('_', ' ', $key)).": $value";
                             }
                         }
                     }
+
                     return implode("\n", $meta);
                 })
                 ->label('extra info'),
@@ -60,12 +62,22 @@ class VisitorExporter extends Exporter
         ];
     }
 
+    public static function getOptionsFormComponents(): array
+    {
+        return [
+            Select::make('visitorType')
+                ->options(visitorType::class)
+                ->multiple()
+                ->label('Select Visitor Type to export'),
+        ];
+    }
+
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your visitor export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = 'Your visitor export has completed and '.number_format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+            $body .= ' '.number_format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
         }
 
         return $body;

@@ -17,6 +17,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ManageVisitor extends ManageRelatedRecords
 {
@@ -79,7 +80,11 @@ class ManageVisitor extends ManageRelatedRecords
                     ->formats([
                         ExportFormat::Xlsx,
                     ])
-                    ->fileName(fn (Export $export): string => substr("{$this->record->slug}", 0, 25)." visitor - {$export->getKey()}"),
+                    ->fileName(fn (Export $export): string => substr("{$this->record->slug}", 0, 25)." visitor - {$export->getKey()}")
+                    ->modifyQueryUsing(fn (Builder $query, array $options) => $query->when(! empty($options['visitorType']), function (Builder $query) use ($options) {
+                        return $query->whereIn('type', $options['visitorType']);
+                    }))
+                    ->columnMapping(false),
             ])
             ->actions([
                 // Tables\Actions\ViewAction::make(),
