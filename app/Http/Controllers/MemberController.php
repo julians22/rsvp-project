@@ -11,10 +11,10 @@ class MemberController extends Controller
     public function index(Request $request)
     {
         $categories = MemberCategory::all();
-        $query = Member::orderBy('name');
+        $query = Member::orderBy('name')->where('hide', false);
 
         if ($request->has('category')) {
-            $category = MemberCategory::where('slug', $request->query('category'))->first();
+            $category = $categories->firstWhere('slug', $request->query('category'));
             if ($category) {
                 $query->whereHas('categories', function ($q) use ($category) {
                     $q->where('member_category_id', $category->id);
