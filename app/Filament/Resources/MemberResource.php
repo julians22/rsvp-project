@@ -8,6 +8,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -28,6 +29,7 @@ class MemberResource extends Resource
                 SpatieMediaLibraryFileUpload::make('profile_photo')
                     ->collection('profile_photo')
                     ->columnSpanFull(),
+                Toggle::make('hide'),
                 TextInput::make('name'),
                 TextInput::make('email')
                     ->email(),
