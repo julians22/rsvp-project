@@ -343,11 +343,6 @@ class RegistranFormComponent extends Component
         if ($this->isOfflineSelected()) {
 
             if (count($this->offline_foods)) {
-                // $this->validate([
-                //  'food' => 'required',
-                //  ], [
-                //      'food.required' => '* mandatory',
-                //   ], ['food' => 'FOOD']);
 
                 if ($this->event->detail->show_invoice_upload) {
                     $this->validate(
@@ -375,6 +370,14 @@ class RegistranFormComponent extends Component
 
         if ($this->isOnlineSelected()) {
             $data['is_online'] = true;
+        }
+
+        if ($this->event->detail->food_required) {
+            $this->validate(
+                ['food' => 'required'],
+                ['food.required' => '* mandatory'],
+                ['food' => 'FOOD']
+            );
         }
 
         if ($this->isVisitorTypeMagnitude() && $this->status === VisitorStatusType::SUBSTITUTE->value) {

@@ -155,6 +155,10 @@ class EventResource extends Resource
                                                 ->numeric()
                                                 ->prefix('Rp')
                                                 ->columnSpanFull(),
+
+                                            Toggle::make('food_required')
+                                                ->default(false),
+
                                             Select::make('food_type')
                                                 ->options(FoodType::class)
                                                 ->default(FoodType::BUFFET)
