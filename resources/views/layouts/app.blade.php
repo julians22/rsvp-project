@@ -25,14 +25,14 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:title" content="RSVP by Designcub3 | @yield('head', 'Home')" />
     <meta property="og:description" content="@yield('description', 'Designcub3 RSVP')" />
-    <meta property="og:image" content="@yield('image', asset('img/banner/webbanner.jpg'))" />
+    <meta property="og:image" content="@yield('image', asset('img/thumb.jpg'))" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ url()->current() }}" />
     <meta property="twitter:title" content="RSVP by Designcub3 | @yield('head', 'Home')" />
     <meta property="twitter:description" content="@yield('description', 'Designcub3 RSVP')" />
-    <meta property="twitter:image" content="@yield('image', asset('img/banner/webbanner.jpg'))" />
+    <meta property="twitter:image" content="@yield('image', asset('img/thumb.jpg'))" />
 
 </head>
 
@@ -310,7 +310,8 @@
     </div>
 
     <footer class="sticky bottom-0 z-40 flex items-center justify-center bg-navy px-2 py-4">
-        <h4 class="inline-flex text-sm text-white lg:text-base">BNI Magnitude Official Website | Powered By </h4>
+        <h4 class="inline-flex pt-[0.3rem] text-sm text-white lg:text-base">BNI Magnitude Official Website | Powered By
+        </h4>
         <a class="inline-flex" href="https://designcub3.com" rel="noopener noreferrer" target="_blank">
             <img class="ml-2 w-24 lg:w-32" src="{{ asset('img/footer-logo.gif') }}" alt="">
         </a>

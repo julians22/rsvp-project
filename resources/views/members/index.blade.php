@@ -3,7 +3,7 @@
 @php
     // Meta Desc (clean_description) limit text upto 160 characters
     $metaDesc =
-        'Welcome to RSVP by Designcub3. RSVP by Designcub3 is a platform that allows you to create and manage your events.';
+        'Official Website BNI Magnitude. We are a thriving and dynamic community of professionals and business owners, united by a shared commitment to excellence, collaboration, and trust. Through the power of strategic connections and mutual support, we work together to deliver impactful solutions and help each other grow.';
 @endphp
 
 @section('head', 'All Events')

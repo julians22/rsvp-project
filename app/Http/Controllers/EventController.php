@@ -32,7 +32,7 @@ class EventController extends Controller
             ->where('hide', false)
             ->count();
         $memberCount = Member::count();
-        $visitorCount = floor((int) Visitor::distinct('name')->count() / 100) * 100;
+        $visitorCount = floor((int) Visitor::count() / 100) * 100;
 
         // Modulus events on 3
         $skeletonsCount = max(0, 3 - ($events->count() % 3));
