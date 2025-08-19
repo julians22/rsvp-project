@@ -31,7 +31,7 @@ class EventController extends Controller
         $eventsCount = Event::with('detail')
             ->where('hide', false)
             ->count();
-        $memberCount = Member::count();
+        $memberCount = Member::where('hide', false)->count();
         $visitorCount = floor((int) Visitor::count() / 100) * 100;
 
         // Modulus events on 3
