@@ -33,10 +33,10 @@ enum VisitorType: string implements HasLabel
     case OTHER = 'other';
     case OBSERVER = 'observer';
     case VISITOR_HOST = 'visitor Host';
+    case GUEST = 'guest';
+
     /**
      * Get the label for the given enum value.
-     *
-     * @return string|null
      */
     public function getLabel(): ?string
     {
@@ -68,6 +68,7 @@ enum VisitorType: string implements HasLabel
             self::OTHER => 'Other Chapter / Core Group',
             self::OBSERVER => 'Observer',
             self::VISITOR_HOST => 'Visitor Host',
+            self::GUEST => 'Guest',
         };
     }
 
@@ -79,7 +80,7 @@ enum VisitorType: string implements HasLabel
             self::ALTITUDE,
             self::MAGNITUDE => asset('img/zoom-bg/Member.png'),
 
-                // TODO: WE REALLY SHOULD PUT THIS LINK IN A CONSTANT SOMEWHERE, NOT HARD CODED.
+            // TODO: WE REALLY SHOULD PUT THIS LINK IN A CONSTANT SOMEWHERE, NOT HARD CODED.
             default => 'https://drive.google.com/drive/folders/1N7GMUHap1w-J29MdaXMWi8p76revHFEq?usp=sharing',
         };
     }

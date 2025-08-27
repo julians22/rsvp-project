@@ -76,7 +76,7 @@ class RegistranFormComponent extends Component
         $this->invited_by = null;
         $this->status = null;
 
-        $this->invited_by_disabled = $this->type !== VisitorType::VISITOR->value;
+        $this->invited_by_disabled = ! in_array($this->type, [VisitorType::VISITOR->value, VisitorType::GUEST->value], true);
 
         if ($this->invited_by_disabled) {
             $this->reset(['invited_by']);
