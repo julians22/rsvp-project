@@ -180,6 +180,13 @@
                                 <li class="text-lg font-medium">Prepare Your Business Introduction</li>
                             </ul>
                         </div>
+
+                        @if ($event->slug == 'marketing-assemble')
+                            <div>
+                                <img src="{{ asset('hardcoded/ExhibitingCompanies.jpg') }}" alt="">
+                                <img src="{{ asset('hardcoded/Sponsors.jpg') }}" alt="">
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
