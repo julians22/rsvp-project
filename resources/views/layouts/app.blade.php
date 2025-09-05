@@ -34,6 +34,8 @@
     <meta property="twitter:description" content="@yield('description', 'Designcub3 RSVP')" />
     <meta property="twitter:image" content="@yield('image', asset('img/thumb.jpg'))" />
 
+    @stack('before-scripts')
+
 </head>
 
 <body class="relative bg-white antialiased">
