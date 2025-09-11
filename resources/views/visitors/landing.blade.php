@@ -63,12 +63,12 @@
                     </div>
 
                     <video onloadeddata="this.play();this.muted=true;" poster="{{ asset('img/video_thumb.jpg') }}"
-                        playsinline loop muted controls>
+                        playsinline loop muted controls autoplay>
                         @if ($event->detail->override_video)
                             {{-- todo: sementara mp4, nanti ganti ambil mime type --}}
                             <source src="{{ $event->detail->getFirstMediaUrl('video') }}" type="video/mp4" />
                         @else
-                            <source src="{{ asset('videos/BNI Video low.mp4') }}" type="video/mp4" />
+                            <source src="{{ asset('videos/BNI-introduction-ll.mp4') }}" type="video/mp4" />
                         @endif
                         Your browser does not support the video tag or the file format of this video.
                     </video>
@@ -183,8 +183,8 @@
 
                         @if ($event->slug == 'marketing-assemble')
                             <div>
-                                <img src="{{ asset('hardcoded/ExhibitingCompanies.jpg') }}" alt="">
-                                <img src="{{ asset('hardcoded/sponsor-new.jpg') }}" alt="">
+                                <img src="{{ asset('hardcoded/exhibiting-companies-new.jpg') }}" alt="">
+                                <img src="{{ asset('hardcoded/sponsor-new-2.jpg') }}" alt="">
                             </div>
                             @push('before-scripts')
                                 <!-- Meta Pixel Code -->
