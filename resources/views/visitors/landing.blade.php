@@ -96,7 +96,7 @@
 
                 <div class="space-y-6 px-4 lg:px-0">
 
-                    <img class="max-w-48 lg:max-w-[400px]" src="{{ asset('img/logo_bni.jpg') }}" alt="">
+                    <img class="max-w-48 lg:max-w-[400px]" src="{{ asset('img/logo-bni.png') }}" alt="">
 
                     <h1 class="!mt-0 text-lg font-bold lg:text-2xl">Join us for this opportunity to connect, collaborate,
                         and
