@@ -184,7 +184,7 @@
                         @if ($event->slug == 'marketing-assemble')
                             <div>
                                 <img src="{{ asset('hardcoded/exhibiting-companies-new.jpg') }}" alt="">
-                                <img src="{{ asset('hardcoded/sponsor-new-2.jpg') }}" alt="">
+                                <img src="{{ asset('hardcoded/sponsor-new-3.jpg') }}" alt="">
                             </div>
                             @push('before-scripts')
                                 <!-- Meta Pixel Code -->
