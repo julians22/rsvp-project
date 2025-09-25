@@ -12,6 +12,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -69,6 +70,13 @@ class MemberResource extends Resource
             ->columns([
                 SpatieMediaLibraryImageColumn::make('profile_photo')
                     ->collection('profile_photo'),
+                IconColumn::make('hide')
+                    ->label('hidden status')
+                    ->icon(fn (string $state): string => match ($state) {
+                        '1' => 'heroicon-o-eye-slash',
+                        '0' => 'heroicon-o-eye',
+                        default => 'heroicon-o-question-mark-circle',
+                    }),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),

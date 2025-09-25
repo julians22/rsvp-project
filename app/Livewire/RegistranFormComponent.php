@@ -264,7 +264,7 @@ class RegistranFormComponent extends Component
     #[Computed]
     public function allMember()
     {
-        return $this->isVisitorTypeMagnitude() ? Member::orderBy('name')->get() : null;
+        return $this->isVisitorTypeMagnitude() ? Member::where('hide', false)->orderBy('name')->get() : null;
     }
 
     #[Computed]
