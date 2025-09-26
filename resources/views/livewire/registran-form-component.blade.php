@@ -130,7 +130,10 @@
                     @if ($this->type === \App\Enums\VisitorType::MAGNITUDE->value)
                         {{-- STATUS --}}
                         {{-- @dump($this->event->is_offline_event_only) --}}
-                        @if (!$this->event->is_offline_event_only)
+                        @if (
+                            $this->event->is_online_event ||
+                                $this->event->is_both_event ||
+                                ($this->event->is_offline_event && !$this->isOfflineSelected))
 
                             <div class="form-group my-4">
                                 @php
@@ -143,8 +146,13 @@
                                     }
                                 @endphp
 
-                                <label class="form-label text-black" for="status">STATUS {{ $label }}
-                                    ONLINE:</label>
+                                <label class="form-label text-black" for="status">
+                                    STATUS {{ $label }}
+                                    @if ($this->event->is_online_event || $this->event->is_both_event)
+                                        ONLINE
+                                    @endif
+                                    :
+                                </label>
                                 <select id="status" required name="status" wire:model.live="status">
                                     <option value="">- PLEASE SELECT STATUS -</option>
                                     @foreach ($this->getStatusType() as $status_item)
@@ -388,9 +396,6 @@
                     @endif
 
                     <div class="mt-4 flex justify-center">
-
-
-
                         <button class="btn disabled:hover: w-full bg-red-bni disabled:bg-red-bni/80"
                             wire:loading.attr="disabled" type="submit">
                             <span class="items-center justify-center" wire:loading.flex wire:target="save">
