@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -201,7 +202,11 @@ class Event extends Model implements HasMedia
      */
     public function scopeIncoming($query)
     {
-        return $query->whereDate('start_date', '>=', now()->format('Y-m-d'));
+        return $query->whereDate('start_date', '>=', now()->format('Y-m-d'))
+            ->whereHas('detail', function (Builder $query) {
+                $query->where('online_time', '>', now()->format('H:i:s'))
+                    ->orWhere('online_time', '>', now()->format('H:i:s'));
+            });
     }
 
     public function scopePast($query)
