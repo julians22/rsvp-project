@@ -77,6 +77,7 @@ class Event extends Model implements HasMedia
      */
     protected $casts = [
         'session' => 'array',
+        'hide' => 'boolean',
     ];
 
     /**
@@ -200,7 +201,7 @@ class Event extends Model implements HasMedia
      */
     public function scopeIncoming($query)
     {
-        return $query->where('start_date', '>=', now());
+        return $query->whereDate('start_date', '>=', now()->format('Y-m-d'));
     }
 
     public function scopePast($query)
