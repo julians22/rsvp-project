@@ -15,6 +15,18 @@ class EventController extends Controller
             ->orderBy('start_date')
             ->where('hide', false)
             ->paginate(12)
+            ->where(function ($event) {
+                $date = now()->format('Y-m-d');
+                $time = now()->format('H:i:s');
+                $online_time = $event->is_online_event ? $event->detail->online_time : null;
+                $offline_time = $event->is_offline_event ? $event->detail->offline_time : null;
+                if ($event->start_date == $date) {
+                    return $online_time > $time || $offline_time > $time;
+                }
+
+                return true;
+
+            })
             ->sortBy(function ($event) {
                 $online_time = $event->is_online_event ? $event->detail->online_time : null;
                 $offline_time = $event->is_offline_event ? $event->detail->offline_time : null;
