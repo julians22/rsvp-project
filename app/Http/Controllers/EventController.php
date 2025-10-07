@@ -28,13 +28,15 @@ class EventController extends Controller
 
             })
             ->sortBy(function ($event) {
+
                 $online_time = $event->is_online_event ? $event->detail->online_time : null;
                 $offline_time = $event->is_offline_event ? $event->detail->offline_time : null;
                 $r = array_diff([$online_time, $offline_time], [null]);
 
                 return min($r);
 
-            });
+            })
+            ->sortBy('start_date');
 
         $past_events = Event::with('detail')->past()->orderBy('start_date', 'desc')
             ->where('hide', false)
