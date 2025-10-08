@@ -216,6 +216,18 @@
                             @endpush
                         @endif
                     </div>
+
+                    <div class="my-2 rounded bg-gray-300 px-4 py-4">
+                        <h4 class="text-base">NOTES:</h4>
+                        <div class="text-lg text-black">
+                            @if ($event->detail->override_deadline_text)
+                                {!! $event->detail->deadline_text !!}
+                            @else
+                                REGISTRATION WILL BE CLOSED H-1 AT 15.00 WIB
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

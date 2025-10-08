@@ -216,6 +216,12 @@ class EventResource extends Resource
                                 ]),
                             Section::make('Event Detail Override')
                                 ->schema([
+                                    Toggle::make('override_deadline_text')
+                                        ->live(),
+                                    RichEditor::make('deadline_text')
+                                        ->hidden(fn (Get $get): bool => ! $get('override_deadline_text'))
+                                        ->required(fn (Get $get): bool => $get('override_deadline_text'))
+                                        ->columnSpanFull(),
                                     Select::make('event_type')
                                         ->options([
                                             'soft launch' => 'SOFT LAUNCH',

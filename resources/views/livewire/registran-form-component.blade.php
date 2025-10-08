@@ -33,23 +33,8 @@
                                     {{ $this->event->start_date_full_formatted }}
                                 </span>
                             </div>
-
                         </div>
-
-
                     </div>
-
-                    <div class="my-2 rounded bg-gray-300 px-4 py-4">
-                        <h4 class="text-base"><strong>NOTES:</strong></h4>
-                        <p class="text-base font-bold text-black">
-                            @if ($this->event->slug == 'bni-networking-meeting-20-may-2025')
-                                <span class="font-bold text-red-bni">REGISTRATION WILL BE CLOSED H-4, 16 MAY 2025</span>
-                            @else
-                                REGISTRATION WILL BE CLOSED H-1 AT 15.00 WIB
-                            @endif
-                        </p>
-                    </div>
-
 
                     <div class="flex flex-col gap-y-4 lg:py-4">
 
