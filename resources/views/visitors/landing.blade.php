@@ -219,7 +219,10 @@
 
                     <div class="my-2 rounded bg-gray-300 px-4 py-4">
                         <h4 class="text-base">NOTES:</h4>
-                        <div class="text-lg text-black">
+                        <div @class([
+                            'text-lg text-black',
+                            'font-bold' => !$event->detail->override_deadline_text,
+                        ])>
                             @if ($event->detail->override_deadline_text)
                                 {!! $event->detail->deadline_text !!}
                             @else
