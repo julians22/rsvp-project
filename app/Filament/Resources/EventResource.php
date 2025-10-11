@@ -82,6 +82,12 @@ class EventResource extends Resource
                             ->timezone('Asia/Jakarta')
                             ->columnSpan(6)
                             ->required(),
+
+                        DatePicker::make('registration_end')
+                            ->label(__('Registration End date'))
+                            ->timezone('Asia/Jakarta')
+                            ->columnSpan(6)
+                            ->required(),
                     ]),
                 Toggle::make('coming_soon')
                     ->default(false),
@@ -344,7 +350,16 @@ class EventResource extends Resource
     protected static function startDateSelected(Set $set, $date)
     {
         $date = Carbon::parse($date);
+        $reg_date = $date->subDays(1)->format('Y-m-d');
 
-        $set('registration_date', $date->subDays(1)->format('Y-m-d'));
+        $set('registration_date', $reg_date);
+        self::registrationDateChanged($set, $reg_date);
+    }
+
+    protected static function registrationDateChanged(Set $set, $date)
+    {
+        $date = Carbon::parse($date);
+
+        $set('registration_end', $date->addDays(1)->format('Y-m-d'));
     }
 }

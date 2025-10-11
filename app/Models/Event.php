@@ -156,6 +156,22 @@ class Event extends Model implements HasMedia
     }
 
     /**
+     * Check if registration has ended.
+     *
+     * @return bool
+     */
+    public function isRegistrationEnded()
+    {
+        if (is_null($this->registration_end)) {
+            return true;
+        }
+
+        $registrationEnd = Carbon::parse($this->registration_end);
+
+        return now()->gt($registrationEnd);
+    }
+
+    /**
      * The event is ended.
      */
     public function isEnded()

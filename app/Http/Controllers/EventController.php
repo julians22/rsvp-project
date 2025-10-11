@@ -110,6 +110,10 @@ class EventController extends Controller
             return redirect()->route('event.show', $slug);
         }
 
+        if ($event->isRegistrationEnded()) {
+            return redirect()->route('event.show', $slug);
+        }
+
         if ($event->isEnded()) {
             return redirect()->route('event.show', $slug);
         }

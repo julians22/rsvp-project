@@ -231,13 +231,98 @@
                         </div>
                     </div>
 
+                    <div id="countdown">
+                        <h2 class="countdown-title text-2xl uppercase">Countdown to registration Close</h2>
+                        <div class="countdown-blocks"></div>
+                    </div>
+
+                    @push('after-scipts')
+                        <script>
+                            // Using the existing launch date from your code
+                            const registrationEndDate = new Date(
+                                "{{ $event->registration_end }}, 00:00:00"); // YYYY, MM (0-based), DD, HH, MM, SS
+                            const countdownElement = document.querySelector(".countdown-blocks");
+
+                            // Your existing createBlock function
+                            const createBlock = (label, value) => {
+                                const block = document.createElement("div");
+                                block.className = "time-block";
+
+                                const valueEl = document.createElement("span");
+                                valueEl.className = "time-value";
+                                // Add leading zeros for single-digit values
+                                valueEl.textContent = value < 10 ? `0${value}` : value;
+
+                                const labelEl = document.createElement("p");
+                                labelEl.className = "time-label";
+                                labelEl.textContent = label;
+
+                                // Add pulsing animation to seconds block
+                                if (label === "Seconds") {
+                                    valueEl.style.animation = "pulse 1s infinite";
+                                }
+
+                                block.appendChild(valueEl);
+                                block.appendChild(labelEl);
+                                return block;
+                            };
+
+                            let timer;
+
+                            // Modified updateCountdown function
+                            const updateCountdown = () => {
+                                const now = new Date();
+                                const difference = registrationEndDate - now;
+
+                                if (difference > 0) {
+                                    const timeLeft = {
+                                        Days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                                        Hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                                        Minutes: Math.floor((difference / 1000 / 60) % 60),
+                                        Seconds: Math.floor((difference / 1000) % 60)
+                                    };
+
+                                    countdownElement.innerHTML = "";
+                                    for (const [label, value] of Object.entries(timeLeft)) {
+                                        countdownElement.appendChild(createBlock(label, value));
+                                    }
+                                } else {
+                                    const timeLeft = {
+                                        Days: 0,
+                                        Hours: 0,
+                                        Minutes: 0,
+                                        Seconds: 0
+                                    };
+
+                                    countdownElement.innerHTML = "";
+                                    for (const [label, value] of Object.entries(timeLeft)) {
+                                        countdownElement.appendChild(createBlock(label, value));
+                                    }
+                                    // Handle countdown expiration
+                                    // countdownElement.innerHTML = "";
+                                    document.querySelector(".countdown-title").textContent = "Registration Closed";
+
+                                    // countdownElement.appendChild(messageBlock);
+                                    if (typeof timer !== 'undefined' && timer !== null) {
+                                        clearInterval(timer);
+                                    }
+                                }
+                            };
+
+                            timer = setInterval(updateCountdown, 1000)
+
+                            // Initialize and set the interval
+                            updateCountdown();
+                        </script>
+                    @endpush
+
                 </div>
             </div>
 
             <div class="space-y-4 pt-6 text-center">
                 <h2 class="text-center text-xl font-bold lg:text-2xl">WE LOOK FORWARD TO CONNECT WITH YOU!</h2>
 
-                @if ($isDisabled)
+                @if ($event->isRegistrationEnded() || $isDisabled)
                     <div class="text-lg font-semibold text-red-500">Registration has ended</div>
                 @else
                     @if ($event->coming_soon)
