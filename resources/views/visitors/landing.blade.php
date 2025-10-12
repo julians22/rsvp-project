@@ -240,7 +240,7 @@
                         <script>
                             // Using the existing launch date from your code
                             const registrationEndDate = new Date(
-                                "{{ $event->registration_end }}, 00:00:00"); // YYYY, MM (0-based), DD, HH, MM, SS
+                                "{{ $event->registration_end }}"); // YYYY, MM (0-based), DD, HH, MM, SS
                             const countdownElement = document.querySelector(".countdown-blocks");
 
                             // Your existing createBlock function

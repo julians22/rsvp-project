@@ -83,9 +83,11 @@ class EventResource extends Resource
                             ->columnSpan(6)
                             ->required(),
 
-                        DatePicker::make('registration_end')
+                        DateTimePicker::make('registration_end')
                             ->label(__('Registration End date'))
                             ->timezone('Asia/Jakarta')
+                            ->seconds(false)
+                            // ->native(false)
                             ->columnSpan(6)
                             ->required(),
                     ]),
@@ -360,6 +362,6 @@ class EventResource extends Resource
     {
         $date = Carbon::parse($date);
 
-        $set('registration_end', $date->addDays(1)->format('Y-m-d'));
+        $set('registration_end', $date->addDays(1)->format('Y-m-d H:i'));
     }
 }
