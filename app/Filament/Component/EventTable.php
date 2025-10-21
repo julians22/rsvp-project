@@ -70,9 +70,21 @@ class EventTable
                 ->label('Register Time')
                 // ->sortable()
                 ->state(fn (Visitor $visitor): string => (new \DateTime($visitor->created_at))->format('H:i')),
+            TextColumn::make('business'),
+            TextColumn::make('company'),
+            TextColumn::make('email'),
+            TextColumn::make('phone'),
+            TextColumn::make('invited_by'),
 
             IconColumn::make('is_online')
                 ->label('Online Presence')
+                ->icon(fn (string $state): string => match ($state) {
+                    '1' => 'heroicon-o-check-circle',
+                    '0' => 'heroicon-o-x-circle',
+                    default => 'heroicon-o-x-circle',
+                }),
+            IconColumn::make('is_offline')
+                ->label('Offline Presence')
                 ->icon(fn (string $state): string => match ($state) {
                     '1' => 'heroicon-o-check-circle',
                     '0' => 'heroicon-o-x-circle',
@@ -95,23 +107,11 @@ class EventTable
                     return implode("\n", $meta);
                 })
                 ->label('extra info'),
-            IconColumn::make('is_offline')
-                ->label('Offline Presence')
-                ->icon(fn (string $state): string => match ($state) {
-                    '1' => 'heroicon-o-check-circle',
-                    '0' => 'heroicon-o-x-circle',
-                    default => 'heroicon-o-x-circle',
-                }),
+
             TextColumn::make('food')
                 ->listWithLineBreaks()
                 ->bulleted()
                 ->label('Packaged Food'),
-            TextColumn::make('invited_by'),
-
-            TextColumn::make('business'),
-            TextColumn::make('company'),
-            TextColumn::make('email'),
-            TextColumn::make('phone'),
 
             SpatieMediaLibraryImageColumn::make('Payment Proof')
                 ->collection('payment_proof')
