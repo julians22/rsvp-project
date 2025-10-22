@@ -178,13 +178,15 @@ class RegistranFormComponent extends Component
         }
     }
 
-    public function handleStatusChange($status)
+    public function handleSessionChange($session)
     {
-        if (in_array($status, $this->sessions)) {
+        if (in_array($session, $this->sessions)) {
             $this->sessions = [];
         } else {
-            $this->sessions = [$status];
+            $this->sessions = [$session];
         }
+
+        $this->reset('status');
 
         $this->updateVisitorType();
 

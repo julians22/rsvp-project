@@ -2,7 +2,7 @@
      <label class="form-label text-black" for="">WILL BE ATTENDING TO: </label>
 
      <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-3 lg:space-y-0">
-         <div wire:click="handleStatusChange('online')">
+         <div wire:click="handleSessionChange('online')">
              <label @class([
                  'inline-flex items-center',
                  'cursor-not-allowed opacity-50 hidden' => !$this->event->is_online_event,
@@ -17,7 +17,7 @@
              </label>
          </div>
 
-         <div wire:click="handleStatusChange('offline')">
+         <div wire:click="handleSessionChange('offline')">
              <label @class([
                  'inline-flex items-center',
                  'cursor-not-allowed opacity-50 hidden' => !$this->event->is_offline_event,
