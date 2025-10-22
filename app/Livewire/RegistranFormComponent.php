@@ -14,7 +14,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Spatie\Image;
-use Spatie\LivewireFilepond\WithFilePond;
 
 /* ****************************************************** */
 /*         LASCIATE OGNE SPERANZA, VOI CH'INTRATE */
@@ -25,7 +24,6 @@ use Spatie\LivewireFilepond\WithFilePond;
 class RegistranFormComponent extends Component
 {
     use WithFileUploads;
-    // use WithFilePond;
 
     public $isSubmitted = false;
 
@@ -83,8 +81,12 @@ class RegistranFormComponent extends Component
         }
     }
 
-    public function updatedSessions()
+    public function updatingSessions($value, $key)
     {
+        if ($this->event->checkable_one) {
+
+        }
+
         // $this->updateVisitorType();
         $this->reset('status');
         $this->reset('substituted_by');
@@ -111,6 +113,7 @@ class RegistranFormComponent extends Component
      */
     public function updateVisitorType()
     {
+
         if ($this->event->detail->override_offline_visitor_type) {
             $offlineVisitorTypes = [];
 
@@ -145,14 +148,20 @@ class RegistranFormComponent extends Component
             $onlineVisitorTypes = \App\Enums\VisitorType::cases();
         }
 
-        if ($this->isOfflineSelected() && $this->isOnlineSelected()) {
+        if ($this->event->checkable_one) {
             $this->visitor_type = array_unique(array_merge($onlineVisitorTypes, $offlineVisitorTypes), SORT_REGULAR);
-        } elseif ($this->isOnlineSelected()) {
-            $this->visitor_type = $onlineVisitorTypes;
-        } elseif ($this->isOfflineSelected()) {
-            $this->visitor_type = $offlineVisitorTypes;
+
+            return;
         } else {
-            $this->visitor_type = [];
+            if ($this->isOfflineSelected() && $this->isOnlineSelected()) {
+                $this->visitor_type = array_unique(array_merge($onlineVisitorTypes, $offlineVisitorTypes), SORT_REGULAR);
+            } elseif ($this->isOnlineSelected()) {
+                $this->visitor_type = $onlineVisitorTypes;
+            } elseif ($this->isOfflineSelected()) {
+                $this->visitor_type = $offlineVisitorTypes;
+            } else {
+                $this->visitor_type = [];
+            }
         }
 
         if (! in_array(VisitorType::tryFrom($this->type), $this->visitor_type)) {
@@ -167,6 +176,18 @@ class RegistranFormComponent extends Component
         } else {
             $this->food = array_diff($this->food, [$food]);
         }
+    }
+
+    public function handleStatusChange($status)
+    {
+        if (in_array($status, $this->sessions)) {
+            $this->sessions = [];
+        } else {
+            $this->sessions = [$status];
+        }
+
+        $this->updateVisitorType();
+
     }
 
     public function rules()
@@ -449,7 +470,9 @@ class RegistranFormComponent extends Component
         $this->slug = $slug;
         $this->event = $event;
 
-        $this->sessions = $event->session;
+        if (! $this->event->checkable_one) {
+            $this->sessions = $event->session;
+        }
 
         $this->updateVisitorType();
     }

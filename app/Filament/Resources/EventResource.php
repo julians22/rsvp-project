@@ -61,7 +61,11 @@ class EventResource extends Resource
                     ])
                     ->required(),
 
-                Toggle::make('checkable'),
+                Toggle::make('checkable')
+                    ->live(),
+                Toggle::make('checkable_one')
+                    ->hidden(fn (Get $get) => ! $get('checkable')),
+
                 Toggle::make('hide'),
 
                 Section::make(__('Event Date'))
@@ -87,7 +91,7 @@ class EventResource extends Resource
                             ->label(__('Registration End date'))
                             ->timezone('Asia/Jakarta')
                             ->seconds(false)
-                            // ->native(false)
+                    // ->native(false)
                             ->columnSpan(6)
                             ->required(),
                     ]),
