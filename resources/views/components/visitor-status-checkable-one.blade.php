@@ -3,7 +3,7 @@
 
      <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-3 lg:space-y-0">
          <div wire:click="handleSessionChange('online')" @class([
-             'inline-flex items-center justify-center cursor-pointer',
+             'inline-flex items-center justify-start cursor-pointer',
              'cursor-not-allowed opacity-50 hidden' => !$this->event->is_online_event,
          ])>
              <div @class([
@@ -19,7 +19,7 @@
          </div>
 
          <div wire:click="handleSessionChange('offline')" @class([
-             'inline-flex items-center justify-center cursor-pointer',
+             'inline-flex items-center justify-start cursor-pointer',
              'cursor-not-allowed opacity-50 hidden' => !$this->event->is_offline_event,
          ])>
              <div @class([
