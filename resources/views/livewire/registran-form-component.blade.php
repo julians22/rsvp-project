@@ -308,7 +308,7 @@
 
                 <div>
 
-                    <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.jpg') }}"
+                    <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.png') }}"
                         alt="">
 
                     @if (!$this->isOnlineSelected && !$this->isOfflineSelected)

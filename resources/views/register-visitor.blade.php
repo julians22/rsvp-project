@@ -2,7 +2,7 @@
 
 
 @section('page')
-    <div class="min-h-screen pb-14">
+    <div class="min-h-screen">
         <div>
             @livewire('registran-form-component', ['slug' => $slug, 'event' => $event])
         </div>

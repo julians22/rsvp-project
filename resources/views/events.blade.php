@@ -19,7 +19,7 @@
             src="{{ asset('img/LogoChapter.png') }}" alt="Logo Chapter">
     </div>
 
-    <section class="flex min-h-dvh flex-row space-x-5 overflow-clip bg-landing bg-bottom bg-no-repeat pb-14">
+    <section class="flex min-h-dvh flex-row space-x-5 overflow-clip bg-landing bg-bottom bg-no-repeat">
         <div class="mx-auto w-full max-w-none px-4 lg:max-w-5xl lg:px-0">
 
             <x-event-list-title>

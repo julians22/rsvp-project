@@ -180,6 +180,10 @@ class RegistranFormComponent extends Component
 
     public function handleSessionChange($session)
     {
+        if (! in_array($session, ['offline', 'online'])) {
+            return;
+        }
+
         if (in_array($session, $this->sessions)) {
             $this->sessions = [];
         } else {
