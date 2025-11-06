@@ -13,7 +13,7 @@
 @section('page')
 
     <div class="relative h-auto w-full">
-        <video class="h-auto w-full object-cover" src="{{ asset('videos/header.mp4') }}" autoplay loop muted></video>
+        <video class="h-auto w-full object-cover" src="{{ asset('videos/header-2.mp4') }}" autoplay loop muted></video>
 
         <img class="mx-auto -mt-[clamp(2rem,20vw,8rem)] w-full max-w-[min(100%,640px)]"
             src="{{ asset('img/LogoChapter.png') }}" alt="Logo Chapter">
