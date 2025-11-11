@@ -1,7 +1,10 @@
 <section class="my-8 mt-[10%]">
     <div class="mx-auto flex w-full max-w-none flex-col px-4 lg:max-w-5xl lg:px-0">
         <x-event-list-title class="!mx-auto mb-[30%] !flex !w-full !flex-col !items-center !justify-center !text-center">
-            Past events
+            <span class="flex flex-col">
+                <span>more than networking</span>
+                <span>we're fun and <span class="text-red-bni">#impactful</span> community</span>
+            </span>
         </x-event-list-title>
     </div>
 
@@ -15,7 +18,7 @@
             <div class="mt-8 flex flex-col items-center gap-6 text-center">
                 <div class="mx-auto flex w-full max-w-none flex-col md:px-4 lg:max-w-5xl lg:px-0">
                     <x-event-list-title
-                        class="!m-auto !mx-auto mb-[30%] !flex !w-full !flex-col !items-center !justify-center !text-center !text-2xl font-bold uppercase text-white after:!bg-white md:!text-5xl">
+                        class="!mb-[30%] !text-2xl font-bold uppercase text-white after:!bg-white md:!text-5xl">
                         Business networking can be fun
                     </x-event-list-title>
                 </div>

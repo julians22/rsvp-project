@@ -37,6 +37,11 @@
 
             <x-home-why-bni />
 
+
+            <x-event-list-title>
+                LATEST UPDATES
+            </x-event-list-title>
+
             <!-- Place <div> tag where you want the feed to appear -->
             <div class="mx-8 md:mx-16">
                 <div id="curator-feed-default-feed-layout"><a class="crt-logo crt-tag" href="https://curator.io"
