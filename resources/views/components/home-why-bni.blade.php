@@ -17,8 +17,12 @@
             </div>
             <div class="mt-8 flex flex-col items-center gap-6 text-center">
                 <div class="mx-auto flex w-full max-w-none flex-col md:px-4 lg:max-w-5xl lg:px-0">
-                    <x-event-list-title class="!text-2xl font-bold uppercase text-white after:!bg-white md:!text-5xl">
-                        Business networking can be fun
+                    <x-event-list-title
+                        class="!m-auto !text-2xl font-bold uppercase text-white after:!bg-white md:!text-5xl">
+                        <span class="flex flex-col gap-4">
+                            <span>Business networking</span>
+                            <span>can be fun</span>
+                        </span>
                     </x-event-list-title>
                 </div>
 
