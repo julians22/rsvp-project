@@ -16,6 +16,7 @@ module.exports = {
             backgroundImage: {
                 landing: "url('../img/landing-bg-pattern.svg')",
                 stats: "url('../img/stats-bg.svg')",
+                "why-bni": "url('../img/why-bni-bg.png')",
             },
         },
     },

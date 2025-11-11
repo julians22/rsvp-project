@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BiHzq7b3.css",
+    "file": "assets/app-QQc0EnCz.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -11,6 +11,10 @@
   "resources/img/stats-bg.svg": {
     "file": "assets/stats-bg-BqF1AH-j.svg",
     "src": "resources/img/stats-bg.svg"
+  },
+  "resources/img/why-bni-bg.png": {
+    "file": "assets/why-bni-bg-BHX3-bxj.png",
+    "src": "resources/img/why-bni-bg.png"
   },
   "resources/js/app.js": {
     "file": "assets/app-CVECF1Tp.js",
