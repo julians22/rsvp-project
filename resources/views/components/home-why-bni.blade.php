@@ -37,11 +37,11 @@
                     Because in BNI Magnitude, we believe success grows faster
                     when you’re having fun together.
                 </p>
-                <a class="w-fit bg-bni-gold px-4 py-2 font-bold uppercase text-black hover:bg-bni-gold-dark"
+                {{-- <a class="w-fit bg-bni-gold px-4 py-2 font-bold uppercase text-black hover:bg-bni-gold-dark"
                     href="{{ asset('BNI Magnitude - Chapter Roster Oct 2025.pdf') }}"
                     download="BNI Magnitude - Chapter Roster Oct 2025.pdf">
                     Download Chapter Roster
-                </a>
+                </a> --}}
             </div>
         </div>
     </div>
