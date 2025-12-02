@@ -30,8 +30,8 @@
                 <span class="lg:leading-[100px]"><img class="max-w-20 lg:max-w-48" src="{{ asset('img/logo_bni.svg') }}"
                         alt="LOGO BNI"></span>
                 <h2 class="pt-4 text-4xl font-black lg:text-[80px] lg:leading-[100px]">
-                    @if ($event->slug == 'bni-networking-meeting-20-may-2025')
-                        ONSITE WEEKLY <br>MEETING
+                    @if ($event->slug == 'bni-magnitude-1st-anniversary')
+                        ANNIVERSARY <BR>DINNER
                     @else
                         NETWORKING <br>MEETING
                     @endif
@@ -140,12 +140,10 @@
                             <div class="border border-black px-4 pb-4 pt-4 lg:px-8 lg:pb-6 lg:pt-8">
                                 <div class="flex flex-col space-y-4">
                                     <div>
-                                        @if ($event->slug != 'bni-magnitude-construction-day')
-                                            <h5 class="text-xl font-bold text-gray-800">OFFLINE MEETING</h5>
-                                            <h5 class="text-xl font-bold lg:text-2xl">
-                                                {{ $event->detail->offline_time_no_seconds }}
-                                            </h5>
-                                        @endif
+                                        <h5 class="text-xl font-bold text-gray-800">OFFLINE MEETING</h5>
+                                        <h5 class="text-xl font-bold lg:text-2xl">
+                                            {{ $event->detail->offline_time_no_seconds }}
+                                        </h5>
                                         {!! $event->detail->offline_address !!}
                                     </div>
                                     <div class="bg-gray-200 px-4 py-2 text-center">
@@ -170,14 +168,18 @@
 
                         <div class="border border-black px-4 py-4 lg:px-8 lg:py-6">
                             <h5 class="mb-2 text-lg font-bold">WHAT TO PREPARE</h5>
+                            <h6>Dresscode</h6>
                             <ul class="list-inside list-disc">
-                                @if ($event->slug != 'fun-bay-networking')
-                                    <li class="text-lg font-medium">Wear Business Attire</li>
+                                @if ($event->slug == 'bni-magnitude-1st-anniversary')
+                                    <li>Chic n Simple Gown/Dress and Suits/Shirt with long pants</li>
+                                    <li>White/Beige/Nude Colour</li>
+                                @else
+                                    @if ($event->is_offline_event)
+                                        <li class="text-lg font-medium">Bring Professional Namecards</li>
+                                    @endif
+
+                                    <li class="text-lg font-medium">Prepare Your Business Introduction</li>
                                 @endif
-                                @if ($event->is_offline_event)
-                                    <li class="text-lg font-medium">Bring Professional Namecards</li>
-                                @endif
-                                <li class="text-lg font-medium">Prepare Your Business Introduction</li>
                             </ul>
                         </div>
 

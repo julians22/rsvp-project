@@ -24,11 +24,17 @@
                                         @if ($this->event->slug == 'bni-networking-meeting-20-may-2025')
                                             ONSITE WEEKLY MEETING
                                         @else
-                                            NETWORKING MEETING
+                                            @if ($this->event->slug == 'bni-magnitude-1st-anniversary')
+                                                ANNIVERSARY DINNER
+                                            @else
+                                                NETWORKING MEETING
+                                            @endif
                                         @endif
                                     </span>
                                 </p>
+
                                 <h1 class="mb-2 text-[40px] font-bold leading-none lg:text-[78px]">REGISTRATION</h1>
+
                                 <span class="rounded-lg bg-black p-1 text-xl font-bold uppercase text-white">
                                     {{ $this->event->start_date_full_formatted }}
                                 </span>
@@ -224,8 +230,13 @@
                                             {{-- <p class="font-semibold">Please transfer payment to <br><strong
                                                     class="text-lg">Fransisca - BCA 0657181513</strong></p> --}}
 
-                                            <p class="font-semibold">Please transfer payment to <br><strong
-                                                    class="text-lg">BANK JAGO 1005 2218 1069 a/n Fransisca</strong></p>
+                                            {{-- <p class="font-semibold">Please transfer payment to <br><strong
+                                                    class="text-lg">BANK JAGO 1005 2218 1069 a/n Fransisca</strong></p> --}}
+
+                                            <p class="font-semibold">Please transfer payment to <br>
+                                                <strong class="text-lg">Bank Jago 107944523726 a/n Stefanny
+                                                    Liezal</strong>
+                                            </p>
 
                                             <div class="rounded-lg bg-gray-200 p-2">
                                                 <p class="mb-2">Sertakan Berita dengan format penulisan:
