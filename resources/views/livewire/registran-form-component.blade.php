@@ -233,19 +233,11 @@
                                             {{-- <p class="font-semibold">Please transfer payment to <br><strong
                                                     class="text-lg">BANK JAGO 1005 2218 1069 a/n Fransisca</strong></p> --}}
 
-                                            @if ($this->event->slug == 'bni-magnitude-1st-anniversary')
-                                                <p class="font-semibold">Please transfer payment to <br>
-                                                    <strong class="text-lg">
-                                                        Bank Jago 101916230906 a/n Stefanny Liezal
-                                                    </strong>
-                                                </p>
-                                            @else
-                                                <p class="font-semibold">Please transfer payment to <br>
-                                                    <strong class="text-lg">Bank Jago 107944523726 a/n Stefanny
-                                                        Liezal</strong>
-                                                </p>
-                                            @endif
-
+                                            <p class="font-semibold">Please transfer payment to <br>
+                                                <strong class="text-lg">
+                                                    Bank Jago 101916230906 a/n Stefanny Liezal
+                                                </strong>
+                                            </p>
 
                                             <div class="rounded-lg bg-gray-200 p-2">
                                                 <p class="mb-2">Sertakan Berita dengan format penulisan:
