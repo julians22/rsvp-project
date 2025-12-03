@@ -14,7 +14,7 @@
 
                     <div>
 
-                        <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.jpg') }}" alt="">
+                        <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.png') }}" alt="">
 
                         <div>
                             <div>
@@ -233,10 +233,19 @@
                                             {{-- <p class="font-semibold">Please transfer payment to <br><strong
                                                     class="text-lg">BANK JAGO 1005 2218 1069 a/n Fransisca</strong></p> --}}
 
-                                            <p class="font-semibold">Please transfer payment to <br>
-                                                <strong class="text-lg">Bank Jago 107944523726 a/n Stefanny
-                                                    Liezal</strong>
-                                            </p>
+                                            @if ($this->event->slug == 'bni-magnitude-1st-anniversary')
+                                                <p class="font-semibold">Please transfer payment to <br>
+                                                    <strong class="text-lg">
+                                                        Bank Jago 101916230906 a/n Stefanny Liezal
+                                                    </strong>
+                                                </p>
+                                            @else
+                                                <p class="font-semibold">Please transfer payment to <br>
+                                                    <strong class="text-lg">Bank Jago 107944523726 a/n Stefanny
+                                                        Liezal</strong>
+                                                </p>
+                                            @endif
+
 
                                             <div class="rounded-lg bg-gray-200 p-2">
                                                 <p class="mb-2">Sertakan Berita dengan format penulisan:
@@ -319,7 +328,7 @@
 
                 <div>
 
-                    <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo_bni.png') }}"
+                    <img class="mb-6 max-w-48 lg:max-w-[300px]" src="{{ asset('img/logo-bni.png') }}"
                         alt="">
 
                     @if (!$this->isOnlineSelected && !$this->isOfflineSelected)
